@@ -1,0 +1,78 @@
+<div class="bg-gray-100 min-h-screen flex items-center justify-center ">
+    <div class="bg-white shadow-md rounded-md p-8 w-full md:w-5/6 lg:w-4/5 xl:w-4/5 2xl:w-3/4 bg-[url('https://www.istockphoto.com/photo/black-colour-pencil-with-outline-to-end-point-on-white-paper-background-creativity-gm1148751496-310320980?utm_source=unsplash&utm_medium=affiliate&utm_campaign=srp_photos_top&utm_content=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fbackground-image-writing&utm_term=background+image+writing%3A%3A%3A')]">
+        <div class="text-center">
+            <h1 class="text-2xl font-semibold mb-4">Create Your Blog</h1>
+        </div>
+        <form>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="author">Author Name</label>
+                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="text" id="author"
+                    name="author" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="title">Blog-Title</label>
+                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="text" id="title"
+                    name="title" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">Select Tags</label>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="technology">
+                        <span>Technology</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="lifestyle">
+                        <span>Lifestyle</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="travel">
+                        <span>Travel</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="food">
+                        <span>Food</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="food">
+                        <span>HTML</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="food">
+                        <span>Web Development</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="food">
+                        <span>Illustrator</span>
+                    </label>                    
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="food">
+                        <span>Design System</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="food">
+                        <span>Business</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox" name="tags" value="food">
+                        <span>React</span>
+                    </label>
+
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="description">Write Your Blog</label>
+                <textarea class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" id="description"
+                    name="description" rows="8" required></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="url">Add URL of Images</label>
+                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="url" id="url"
+                    name="url" required>
+            </div>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" type="submit">Create
+                Blog</button>
+        </form>
+    </div>
+</div>
