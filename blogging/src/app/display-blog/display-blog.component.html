@@ -1,0 +1,20 @@
+
+  <div *ngIf="blogData" class="max-w-4xl mx-auto mt-8 px-4">
+    <article class="bg-white shadow-md rounded-lg p-6 sm:p-8">
+      <h2 class="text-3xl font-semibold mb-4">{{ blogData.title }}</h2>
+      <p class="text-gray-600 mb-2">{{ blogData.author }}</p>
+      <div class="aspect-w-16 aspect-h-9 mb-4 flex justify-center items-center">
+        <img [src]="blogData.url" alt="Blog Image" class="rounded-lg object-cover shadow-md">
+      </div>
+      <p class="text-gray-800 leading-relaxed">{{ blogData.description }}</p>
+      <div class="mt-4">
+        <ul class="flex space-x-2">
+          <li *ngFor="let tag of blogData.tags" class="border border-gray-300 px-2 py-1 rounded-lg hover:border-blue-500 hover:bg-blue-100 transition-colors cursor-pointer">
+            {{ tag }}
+          </li>
+        </ul>
+      </div>
+    </article>
+  </div>
+  
+  

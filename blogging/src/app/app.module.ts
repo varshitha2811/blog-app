@@ -8,13 +8,15 @@ import { WriteComponent } from './write/write.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import these modules
 import { HttpClientModule } from '@angular/common/http'; // Import this module
 import { BlogService } from './blog.service';
+import { DisplayBlogComponent } from './display-blog/display-blog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    WriteComponent
+    WriteComponent,
+    DisplayBlogComponent
   ],
   imports: [
     BrowserModule,

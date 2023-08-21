@@ -1,147 +1,40 @@
-<!-- <body class="p-10">
+ <!-- <div class="p-10 w-fit ">
     <div class="relative">
         <img src="https://www.kindacode.com/wp-content/uploads/2022/06/night-sky.jpeg" />
         <h1 class="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             Ink a</h1>
     </div>
-</body> -->
-
-<!-- <div class="flex gap-2" *ngFor="let blog of blogs">
-    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-            <img class="rounded-t-lg" src="https://images.unsplash.com/photo-1673235966910-f2a443bdbaaf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" />
-        </a>
-        <div class="p-5">
-            <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{blog.title}}</h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Read more
-                 <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-            </a>
-        </div>
-    </div> -->
-    <!-- <h2>{{ blog.title }}</h2>
-    <p>{{ blog.description }}</p>
-    <p>Author: {{ blog.author }}</p>
-    <div>
-      <span *ngFor="let tag of blog.tags" class="tag">{{ tag }}</span>
-    </div>
-    <button (click)="deleteBlog(blog.id)">Delete</button>
-  </div> -->
-  <!--
-  <h3>Add New Blog</h3>
-  <form (ngSubmit)="addNewBlog(newBlogForm.value)">
-    <input type="text" name="title" ngModel placeholder="Title" required>
-    <input type="text" name="author" ngModel placeholder="Author" required>
-    <textarea name="description" ngModel placeholder="Description" required></textarea>
-    <input type="text" name="tags" ngModel placeholder="Tags (comma-separated)" required>
-    <button type="submit">Add</button>
-  </form> -->
-<!--   
-  
-<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-        <img class="rounded-t-lg" src="https://images.unsplash.com/photo-1673235966910-f2a443bdbaaf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" />
-    </a>
-    <div class="p-5">
-        <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{}}</h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Read more
-             <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-            </svg>
-        </a>
-    </div>
 </div> -->
-<!-- <div class="grid grid-cols-2 gap-4">
-    <div *ngFor="let blog of blogs" class="p-4 border rounded shadow flex">
-      <img src="path_to_your_image" alt="Blog Image" class="w-20 h-20 object-cover rounded-full mr-4">
-      <div>
-        <h2 class="text-lg font-semibold">{{ blog.title }}</h2>
-        <p class="text-gray-600 mt-2">{{ blog.description }}</p>
-        <p class="text-gray-500">Author: {{ blog.author }}</p>
-        <div class="mt-1">
-          <span *ngFor="let tag of blog.tags" class="inline-block bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full mr-1">{{ tag }}</span>
-        </div>
-        <button (click)="deleteBlog(blog.id)" class="mt-2 bg-red-500 text-white px-4 py-2 rounded">Delete</button>
-      </div>
-    </div>
-  </div> -->
-  
-  <!-- <div class="max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <div *ngFor="let blog of blogs; let i = index" class="p-4 border rounded shadow flex">
-      <img src="" alt="Blog Image" class="w-20 h-20 object-cover rounded-full mr-4">
-      <div>
-        <h2 class="text-lg font-semibold">{{ blog.title }}</h2>
-        <p class="text-gray-600 mt-2">{{ blog.description }}</p>
-        <p class="text-gray-500">Author: {{ blog.author }}</p>
-        <div class="mt-1">
-          <span *ngFor="let tag of blog.tags" class="inline-block bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full mr-1">{{ tag }}</span>
-        </div>
-        <button (click)="deleteBlog(blog.id)" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Delete</button>
-      </div>
-    </div>
-  </div> -->
-<!-- 
-  <div class="flex space-x-4">
-    <div *ngFor="let blog of blogs.slice(0, 5)" class="p-4 border rounded shadow flex">
-      <img src="https://images.unsplash.com/photo-1673235966910-f2a443bdbaaf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Blog Image" class="w-20 h-20 object-cover rounded-full mr-4">
-      <div>
-        <h2 class="text-lg font-semibold">{{ blog.title }}</h2>
-        <p class="text-gray-600 mt-2">{{ blog.description }}</p>
-        <p class="text-gray-500">Author: {{ blog.author }}</p>
-        <div class="mt-1">
-          <span *ngFor="let tag of blog.tags" class="inline-block bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full mr-1">{{ tag }}</span>
-        </div>
-        <button (click)="deleteBlog(blog.id)" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Delete</button>
-      </div>
-    </div>
-  </div> -->
-
-
-  <div class="grid grid-cols-4 gap-4 relative">
-    <button class="absolute left-0 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-300" (click)="moveCarousel(-1)" [disabled]="currentIndex === 0">
-      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-  
-    <ng-container *ngFor="let blog of blogs; let i = index;">
-      <div [ngClass]="getCardClasses(i)">
-            <a href="#">
-              <img class="rounded-t-lg" src="https://images.unsplash.com/photo-1682685796063-d2604827f7b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw1Nnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" />
-            </a>
-            <div class="p-5">
-              <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ blog.title }}</h5>
-              </a>
-              <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Read more
-                <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        <!-- Card Content -->
-      
-    </ng-container>
-  
-    <button class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-300" (click)="moveCarousel(1)" [disabled]="currentIndex === blogs.length - visibleItems">
-      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
+  <div class="text-center py-8">
+    <h2 class="text-3xl font-semibold">Spotlight</h2>
+    <div class="mt-2 w-20 h-1 bg-blue-500 mx-auto"></div>
   </div>
 
 
+  <div class="relative ml-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5">
+      <ng-container *ngFor="let blog of blogs.slice(0,8); let i = index;">
+        <div class="max-w-xs bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-md transition duration-300">
+          <div>
+            <a [routerLink]="['/display-blog', i]"> <!-- Link to display-blog component with parameter i -->
+              <img class="w-full h-48 object-cover" src="{{ blog.url }}" alt="" />
+            </a>
+            <div class="p-5">
+              <a [routerLink]="['/display-blog', i]">
+                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline">{{ blog.title }}</h5>
+              </a>
+              <p class="text-gray-600 dark:text-gray-300">By {{ blog.author }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
+  
+
+  
+  
   
   
   
