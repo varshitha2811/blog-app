@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { WriteComponent } from './write/write.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import these modules
+import { HttpClientModule } from '@angular/common/http'; // Import this module
+import { BlogService } from './blog.service';
+
 
 @NgModule({
   declarations: [
@@ -14,9 +18,11 @@ import { WriteComponent } from './write/write.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ BlogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
