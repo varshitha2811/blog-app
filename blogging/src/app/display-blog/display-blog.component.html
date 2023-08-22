@@ -10,7 +10,7 @@
       <div class="mt-4">
         <ul class="flex space-x-2">
           <li *ngFor="let tag of blogData.tags" class="border border-gray-300 px-2 py-1 rounded-lg hover:border-blue-500 hover:bg-blue-100 transition-colors cursor-pointer" >
-            <a [routerLink]="['/search-list', tag]">{{ tag }}</a>
+            {{ tag }}
           </li>
         </ul>
       </div>
