@@ -1,0 +1,10 @@
+<p>search-list works!</p>
+<h2>Blogs Related to "{{ searchedTag }}"</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+  <div *ngFor="let title of filteredTitles" class="max-w-xs bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+    <!-- Display blog details here -->{{title}}
+  </div>
+</div>
+
+
+  

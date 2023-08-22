@@ -9,18 +9,17 @@ import { BlogService } from '../blog.service';
 })
 export class DisplayBlogComponent {
   blogIndex!: number ;
-  blogData:any;;
+  blogData:any;
   constructor(private route: ActivatedRoute,private blogService: BlogService) { }
 
   ngOnInit(): void {
          this.route.params.subscribe(params => {
-           this.blogIndex = +params['id']; // Retrieve the index parameter
+           this.blogIndex = +params['id']; 
          });
          this.blogService.getBlogs().subscribe(data => {
           this.blogData = data[this.blogIndex];
         });
        }
-
 }
 
 

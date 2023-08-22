@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import the
 import { HttpClientModule } from '@angular/common/http'; // Import this module
 import { BlogService } from './blog.service';
 import { DisplayBlogComponent } from './display-blog/display-blog.component';
+import { SearchListComponent } from './search-list/search-list.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { DisplayBlogComponent } from './display-blog/display-blog.component';
     AppComponent,
     HomePageComponent,
     WriteComponent,
-    DisplayBlogComponent
+    DisplayBlogComponent,
+    SearchListComponent
   ],
   imports: [
     BrowserModule,
