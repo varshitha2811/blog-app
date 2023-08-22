@@ -16,7 +16,7 @@
       <ng-container *ngFor="let blog of blogs.slice(0,8); let i = index;">
         <div class="max-w-xs bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-md transition duration-300">
           <div>
-            <a [routerLink]="['/display-blog', i]"> <!-- Link to display-blog component with parameter i -->
+            <a [routerLink]="['/display-blog', i]">
               <img class="w-full h-48 object-cover" src="{{ blog.url }}" alt="" />
             </a>
             <div class="p-5">
@@ -30,6 +30,18 @@
       </ng-container>
     </div>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
   
   
 

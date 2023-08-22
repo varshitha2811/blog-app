@@ -15,6 +15,7 @@ export class DisplayBlogComponent {
   ngOnInit(): void {
          this.route.params.subscribe(params => {
            this.blogIndex = +params['id']; 
+           console.log(this.blogIndex);
          });
          this.blogService.getBlogs().subscribe(data => {
           this.blogData = data[this.blogIndex];
@@ -22,23 +23,3 @@ export class DisplayBlogComponent {
        }
 }
 
-
-// import { Component, OnInit } from '@angular/core';
-// import { ActivatedRoute } from '@angular/router';
-
-// @Component({
-//   selector: 'app-display-blog',
-//   templateUrl: './display-blog.component.html',
-//   styleUrls: ['./display-blog.component.css']
-// })
-// export class DisplayBlogComponent implements OnInit {
-//   blogIndex: number | undefined;
-
-//   constructor(private route: ActivatedRoute) { }
-
-//   ngOnInit(): void {
-//     this.route.params.subscribe(params => {
-//       this.blogIndex = +params['id']; // Retrieve the index parameter
-//     });
-//   }
-// }
