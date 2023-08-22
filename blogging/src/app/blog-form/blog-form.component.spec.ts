@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WriteComponent } from './write.component';
+import { BlogFormComponent } from './blog-form.component';
 
-describe('WriteComponent', () => {
-  let component: WriteComponent;
-  let fixture: ComponentFixture<WriteComponent>;
+describe('BlogFormComponent', () => {
+  let component: BlogFormComponent;
+  let fixture: ComponentFixture<BlogFormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WriteComponent]
+      declarations: [BlogFormComponent]
     });
-    fixture = TestBed.createComponent(WriteComponent);
+    fixture = TestBed.createComponent(BlogFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
