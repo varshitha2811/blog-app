@@ -6,20 +6,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
+import { DisplayBlogComponent } from './display-blog/display-blog.component';
 import { BlogService } from './blog.service';
-
+import { CommonModule } from '@angular/common';
+import { SearchListComponent } from './search-list/search-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    BlogFormComponent
+    BlogFormComponent,
+    DisplayBlogComponent,
+    SearchListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,CommonModule
   ],
   providers: [BlogService],
   bootstrap: [AppComponent]
