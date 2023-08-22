@@ -1,36 +1,51 @@
 import { Component } from '@angular/core';
+import { BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-blog-form',
   templateUrl: './blog-form.component.html',
+  styleUrls: ['./blog-form.component.scss']
 })
 export class BlogFormComponent {
-  author: string = '';
-  tags: string[] = ['Technology', 'Lifestyle', 'Travel', 'Food'];
-  selectedTags: string[] = [];
   title: string = '';
-  content: string = '';
+  author: string = '';
+  description: string = '';
+  tags: string[] = [];
+  url: string = '';
 
-  submitBlog() {
-    const blog = {
-      author: this.author,
-      tags: this.selectedTags,
+  constructor(private blogService: BlogService) { }
+
+  submitBlog(): void {
+    const newBlog = {
       title: this.title,
-      content: this.content,
+      author: this.author,
+      description: this.description,
+      tags: this.tags,
+      url: this.url
     };
-    
-    // Store in local storage (you can replace this with your storage logic)
-    const blogs = JSON.parse(localStorage.getItem('blogs') || '[]');
-    blogs.push(blog);
-    localStorage.setItem('blogs', JSON.stringify(blogs));
-    
-    this.clearForm();
+
+    this.blogService.addBlog(newBlog).subscribe(
+      () => {
+        alert("data added!")
+      });
   }
 
-  clearForm() {
-    this.author = '';
-    this.selectedTags = [];
+  resetForm(): void {
     this.title = '';
-    this.content = '';
+    this.author = '';
+    this.description = '';
+    this.tags = [];
+    this.url = '';
   }
+
+  onTagChange(tag: string): void {
+    if (!this.tags.includes(tag)) {
+      this.tags.push(tag);
+    } else {
+      this.tags = this.tags.filter(t => t !== tag);
+    }
+  }
+
+  showSuccessMessage: boolean = false;
+  errorMessage: string = '';
 }
