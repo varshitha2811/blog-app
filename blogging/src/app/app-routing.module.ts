@@ -8,7 +8,7 @@ import { BlogFormComponent } from './blog-form/blog-form.component';
 
 const routes: Routes = [{ path: '', redirectTo: '/home', pathMatch: 'full' }, 
    { path: 'home', component: HomePageComponent },
-{ path: 'display-blog/:id', component: DisplayBlogComponent },
+{ path: 'display-blog/:index', component: DisplayBlogComponent },
 { path: 'search-list/:tag', component: SearchListComponent },
 { path: 'write-blog', component: BlogFormComponent }];
 

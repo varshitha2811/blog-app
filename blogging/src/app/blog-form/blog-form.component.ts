@@ -23,11 +23,7 @@ export class BlogFormComponent {
       tags: this.tags,
       url: this.url
     };
-
-    this.blogService.addBlog(newBlog).subscribe(
-      () => {
-        alert("data added!")
-      });
+    this.blogService.addBlog(newBlog);
   }
 
   resetForm(): void {

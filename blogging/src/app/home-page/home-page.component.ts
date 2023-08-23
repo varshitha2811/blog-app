@@ -8,31 +8,13 @@ import { BlogService } from '../blog.service';
 })
 export class HomePageComponent implements OnInit {
   blogs: any[] = [];
-  newBlogForm: any;
-  currentIndex = 0;
+  addedblogs:any[]=[];
+  
 
   constructor(private blogService: BlogService) {}
 
   ngOnInit(): void {
-    this.blogService.getBlogs().subscribe(data => {
-      this.blogs = data;
-    });
-  }
-
-  addNewBlog(newBlog: any): void {
-    this.blogService.addBlog(newBlog).subscribe(updatedBlogs => {
-      this.blogs = updatedBlogs;
-    });
-  }
-
-  deleteBlog(id: number): void {
-    this.blogService.deleteBlog(id).subscribe(updatedBlogs => {
-      this.blogs = updatedBlogs;
-    });
-  }
-
-  
- 
-
-  
+    this.blogs=this.blogService.getStoredData();
+  } 
 }
+
