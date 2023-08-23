@@ -8,7 +8,7 @@ import { BlogService } from '../blog.service';
 })
 export class HomePageComponent implements OnInit {
   blogs: any[] = [];
-  addedblogs:any[]=[];
+
   
 
   constructor(private blogService: BlogService) {}
@@ -17,4 +17,3 @@ export class HomePageComponent implements OnInit {
     this.blogs=this.blogService.getStoredData();
   } 
 }
-

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component'; 
-import { DisplayBlogComponent } from './display-blog/display-blog.component'; 
+import { HomePageComponent } from './home-page/home-page.component';
+import { DisplayBlogComponent } from './display-blog/display-blog.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 

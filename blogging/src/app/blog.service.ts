@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { data } from 'autoprefixer';
-
 @Injectable({
   providedIn: 'root'
 })
 export class BlogService {
   private storageKey = 'blogData';
-
-  private initialBlogs: any[]  =[
+  private initialBlogs: any[] = [
     {
       "title": "Mastering Web Development with HTML and React",
       "author": "Alex Parker",
@@ -114,7 +112,6 @@ export class BlogService {
       "time": "2022-08-15T10:30:00"
     }
   ];
-  
   constructor() {
     const storedData = localStorage.getItem(this.storageKey);
     if (!storedData) {
@@ -124,17 +121,12 @@ export class BlogService {
 
   addBlog(newBlog: any): void {
     const storedData = this.getStoredData();
+    newBlog.tags = newBlog.tags.map((tag: string) => tag.toUpperCase());
     storedData.push(newBlog);
     localStorage.setItem(this.storageKey, JSON.stringify(storedData));
-    console.log(storedData);
   }
-
   getStoredData(): any[] {
     const storedData = localStorage.getItem(this.storageKey);
-    console.log(storedData);
     return storedData ? JSON.parse(storedData) : [];
   }
-  
 }
-
-

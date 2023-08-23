@@ -12,6 +12,8 @@ export class BlogFormComponent {
   description: string = '';
   tags: string[] = [];
   url: string = '';
+  time: Date | undefined;
+  isSuccess: boolean = false;
 
   constructor(private blogService: BlogService) { }
 
@@ -21,9 +23,15 @@ export class BlogFormComponent {
       author: this.author,
       description: this.description,
       tags: this.tags,
-      url: this.url
+      url: this.url,
+      time: new Date(),
     };
+    console.log('New Blog:', newBlog);
     this.blogService.addBlog(newBlog);
+    this.isSuccess = true;
+    console.log('Stored Blogs:', this.blogService.getStoredData());
+
+    this.resetForm();
   }
 
   resetForm(): void {
@@ -32,8 +40,8 @@ export class BlogFormComponent {
     this.description = '';
     this.tags = [];
     this.url = '';
+    this.time = undefined;
   }
-
   onTagChange(tag: string): void {
     if (!this.tags.includes(tag)) {
       this.tags.push(tag);
@@ -41,7 +49,4 @@ export class BlogFormComponent {
       this.tags = this.tags.filter(t => t !== tag);
     }
   }
-
-  showSuccessMessage: boolean = false;
-  errorMessage: string = '';
 }

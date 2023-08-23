@@ -34,4 +34,3 @@ export class SearchListComponent implements OnInit {
           
       }   
 }
-
