@@ -1,3 +1,31 @@
+// import { Component } from '@angular/core';
+// import { BlogService } from '../blog.service';
+
+// @Component({
+//   selector: 'app-blog-form',
+//   templateUrl: './blog-form.component.html',
+//   styleUrls: ['./blog-form.component.scss']
+// })
+// export class BlogFormComponent {
+//   title: string = '';
+//   author: string = '';
+//   description: string = '';
+//   tags: string[] = [];
+//   url: string = '';
+
+//   constructor(private blogService: BlogService) { }
+
+//   submitBlog(): void {
+//     const newBlog = {
+//       title: this.title,
+//       author: this.author,
+//       description: this.description,
+//       tags: this.tags,
+//       url: this.url
+//     };
+
+//     this.blogService.addBlog(newBlog).subscribe(
+//       () => {
 import { Component } from '@angular/core';
 import { BlogService } from '../blog.service';
 
@@ -12,6 +40,8 @@ export class BlogFormComponent {
   description: string = '';
   tags: string[] = [];
   url: string = '';
+  time: Date | undefined;
+  isSuccess: boolean = false;
 
   constructor(private blogService: BlogService) { }
 
@@ -21,13 +51,15 @@ export class BlogFormComponent {
       author: this.author,
       description: this.description,
       tags: this.tags,
-      url: this.url
+      url: this.url,
+      time: new Date(),
     };
+    console.log('New Blog:', newBlog);
+    this.blogService.addBlog(newBlog);
+    this.isSuccess = true;
+    console.log('Stored Blogs:', this.blogService.getStoredData());
 
-    this.blogService.addBlog(newBlog).subscribe(
-      () => {
-        alert("data added!")
-      });
+    this.resetForm();
   }
 
   resetForm(): void {
@@ -36,8 +68,8 @@ export class BlogFormComponent {
     this.description = '';
     this.tags = [];
     this.url = '';
+    this.time = undefined;
   }
-
   onTagChange(tag: string): void {
     if (!this.tags.includes(tag)) {
       this.tags.push(tag);
@@ -45,7 +77,4 @@ export class BlogFormComponent {
       this.tags = this.tags.filter(t => t !== tag);
     }
   }
-
-  showSuccessMessage: boolean = false;
-  errorMessage: string = '';
 }

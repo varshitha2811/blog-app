@@ -1,4 +1,4 @@
-import { Component, OnInit , HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { BlogService } from '../blog.service';
 
 @Component({
@@ -11,28 +11,12 @@ export class HomePageComponent implements OnInit {
   newBlogForm: any;
   currentIndex = 0;
 
-  constructor(private blogService: BlogService) {}
+  constructor(private blogService: BlogService) { }
 
   ngOnInit(): void {
-    this.blogService.getBlogs().subscribe(data => {
-      this.blogs = data;
-    });
+    this.blogs = this.blogService.getStoredData();
+    console.log(this.blogs);
   }
 
-  addNewBlog(newBlog: any): void {
-    this.blogService.addBlog(newBlog).subscribe(updatedBlogs => {
-      this.blogs = updatedBlogs;
-    });
-  }
-
-  deleteBlog(id: number): void {
-    this.blogService.deleteBlog(id).subscribe(updatedBlogs => {
-      this.blogs = updatedBlogs;
-    });
-  }
-
-  
- 
-
-  
 }
+
