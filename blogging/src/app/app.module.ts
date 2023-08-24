@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { SearchListComponent } from './search-list/search-list.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { FooterComponent } from './footer/footer.component';
     SearchListComponent,
     HeaderComponent,
     FooterComponent,
+    SignUpComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
