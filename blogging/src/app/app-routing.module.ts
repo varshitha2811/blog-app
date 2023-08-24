@@ -4,7 +4,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { DisplayBlogComponent } from './display-blog/display-blog.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
-
+import { initFlowbite } from 'flowbite';
 
 const routes: Routes = [{ path: '', redirectTo: '/home', pathMatch: 'full' }, 
    { path: 'home', component: HomePageComponent },
@@ -16,4 +16,9 @@ const routes: Routes = [{ path: '', redirectTo: '/home', pathMatch: 'full' },
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule 
+ {
+  ngOnInit(): void {
+    initFlowbite();
+  }
+ }
