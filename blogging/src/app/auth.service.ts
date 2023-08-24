@@ -8,8 +8,8 @@ export class AuthService {
 
   constructor() {}
 
-  signUp(username: string, password: string): void {
-    const user = { username, password };
+  signUp(name:string,username: string, password: string): void {
+    const user = { name,username, password  };
     const users = this.getStoredUsers();
     users.push(user);
     this.saveUsers(users);

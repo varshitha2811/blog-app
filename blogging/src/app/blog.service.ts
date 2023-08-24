@@ -129,4 +129,16 @@ export class BlogService {
     const storedData = localStorage.getItem(this.storageKey);
     return storedData ? JSON.parse(storedData) : [];
   }
+  deleteBlog(blogId: number): void {
+    const storedData = this.getStoredData();
+    const indexToDelete = storedData.findIndex((blog: any) => blog.id === blogId);
+    
+    if (indexToDelete !== -1) {
+      storedData.splice(indexToDelete, 1);
+      localStorage.setItem(this.storageKey, JSON.stringify(storedData));
+    }
+  }
+  
+ 
+  
 }

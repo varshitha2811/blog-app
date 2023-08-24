@@ -14,6 +14,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { LoginComponent } from './login/login.component';
     FooterComponent,
     SignUpComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     HttpClientModule, CommonModule
   ],
-  providers: [BlogService],
+  providers: [BlogService,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
