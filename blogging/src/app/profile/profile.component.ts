@@ -1,7 +1,8 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,17 +11,16 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  user:any;
-  name:any;
+  user: any;
+  name: any;
   blogs: any[] = [];
   filterData: any[] = [];
-  
-  constructor( private route: ActivatedRoute, private blogService: BlogService,private authService:AuthService) { }
+
+  constructor(private route: ActivatedRoute, private blogService: BlogService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.user=this.authService.getLoggedInUser();
-    this.name=this.user.username;
-    console.log("aa",this.user.username);
+    this.user = this.authService.getLoggedInUser();
+    this.name = this.user.name;
     this.blogs = this.blogService.getStoredData();
     this.filterBlogs();
   }
@@ -29,21 +29,25 @@ export class ProfileComponent {
       .map((blog, index) => ({ ...blog, id: index }))
       .filter((blog: { tags: string[]; author: string; title: string }) => {
         const lowercaseSearchTerm = this.name.toLowerCase();
-         const lowercaseAuthor = blog.author.toLowerCase();
+        const lowercaseAuthor = blog.author.toLowerCase();
         return (
-          lowercaseAuthor.includes(lowercaseSearchTerm) 
+          lowercaseAuthor.includes(lowercaseSearchTerm)
         );
       });
   }
   deleteBlog(blogId: number): void {
     const shouldDelete = window.confirm('Are you sure you want to delete this blog?');
     if (shouldDelete) {
-      this.filterData.splice(blogId, 1); // Remove the blog from the filterData array using splice
-      this.blogService.deleteBlog(blogId); // Update localStorage
+      this.filterData.splice(blogId, 1);
+      this.blogService.deleteBlog(blogId);
     }
   }
-  
+  userlogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
+
+}
 
 
 
