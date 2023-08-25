@@ -6,10 +6,10 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private storageKey = 'userData';
 
-  constructor() {}
+  constructor() { }
 
-  signUp(name:string,username: string, password: string): void {
-    const user = { name,username, password  };
+  signUp(name: string, username: string, password: string): void {
+    const user = { name, username, password };
     const users = this.getStoredUsers();
     users.push(user);
     this.saveUsers(users);
@@ -47,9 +47,10 @@ export class AuthService {
     localStorage.setItem(this.storageKey, JSON.stringify(users));
   }
 
-  getUserByUsername(username: string) {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    return users.find((user: any) => user.username === username);
+  getUserByUsername(username: string): any | null {
+    const users = this.getStoredUsers();
+    const user = users.find(u => u.username === username);
+    return user ? { ...user } : null;
   }
 }
 

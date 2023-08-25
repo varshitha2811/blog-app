@@ -1,7 +1,8 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,28 +12,26 @@ import { AuthService } from '../auth.service';
 })
 export class ProfileComponent {
   user:any;
-  displayName:any;
-  displayUserName:any;
+  name:any;
   blogs: any[] = [];
   filterData: any[] = [];
-  
-  constructor( private route: ActivatedRoute, private blogService: BlogService,private authService:AuthService) { }
+
+  constructor(private route: ActivatedRoute, private blogService: BlogService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.user=this.authService.getLoggedInUser();
-    this.displayName=this.user.name;
-    this.displayUserName=this.user.username;
+    this.name=this.user.username;
+    console.log("aa",this.user.username);
     this.blogs = this.blogService.getStoredData();
     this.filterBlogs();
-    console.log(this.filterData);
   }
   filterBlogs() {
     this.filterData = this.blogs
       .map((blog, index) => ({ ...blog, id: index }))
       .filter((blog: { tags: string[]; author: string; title: string }) => {
-         const Author = blog.author;
+        const Author = blog.author;
         return (
-          Author.includes(this.displayUserName) 
+          Author.includes(this.name)
         );
       });
   }
@@ -42,7 +41,13 @@ export class ProfileComponent {
     if (shouldDelete) {
       this.blogService.deleteBlog(index);
       this.filterData = this.filterData.filter((blog: any) => blog.id !== index);
+    }
   }
-  
-}
-}
+  userlogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+  }
+
+
+

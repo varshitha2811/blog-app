@@ -10,9 +10,46 @@
       <ul class="flex space-x-2">
         <li *ngFor="let tag of blogData.tags"
           class="border border-gray-300 px-2 py-1 rounded-lg hover:border-blue-500 hover:bg-blue-100 transition-colors cursor-pointer">
-          <a [routerLink]="['/search-list', tag]">{{tag}}</a>
+          <a [routerLink]="['/search-list', tag]">{{tag.toLowerCase()}}</a>
         </li>
       </ul>
     </div>
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold mb-2">Comments</h3>
+      <ul class="space-y-4">
+        <ng-container *ngFor="let comment of blogData.comments | keyvalue; let commentIndex = index">
+          <li *ngIf="isComment(comment.value)">
+            <div class="flex justify-between items-center">
+              <div>
+                <strong>{{ comment.value.name }}:</strong>
+                <span>{{ comment.value.comment }}</span>
+              </div>
+              <button *ngIf="comment.value.name=== userName" class="text-red-600 hover:text-red-900" (click)="deleteComment(blogIndex, commentIndex)">
+                Delete
+              </button>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
   </article>
+  <div class="border-b border-gray-900/10 pb-12 bg-white shadow-md rounded-lg p-6 sm:p-8 my-1">
+    <div class="col-span-full">
+      <form (ngSubmit)="submitComment()" #commentForm="ngForm">
+        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Comment Scetion</label>
+        <div class="mt-2">
+          <textarea id="about" name="about" rows="2" [(ngModel)]="newComment"
+            class="block w-full rounded-md border-0 px-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6"
+            placeholder="Write your comment..." required></textarea>
+        </div>
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+          <button type="button" (click)="cancelComment()"
+            class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+          <button (click)="submitComment()"
+            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
