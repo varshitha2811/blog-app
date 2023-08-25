@@ -11,7 +11,8 @@ import { AuthService } from '../auth.service';
 })
 export class ProfileComponent {
   user:any;
-  name:any;
+  displayName:any;
+  displayUserName:any;
   blogs: any[] = [];
   filterData: any[] = [];
   
@@ -19,31 +20,29 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     this.user=this.authService.getLoggedInUser();
-    this.name=this.user.username;
-    console.log("aa",this.user.username);
+    this.displayName=this.user.name;
+    this.displayUserName=this.user.username;
     this.blogs = this.blogService.getStoredData();
     this.filterBlogs();
+    console.log(this.filterData);
   }
   filterBlogs() {
     this.filterData = this.blogs
       .map((blog, index) => ({ ...blog, id: index }))
       .filter((blog: { tags: string[]; author: string; title: string }) => {
-        const lowercaseSearchTerm = this.name.toLowerCase();
-         const lowercaseAuthor = blog.author.toLowerCase();
+         const Author = blog.author;
         return (
-          lowercaseAuthor.includes(lowercaseSearchTerm) 
+          Author.includes(this.displayUserName) 
         );
       });
   }
-  deleteBlog(blogId: number): void {
+
+  deleteBlog(index: number): void {
     const shouldDelete = window.confirm('Are you sure you want to delete this blog?');
     if (shouldDelete) {
-      this.filterData.splice(blogId, 1); // Remove the blog from the filterData array using splice
-      this.blogService.deleteBlog(blogId); // Update localStorage
-    }
+      this.blogService.deleteBlog(index);
+      this.filterData = this.filterData.filter((blog: any) => blog.id !== index);
   }
   
-  }
-
-
-
+}
+}
