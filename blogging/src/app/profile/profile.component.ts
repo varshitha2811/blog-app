@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent {
   user:any;
-  name:any;
+  loginName:string="";
+  loginUserName:string="";
   blogs: any[] = [];
   filterData: any[] = [];
 
@@ -20,18 +21,19 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     this.user=this.authService.getLoggedInUser();
-    this.name=this.user.username;
-    console.log("aa",this.user.username);
+    this.loginName=this.user.name;
+    this.loginUserName=this.user.username;
     this.blogs = this.blogService.getStoredData();
     this.filterBlogs();
   }
   filterBlogs() {
     this.filterData = this.blogs
       .map((blog, index) => ({ ...blog, id: index }))
-      .filter((blog: { tags: string[]; author: string; title: string }) => {
+      .filter((blog: {author: string;userName:string }) => {
         const Author = blog.author;
+        const UserName = blog.userName;
         return (
-          Author.includes(this.name)
+          Author.includes(this.loginName) && UserName.includes(this.loginUserName)
         );
       });
   }
