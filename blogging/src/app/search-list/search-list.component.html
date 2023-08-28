@@ -4,6 +4,9 @@
 </div> 
 
 <div class="relative ml-6">
+  <p class="text-center text-2xl font-semibold mb-4 mt-8" *ngIf="filterData.length===0">
+    Sorry,no blogs related to the tag.
+  </p>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5 my-5">
     <ng-container *ngFor="let blog of filterData;">
       <div class="max-w-xs bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-md transition duration-300">

@@ -148,7 +148,7 @@ export class BlogService {
   private storedData: any[] = this.getStoredData();
   private commentsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   comments$: Observable<any[]> = this.commentsSubject.asObservable();
-  
+
   addBlog(newBlog: any): void {
     const storedData = this.getStoredData();
     newBlog.tags = newBlog.tags.map((tag: string) => tag.toUpperCase());
@@ -174,29 +174,31 @@ export class BlogService {
     this.commentsSubject.next(comments);
   }
 
- 
   getComments(blogIndex: number): Observable<any[]> {
     const storedData = this.getStoredData();
     const comments = storedData[blogIndex].comments || {};
     this.commentsSubject.next(comments);
     return this.comments$;
   }
+
   addComment(blogIndex: number, comment: any): void {
-    if (this.storedData[blogIndex]?.comments instanceof Array) {
-      this.storedData[blogIndex].comments.push(comment);
-    } else {
-      this.storedData[blogIndex].comments = [comment];
-    }
-    this.updateComments(blogIndex, this.storedData[blogIndex].comments);
-    localStorage.setItem(this.storageKey, JSON.stringify(this.storedData));
-  }
-  deleteComment(blogIndex: number, commentIndex: number): void {
-    if (this.storedData[blogIndex]?.comments instanceof Array) {
-      this.storedData[blogIndex].comments.splice(commentIndex, 1);
-      this.updateComments(blogIndex, this.storedData[blogIndex].comments); 
-      localStorage.setItem(this.storageKey, JSON.stringify(this.storedData));
-    }
+    const storedData = this.getStoredData();
+    const updatedComments = [...(storedData[blogIndex]?.comments || []), comment];
+    storedData[blogIndex].comments = updatedComments;
+    
+    localStorage.setItem(this.storageKey, JSON.stringify(storedData));
+    this.updateComments(blogIndex, updatedComments);
   }
   
-
+  deleteComment(blogIndex: number, commentIndex: number): void {
+    const storedData = this.getStoredData();
+    if (storedData[blogIndex]?.comments instanceof Array) {
+      storedData[blogIndex].comments.splice(commentIndex, 1);
+      const updatedComments = [...storedData[blogIndex].comments];
+      storedData[blogIndex].comments = updatedComments;
+  
+      localStorage.setItem(this.storageKey, JSON.stringify(storedData));
+      this.updateComments(blogIndex, updatedComments);
+    }
+  }
 }

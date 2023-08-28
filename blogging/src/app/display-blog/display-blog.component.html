@@ -5,7 +5,9 @@
     <div class="aspect-w-16 aspect-h-9 mb-4 flex justify-center items-center">
       <img [src]="blogData.url" alt="Blog Image" class="rounded-lg object-cover shadow-md">
     </div>
-    <p class="text-gray-800 leading-relaxed">{{ blogData.description }}</p>
+    <div *ngFor="let paragraph of blogData.description">
+      <p class="text-gray-800 leading-relaxed">{{ paragraph }}</p>
+    </div>
     <div class="mt-4">
       <ul class="flex space-x-2">
         <li *ngFor="let tag of blogData.tags"

@@ -34,7 +34,9 @@ export class ProfileComponent {
         const UserName = blog.userName;
         return (
           Author.includes(this.loginName) && UserName.includes(this.loginUserName)
+          
         );
+        
       });
   }
 

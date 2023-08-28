@@ -104,7 +104,7 @@
                 <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="url" id="url"
                     name="url" [(ngModel)]="url" required>
             </div>
-            <button *ngIf="areAllFieldsFilled()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            <button [routerLink]="['/profile']" *ngIf="areAllFieldsFilled()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                 type="submit" [disabled]="!areAllFieldsFilled()">Create Blog</button>
             <button *ngIf="!areAllFieldsFilled()" class="bg-gray-400 text-white px-4 py-2 rounded-md" type="submit"
                 [disabled]="!areAllFieldsFilled()">Create Blog</button>

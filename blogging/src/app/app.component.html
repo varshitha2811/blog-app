@@ -1,7 +1,7 @@
 <div class="flex flex-col min-h-screen">
-  <app-header class="bg-white p-4"></app-header>
+  <app-header *ngIf="showHeader" class="bg-white p-4"></app-header>
   <div class="flex-grow">
     <router-outlet></router-outlet>
   </div>
-  <app-footer class="bg-white p-4"></app-footer>
+  <app-footer *ngIf="showFooter" class="bg-white p-4"></app-footer>
 </div>
