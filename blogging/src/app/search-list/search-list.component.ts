@@ -14,7 +14,6 @@ export class SearchListComponent implements OnInit {
   blogs: any[] = [];
   searchTerm!: string;
 
-
   constructor(private router: Router, private route: ActivatedRoute, private blogService: BlogService) { }
 
   ngOnInit(): void {
@@ -41,6 +40,5 @@ export class SearchListComponent implements OnInit {
         );
       });
   }
-
 }
 

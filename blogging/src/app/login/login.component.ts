@@ -10,16 +10,16 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  errorMessage:string='';
+  errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   login() {
-    if(this.username && this.password){
+    if (this.username && this.password) {
       if (this.authService.login(this.username, this.password)) {
-        this.router.navigate(['/home']); 
+        this.router.navigate(['/home']);
       }
-      else{
+      else {
         this.errorMessage = 'Username already exists. Please choose a different username.';
       }
     }

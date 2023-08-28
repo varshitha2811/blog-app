@@ -5,14 +5,19 @@
     <div class="aspect-w-16 aspect-h-9 mb-4 flex justify-center items-center">
       <img [src]="blogData.url" alt="Blog Image" class="rounded-lg object-cover shadow-md">
     </div>
-    <div *ngFor="let paragraph of blogData.description">
-      <p class="text-gray-800 leading-relaxed">{{ paragraph }}</p>
-    </div>
+    <ng-container *ngIf="isDescriptionArray(blogData.description)">
+      <div *ngFor="let paragraph of blogData.description">
+        <p class="text-gray-800 leading-relaxed">{{ paragraph }}</p>
+      </div>
+    </ng-container>
+    <p *ngIf="!isDescriptionArray(blogData.description)" class="text-gray-800 leading-relaxed">
+      {{ blogData.description }}
+    </p>
     <div class="mt-4">
-      <ul class="flex space-x-2">
+      <ul class="flex flex-wrap gap-2">
         <li *ngFor="let tag of blogData.tags"
           class="border border-gray-300 px-2 py-1 rounded-lg hover:border-blue-500 hover:bg-blue-100 transition-colors cursor-pointer">
-          <a [routerLink]="['/search-list', tag]">{{tag.toLowerCase()}}</a>
+          <a [routerLink]="['/search-list', tag]" class="text-black">{{ tag.toLowerCase() }}</a>
         </li>
       </ul>
     </div>
@@ -26,7 +31,8 @@
                 <strong>{{ comment.value.name }}:</strong>
                 <span>{{ comment.value.comment }}</span>
               </div>
-              <button *ngIf="comment.value.name=== userName" class="text-red-600 hover:text-red-900" (click)="deleteComment(blogIndex, commentIndex)">
+              <button *ngIf="comment.value.name === userName" class="text-red-600 hover:text-red-900"
+                (click)="deleteComment(blogIndex, commentIndex)">
                 Delete
               </button>
             </div>
@@ -38,7 +44,7 @@
   <div class="border-b border-gray-900/10 pb-12 bg-white shadow-md rounded-lg p-6 sm:p-8 my-1">
     <div class="col-span-full">
       <form (ngSubmit)="submitComment()" #commentForm="ngForm">
-        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Comment Scetion</label>
+        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Comment Section</label>
         <div class="mt-2">
           <textarea id="about" name="about" rows="2" [(ngModel)]="newComment"
             class="block w-full rounded-md border-0 px-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6"
