@@ -1,4 +1,4 @@
-import { Component,ViewChild,ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../auth.service';
 
@@ -17,17 +17,17 @@ export class BlogFormComponent {
   comments: object | any;
   isSuccess: boolean = false;
   user: any;
-  author_name:string='';  
-  userName:string='';
-  
+  author_name: string = '';
+  userName: string = '';
+
   @ViewChild('myCheckbox') myCheckboxRef!: ElementRef<HTMLInputElement>;
-  constructor(private blogService: BlogService,private authService :AuthService) { }
-  ngOnInit(){
+  constructor(private blogService: BlogService, private authService: AuthService) { }
+  ngOnInit() {
     this.user = this.authService.getLoggedInUser();
     this.author_name = this.user.name;
-    this.userName=this.user.username;
+    this.userName = this.user.username;
   }
-  
+
   areAllFieldsFilled(): boolean {
     return (
       this.title.trim() !== '' &&
@@ -46,7 +46,7 @@ export class BlogFormComponent {
       url: this.url ? this.url : defaultUrl,
       comment: this.comments,
       time: new Date(),
-      userName:this.userName,
+      userName: this.userName,
     };
     this.isSuccess = true;
     this.author = this.capitalizeFirstLetter(this.author);
@@ -57,9 +57,11 @@ export class BlogFormComponent {
       this.myCheckboxRef.nativeElement.checked = false;
     }
   }
+
   capitalizeFirstLetter(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
+
   resetForm(): void {
     this.title = '';
     this.author = '';
@@ -68,6 +70,7 @@ export class BlogFormComponent {
     this.url = '';
     this.time = undefined;
   }
+
   onTagChange(tag: string): void {
     if (!this.tags.includes(this.capitalizeFirstLetter(tag))) {
       this.tags.push(this.capitalizeFirstLetter(tag));

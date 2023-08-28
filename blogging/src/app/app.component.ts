@@ -7,6 +7,9 @@ import { Router, ActivatedRoute ,NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   showHeader = true;
   showFooter = true;
   searchTerm: string = '';

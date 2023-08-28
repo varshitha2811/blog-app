@@ -161,7 +161,7 @@ export class BlogService {
   }
   deleteBlog(index: number): void {
     const storedData = this.getStoredData();
-    
+
     if (index >= 0 && index < storedData.length) {
       storedData.splice(index, 1);
       localStorage.setItem(this.storageKey, JSON.stringify(storedData));
@@ -170,7 +170,7 @@ export class BlogService {
   updateComments(blogIndex: number, comments: any): void {
     const storedData = this.getStoredData();
     storedData[blogIndex].comments = comments;
-    localStorage.setItem(this.storageKey, JSON.stringify(storedData)); 
+    localStorage.setItem(this.storageKey, JSON.stringify(storedData));
     this.commentsSubject.next(comments);
   }
 
@@ -181,24 +181,37 @@ export class BlogService {
     return this.comments$;
   }
 
-  addComment(blogIndex: number, comment: any): void {
-    const storedData = this.getStoredData();
-    const updatedComments = [...(storedData[blogIndex]?.comments || []), comment];
-    storedData[blogIndex].comments = updatedComments;
-    
-    localStorage.setItem(this.storageKey, JSON.stringify(storedData));
-    this.updateComments(blogIndex, updatedComments);
-  }
-  
   deleteComment(blogIndex: number, commentIndex: number): void {
     const storedData = this.getStoredData();
     if (storedData[blogIndex]?.comments instanceof Array) {
       storedData[blogIndex].comments.splice(commentIndex, 1);
       const updatedComments = [...storedData[blogIndex].comments];
       storedData[blogIndex].comments = updatedComments;
-  
+
       localStorage.setItem(this.storageKey, JSON.stringify(storedData));
       this.updateComments(blogIndex, updatedComments);
     }
   }
+  addComment(blogIndex: number, comment: any): void {
+    const storedData = this.getStoredData();
+    const blogEntry = storedData[blogIndex];
+
+    if (!Array.isArray(blogEntry.comments)) {
+      blogEntry.comments = [];
+    }
+
+    const existingCommentIndex = blogEntry.comments.findIndex((existingComment: { id: any; }) => {
+      return existingComment.id === comment.id;
+    });
+
+    if (existingCommentIndex === -1) {
+      blogEntry.comments.push(comment);
+
+      localStorage.setItem(this.storageKey, JSON.stringify(storedData));
+      this.updateComments(blogIndex, blogEntry.comments);
+
+    }
+  }
+
+
 }
