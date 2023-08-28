@@ -1,4 +1,4 @@
-import { Component, OnInit , HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { BlogService } from '../blog.service';
 
 @Component({
@@ -9,12 +9,10 @@ import { BlogService } from '../blog.service';
 export class HomePageComponent implements OnInit {
   blogs: any[] = [];
 
-  
-
-  constructor(private blogService: BlogService) {}
+  constructor(private blogService: BlogService) { }
 
   ngOnInit(): void {
-    this.blogs=this.blogService.getStoredData();
-  } 
+    this.blogs = this.blogService.getStoredData();
+  }
   
 }
