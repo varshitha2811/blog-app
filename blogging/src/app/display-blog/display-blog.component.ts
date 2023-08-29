@@ -48,7 +48,7 @@ export class DisplayBlogComponent implements OnInit {
   }
 
   submitComment(): void {
-    const commentObject = {
+    const commentObject: Comment  = {
       name: this.userName,
       comment: this.newComment
     };

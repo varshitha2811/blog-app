@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { data } from 'autoprefixer';
 import { BehaviorSubject, Observable } from 'rxjs';
+interface Comment {
+  name: string;
+  comment: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -192,24 +196,39 @@ export class BlogService {
       this.updateComments(blogIndex, updatedComments);
     }
   }
-  addComment(blogIndex: number, comment: any): void {
+  // addComment(blogIndex: number, comment: any): void {
+  //   const storedData = this.getStoredData();
+  //   const blogEntry = storedData[blogIndex];
+
+  //   if (!Array.isArray(blogEntry.comments)) {
+  //     blogEntry.comments = [];
+  //   }
+
+  //   const existingCommentIndex = blogEntry.comments.findIndex((existingComment: { id: any; }) => {
+  //     return existingComment.id === comment.id;
+  //   });
+
+  //   if (existingCommentIndex === -1) {
+  //     blogEntry.comments.push(comment);
+
+  //     localStorage.setItem(this.storageKey, JSON.stringify(storedData));
+  //     this.updateComments(blogIndex, blogEntry.comments);
+
+  //   }
+  // }
+  addComment(blogIndex: number, comment: Comment): void {
     const storedData = this.getStoredData();
     const blogEntry = storedData[blogIndex];
-
     if (!Array.isArray(blogEntry.comments)) {
       blogEntry.comments = [];
     }
-
-    const existingCommentIndex = blogEntry.comments.findIndex((existingComment: { id: any; }) => {
-      return existingComment.id === comment.id;
+    const existingCommentIndex = blogEntry.comments.findIndex((existingComment: Comment) => {
+      return existingComment.name === comment.name && existingComment.comment === comment.comment;
     });
-
     if (existingCommentIndex === -1) {
       blogEntry.comments.push(comment);
-
       localStorage.setItem(this.storageKey, JSON.stringify(storedData));
       this.updateComments(blogIndex, blogEntry.comments);
-
     }
   }
 

@@ -48,6 +48,7 @@ export class BlogFormComponent {
       time: new Date(),
       userName: this.userName,
     };
+    console.log(newBlog)
     this.isSuccess = true;
     this.author = this.capitalizeFirstLetter(this.author);
     this.blogService.addBlog(newBlog);
