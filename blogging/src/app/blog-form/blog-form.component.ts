@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../auth.service';
+import { ActivatedRoute , Navigation, Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog-form',
@@ -19,9 +20,13 @@ export class BlogFormComponent {
   user: any;
   author_name: string = '';
   userName: string = '';
+  showTitleError: boolean = false;
+  charCount:number=0;
+  validDescritption:boolean=false;
 
   @ViewChild('myCheckbox') myCheckboxRef!: ElementRef<HTMLInputElement>;
-  constructor(private blogService: BlogService, private authService: AuthService) { }
+titleInput: any;
+  constructor(private blogService: BlogService, private authService: AuthService,private route:ActivatedRoute,private router:Router) { }
   ngOnInit() {
     this.user = this.authService.getLoggedInUser();
     this.author_name = this.user.name;
@@ -48,19 +53,21 @@ export class BlogFormComponent {
       time: new Date(),
       userName: this.userName,
     };
-    console.log(newBlog)
     this.isSuccess = true;
-    this.author = this.capitalizeFirstLetter(this.author);
+    this.author = this.author;
     this.blogService.addBlog(newBlog);
     this.isSuccess = true;
     this.resetForm();
     if (this.myCheckboxRef) {
       this.myCheckboxRef.nativeElement.checked = false;
-    }
+    }    
+    this.router.navigate(['/profile']);
   }
-
-  capitalizeFirstLetter(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  countChar(){
+    this.charCount=this.description.length
+    if(this.charCount>=25)  {
+      this.validDescritption=true;
+    }
   }
 
   resetForm(): void {
@@ -73,8 +80,8 @@ export class BlogFormComponent {
   }
 
   onTagChange(tag: string): void {
-    if (!this.tags.includes(this.capitalizeFirstLetter(tag))) {
-      this.tags.push(this.capitalizeFirstLetter(tag));
+    if (!this.tags.includes(tag)) {
+      this.tags.push(tag);
     } else {
       this.tags = this.tags.filter(t => t !== tag);
     }

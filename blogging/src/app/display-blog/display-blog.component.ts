@@ -29,7 +29,6 @@ export class DisplayBlogComponent implements OnInit {
       this.blogIndex = +params['index'];
     });
     this.blogs = this.blogService.getStoredData();
-    console.log(this.blogs)
     this.blogData = this.blogs[this.blogIndex];
     this.user = this.authService.getLoggedInUser();
     this.name = this.user.name;

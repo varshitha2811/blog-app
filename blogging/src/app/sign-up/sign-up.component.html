@@ -20,8 +20,7 @@
         <label for="username" class="block text-gray-700 font-medium mb-2">Username:</label>
         <input type="text" id="username" [(ngModel)]="username" name="username"
           class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500" required>
-          <p *ngIf="errorMessage && errorMessage.includes('Username')" class="text-red-600">Invalid username. Please try
-            again.</p>
+        <p *ngIf="errorMessage && errorMessage.includes('Username')" class="text-red-600">Username already exists.</p>
       </div>
       <div class="mb-4">
         <label for="password" class="block text-gray-700 font-medium mb-2">Password:</label>

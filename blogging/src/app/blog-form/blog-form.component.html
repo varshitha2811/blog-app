@@ -22,11 +22,16 @@
                 <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="text" id="name"
                     name="name" [value]="author_name" readonly>
             </div>
+
             <div class="mb-4">
-                <label class="block text-sm font-medium mb-1" for="title">Blog-Title</label>
-                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="text" id="title"
-                    name="title" [(ngModel)]="title" required>
+                <label class="block text-sm font-medium mb-1" for="title">Blog Title</label>
+                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200"
+                       type="text" id="title" name="title"
+                       [(ngModel)]="title" required
+                       (blur)="showTitleError = true">
+                <p *ngIf="showTitleError && !title" class="text-red-600">Title is required.</p>
             </div>
+            
 
             <div class="mb-4">
                 <label class="block text-sm font-medium mb-1">Select Tags</label>
@@ -97,13 +102,20 @@
             <div class="mb-4">
                 <label class="block text-sm font-medium mb-1" for="description">Write Your Blog</label>
                 <textarea class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" id="description"
-                    name="description" rows="8" [(ngModel)]="description" required></textarea>
+                    name="description" (input)='countChar()' rows="8" [(ngModel)]="description" #desInput="ngModel" required></textarea>
+                <p *ngIf="!validDescritption && desInput.touched " class="text-red-700">please enter {{25-charCount}} more characters</p>
             </div>
+
             <div class="mb-4">
                 <label class="block text-sm font-medium mb-1" for="url">Add URL of Images (If you're interested)</label>
-                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="url" id="url"
-                    name="url" [(ngModel)]="url" required>
+                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200"
+                       type="url" id="url" name="url"
+                       [(ngModel)]="url" #urlInput="ngModel" required
+                       pattern="https?://.+">
+                <p *ngIf="urlInput.invalid && (urlInput.dirty || urlInput.touched)" class="text-red-600">Invalid URL.</p>
             </div>
+            
+            
             <button *ngIf="areAllFieldsFilled()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                 type="submit" [disabled]="!areAllFieldsFilled()">Create Blog</button>
             <button *ngIf="!areAllFieldsFilled()" class="bg-gray-400 text-white px-4 py-2 rounded-md" type="submit"

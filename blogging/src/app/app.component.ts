@@ -19,11 +19,9 @@ export class AppComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         const currentRoute = this.router.url.split('/')[1]; 
         const excludedRoutes = ['sign-up', 'login']; 
-       console.log(excludedRoutes);
       
        this.showHeader = !excludedRoutes.includes(currentRoute);
        this.showFooter = !excludedRoutes.includes(currentRoute);
-       console.log(this.showFooter,this.showHeader)
       }
     });
   }

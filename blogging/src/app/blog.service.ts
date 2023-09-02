@@ -155,7 +155,6 @@ export class BlogService {
 
   addBlog(newBlog: any): void {
     const storedData = this.getStoredData();
-    newBlog.tags = newBlog.tags.map((tag: string) => tag.toUpperCase());
     storedData.push(newBlog);
     localStorage.setItem(this.storageKey, JSON.stringify(storedData));
   }
