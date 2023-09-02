@@ -15,7 +15,7 @@
             </a>
             <div class="p-5">
               <a [routerLink]="['/display-blog', i]">
-                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline">{{
+                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words">{{
                   blog.title }}</h5>
               </a>
               <p class="text-gray-600 dark:text-gray-300">By {{ blog.author }}</p>
@@ -41,7 +41,7 @@
               </a>
               <div class="p-5">
                 <a [routerLink]="['/display-blog', blogs.length-(i+1)]">
-                  <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline">{{
+                  <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words+-">{{
                     blog.title }}</h5>
                 </a>
                 <p class="text-gray-600 dark:text-gray-300">By {{ blog.author }}</p>
