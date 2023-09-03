@@ -20,8 +20,7 @@
         <label for="password" class="block text-gray-700 font-medium mb-2">Password:</label>
         <input type="password" id="password" [(ngModel)]="password" name="password"
           class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500" required>
-        <p *ngIf="errorMessage && errorMessage.includes('Username')" class="text-red-600">Username and password does not
-          match.</p>
+        <p *ngIf="errorMessage && errorMessage.includes('Username')" class="text-red-600">{{errorMessage}}</p>
       </div>
       <button type="submit"
         class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300">

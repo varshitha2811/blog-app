@@ -20,7 +20,7 @@ export class LoginComponent {
         this.router.navigate(['/home']);
       }
       else {
-        this.errorMessage = 'Username already exists. Please choose a different username.';
+        this.errorMessage = 'Username and password does not match.';
       }
     }
   }

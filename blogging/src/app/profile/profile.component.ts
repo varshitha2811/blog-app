@@ -16,6 +16,7 @@ export class ProfileComponent {
   loginUserName: string = "";
   blogs: any[] = [];
   filterData: any[] = [];
+  
 
   constructor(private route: ActivatedRoute, private blogService: BlogService, private authService: AuthService, private router: Router) { }
 
@@ -37,7 +38,6 @@ export class ProfileComponent {
           Author.includes(this.loginName) && UserName.includes(this.loginUserName)
 
         );
-
       });
   }
 

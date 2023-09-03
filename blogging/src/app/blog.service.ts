@@ -195,26 +195,6 @@ export class BlogService {
       this.updateComments(blogIndex, updatedComments);
     }
   }
-  // addComment(blogIndex: number, comment: any): void {
-  //   const storedData = this.getStoredData();
-  //   const blogEntry = storedData[blogIndex];
-
-  //   if (!Array.isArray(blogEntry.comments)) {
-  //     blogEntry.comments = [];
-  //   }
-
-  //   const existingCommentIndex = blogEntry.comments.findIndex((existingComment: { id: any; }) => {
-  //     return existingComment.id === comment.id;
-  //   });
-
-  //   if (existingCommentIndex === -1) {
-  //     blogEntry.comments.push(comment);
-
-  //     localStorage.setItem(this.storageKey, JSON.stringify(storedData));
-  //     this.updateComments(blogIndex, blogEntry.comments);
-
-  //   }
-  // }
   addComment(blogIndex: number, comment: Comment): void {
     const storedData = this.getStoredData();
     const blogEntry = storedData[blogIndex];

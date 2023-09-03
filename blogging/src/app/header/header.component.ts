@@ -10,13 +10,12 @@ export class HeaderComponent {
   searchTerm: string = '';
   constructor(private router: Router) { }
   toggleNavbarSearch() {
-      this.isNavbarSearchVisible = !this.isNavbarSearchVisible;
+    this.isNavbarSearchVisible = !this.isNavbarSearchVisible;
   }
   toggleNavbar() {
     this.isNavbarSearchVisible = !this.isNavbarSearchVisible;
   }
   handleSearch() {
-    console.log('handleSearch() called');
     if (this.searchTerm.trim() !== '') {
       this.router.navigate(['/search-list', this.searchTerm]);
     }

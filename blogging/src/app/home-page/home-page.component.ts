@@ -14,5 +14,4 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.blogs = this.blogService.getStoredData();
   }
-  
 }

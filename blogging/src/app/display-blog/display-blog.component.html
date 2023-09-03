@@ -46,16 +46,17 @@
       <form (ngSubmit)="submitComment()" #commentForm="ngForm">
         <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Comment Section</label>
         <div class="mt-2">
-          <textarea id="about" name="about" rows="2" [(ngModel)]="newComment"
+          <textarea id="about" name="about" rows="2" (input)="resetCommentSection()" [(ngModel)]="newComment"
             class="block w-full rounded-md border-0 px-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6"
             placeholder="Write your comment..." required></textarea>
         </div>
+        <p *ngIf="errorStatus" class="text-red-700">{{ErrorMessage}}</p>
         <div class="mt-6 flex items-center justify-end gap-x-6">
           <button type="button" (click)="cancelComment()"
             class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
           <button (click)="submitComment()"
             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Submit</button>
+            Post</button>
         </div>
       </form>
     </div>

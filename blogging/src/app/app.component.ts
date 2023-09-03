@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute ,NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,6 @@ import { Router, ActivatedRoute ,NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
   showHeader = true;
   showFooter = true;
   searchTerm: string = '';
@@ -17,11 +14,16 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        const currentRoute = this.router.url.split('/')[1]; 
-        const excludedRoutes = ['sign-up', 'login']; 
-      
-       this.showHeader = !excludedRoutes.includes(currentRoute);
-       this.showFooter = !excludedRoutes.includes(currentRoute);
+        const currentRoute = this.router.url.split('/')[1];
+        const excludedRoutes = ['sign-up', 'login'];
+
+        if (currentRoute === 'profile') {
+          this.showFooter = false;
+        } else {
+          this.showFooter = true;
+        }
+
+        this.showHeader = !excludedRoutes.includes(currentRoute);
       }
     });
   }
@@ -33,3 +35,4 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/search-list', this.searchTerm]);
   }
 }
+

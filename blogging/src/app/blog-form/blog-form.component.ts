@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../auth.service';
-import { ActivatedRoute , Navigation, Router } from '@angular/router';
+import { ActivatedRoute, Navigation, Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog-form',
@@ -16,17 +16,17 @@ export class BlogFormComponent {
   url: string = '';
   time: Date | undefined;
   comments: object | any;
-  isSuccess: boolean = false;
   user: any;
   author_name: string = '';
   userName: string = '';
   showTitleError: boolean = false;
-  charCount:number=0;
-  validDescritption:boolean=false;
+  charCount: number = 0;
+  validDescritption: boolean = false;
+  isUrlInvalid: boolean = false;
 
   @ViewChild('myCheckbox') myCheckboxRef!: ElementRef<HTMLInputElement>;
-titleInput: any;
-  constructor(private blogService: BlogService, private authService: AuthService,private route:ActivatedRoute,private router:Router) { }
+  titleInput: any;
+  constructor(private blogService: BlogService, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit() {
     this.user = this.authService.getLoggedInUser();
     this.author_name = this.user.name;
@@ -40,9 +40,11 @@ titleInput: any;
       this.tags.length > 0
     );
   }
+
   submitBlog(): void {
     const defaultUrl = 'https://images.unsplash.com/photo-1505744386214-51dba16a26fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1306&q=80';
     const descriptionParagraphs = this.description.split('\n');
+
     const newBlog = {
       title: this.title,
       author: this.author_name,
@@ -53,20 +55,18 @@ titleInput: any;
       time: new Date(),
       userName: this.userName,
     };
-    this.isSuccess = true;
-    this.author = this.author;
     this.blogService.addBlog(newBlog);
-    this.isSuccess = true;
     this.resetForm();
     if (this.myCheckboxRef) {
       this.myCheckboxRef.nativeElement.checked = false;
-    }    
+    }
     this.router.navigate(['/profile']);
   }
-  countChar(){
-    this.charCount=this.description.length
-    if(this.charCount>=25)  {
-      this.validDescritption=true;
+
+  countChar() {
+    this.charCount = this.description.length
+    if (this.charCount >= 25) {
+      this.validDescritption = true;
     }
   }
 

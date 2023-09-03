@@ -13,6 +13,8 @@ export class SignUpComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  passwordError: boolean = false;
+  errorStatus: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -25,6 +27,10 @@ export class SignUpComponent {
       const existingUser = this.authService.getUserByUsername(this.username);
       if (existingUser) {
         this.errorMessage = 'Username already exists. Please choose a different username.';
+        this.errorStatus = true;
+      }
+      else if (this.password.length < 8) {
+        this.passwordError = true;
       } else {
         this.authService.signUp(this.name, this.username, this.password);
         this.router.navigate(['/login']);
@@ -33,6 +39,9 @@ export class SignUpComponent {
       this.errorMessage = 'Username and password are required.';
     }
   }
-
+  resetPasswordError() {
+    this.passwordError = false;
+    this.errorStatus = false;
+  }
 }
 
