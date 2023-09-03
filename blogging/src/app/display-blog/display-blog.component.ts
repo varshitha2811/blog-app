@@ -22,6 +22,8 @@ export class DisplayBlogComponent implements OnInit {
   user: any;
   userName: string = '';
   name: string = '';
+  ErrorMessage: string = '';
+  errorStatus: boolean = false;
   constructor(private route: ActivatedRoute, private blogService: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -47,12 +49,18 @@ export class DisplayBlogComponent implements OnInit {
   }
 
   submitComment(): void {
-    const commentObject: Comment  = {
-      name: this.userName,
-      comment: this.newComment
-    };
-    this.blogService.addComment(this.blogIndex, commentObject);
-    this.newComment = '';
+    if (this.newComment.trim() !== '') {
+      const commentObject: Comment = {
+        name: this.userName,
+        comment: this.newComment
+      };
+      this.blogService.addComment(this.blogIndex, commentObject);
+      this.newComment = '';
+    }
+    else {
+      this.errorStatus = true;
+      this.ErrorMessage = "Please add comment to post";
+    }
   }
 
   deleteComment(blogIndex: number, commentIndex: number): void {
@@ -68,5 +76,8 @@ export class DisplayBlogComponent implements OnInit {
 
   isDescriptionArray(description: any): boolean {
     return Array.isArray(description);
+  }
+  resetCommentSection() {
+    this.errorStatus = false;
   }
 }
