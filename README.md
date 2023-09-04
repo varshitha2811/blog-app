@@ -25,4 +25,6 @@ blog-app(Ink and Insights) is a web-based blog application that allows users to 
    ```bash
    git clone https://github.com/your-username/blog-app.git
    cd blog app
+   npm install -g @angular/cli
+
 2.Use ng serve to run the apllication.
