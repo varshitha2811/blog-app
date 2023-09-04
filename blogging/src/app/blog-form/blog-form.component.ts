@@ -23,6 +23,7 @@ export class BlogFormComponent {
   charCount: number = 0;
   validDescritption: boolean = false;
   isUrlInvalid: boolean = false;
+  customTags: string = '';
 
   @ViewChild('myCheckbox') myCheckboxRef!: ElementRef<HTMLInputElement>;
   titleInput: any;
@@ -44,12 +45,13 @@ export class BlogFormComponent {
   submitBlog(): void {
     const defaultUrl = 'https://images.unsplash.com/photo-1505744386214-51dba16a26fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1306&q=80';
     const descriptionParagraphs = this.description.split('\n');
+    const customTagsArray = this.customTags.split(',').map(tag => tag.trim());
 
     const newBlog = {
       title: this.title,
       author: this.author_name,
       description: descriptionParagraphs,
-      tags: this.tags,
+      tags: customTagsArray,
       url: this.url ? this.url : defaultUrl,
       comment: this.comments,
       time: new Date(),
@@ -79,11 +81,13 @@ export class BlogFormComponent {
     this.time = undefined;
   }
 
-  onTagChange(tag: string): void {
-    if (!this.tags.includes(tag)) {
-      this.tags.push(tag);
-    } else {
-      this.tags = this.tags.filter(t => t !== tag);
-    }
+  onCustomTagsInputChange(): void {
+    const inputTags = this.customTags.split(',').map(tag => tag.trim());
+    const validTags = inputTags.filter(tag => tag !== '');
+    this.tags = validTags;
+  }
+  removeTag(tag: string): void {
+    this.tags = this.tags.filter(t => t !== tag);
+    this.customTags = this.tags.join(', ');
   }
 }

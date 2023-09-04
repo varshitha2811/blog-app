@@ -17,68 +17,16 @@
                 <p *ngIf="showTitleError && !title" class="text-red-600">Title is required.</p>
             </div>
             <div class="mb-4">
-                <label class="block text-sm font-medium mb-1">Select Tags</label>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Technology"
-                            (change)="onTagChange('Technology')">
-                        <span>Technology</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Lifestyle"
-                            (change)="onTagChange('Lifestyle')">
-                        <span>Lifestyle</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Travel"
-                            (change)="onTagChange('Travel')">
-                        <span>Travel</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Food"
-                            (change)="onTagChange('Food')">
-                        <span>Food</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Android"
-                            (change)="onTagChange('Android')">
-                        <span>Android</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Web Development"
-                            (change)="onTagChange('Web Development')">
-                        <span>Web Development</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Illustrator"
-                            (change)="onTagChange('Illustrator')">
-                        <span>Illustrator</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Design System"
-                            (change)="onTagChange('Design System')">
-                        <span>Design System</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Business"
-                            (change)="onTagChange('Business')">
-                        <span>Business</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="React"
-                            (change)="onTagChange('React')">
-                        <span>React</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Meditation"
-                            (change)="onTagChange('Meditation')">
-                        <span>Meditation</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" #myCheckbox class="form-checkbox" name="tags" value="Nature"
-                            (change)="onTagChange('Nature')">
-                        <span>Nature</span>
-                    </label>
+                <label for="customTags" class="block text-gray-700 font-medium mb-2">Tags to find your blog.
+                    (comma-separated):</label>
+                <input type="text" id="customTags" [(ngModel)]="customTags" name="customTags"
+                    class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                    placeholder="Enter tags..." (input)="onCustomTagsInputChange()">
+            </div>
+            <div class="flex flex-wrap">
+                <div *ngFor="let tag of tags"
+                    class="border border-gray-300 px-2 py-1 mx-2 rounded-lg hover:border-blue-500 hover:bg-blue-100 transition-colors cursor-pointer">
+                    {{ tag }} <span (click)="removeTag(tag)" class="cursor-pointer ml-1">×</span>
                 </div>
             </div>
             <div class="mb-4">
