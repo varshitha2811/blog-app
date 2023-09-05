@@ -25,6 +25,8 @@ blog-app(Ink and Insights) is a web-based blog application that allows users to 
    ```bash
    https://github.com/varshitha2811/blog-app.git
    cd blog app
+   cd blogging
    npm install -g @angular/cli
 
-2.Use ng serve to run the apllication.
+2.Use ng serve --host 0.0.0.0 --port port-number to run the apllication.
+  
