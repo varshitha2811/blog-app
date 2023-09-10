@@ -44,4 +44,3 @@ export class SignUpComponent {
     this.errorStatus = false;
   }
 }
-
