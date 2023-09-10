@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as CryptoJS from 'crypto-js';
 
 interface User {
   name: string;
@@ -14,15 +15,18 @@ export class AuthService {
 
   constructor() { }
 
-  signUp(newUser: User): void {
+  signUp(name: string, username: string, password: string): void {
+    const hashedPassword = CryptoJS.SHA256(password).toString();
+    const user = { name, username, password: hashedPassword };
     const users = this.getStoredUsers();
-    users.push(newUser);
+    users.push(user);
     this.saveUsers(users);
   }
 
   login(username: string, password: string): boolean {
     const users = this.getStoredUsers();
-    const user = users.find((u) => u.username === username && u.password === password);
+    const hashedPassword = CryptoJS.SHA256(password).toString();
+    const user = users.find(u => u.username === username && u.password === hashedPassword);
     if (user) {
       localStorage.setItem('loggedInUser', JSON.stringify(user));
       return true;
@@ -57,5 +61,3 @@ export class AuthService {
     return user ? { ...user } : null;
   }
 }
-
-

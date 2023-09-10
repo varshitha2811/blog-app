@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthService } from './auth.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,

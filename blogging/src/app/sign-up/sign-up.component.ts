@@ -30,20 +30,15 @@ export class SignUpComponent {
 
   signUp() {
     if (this.name && this.username && this.password) {
-      const existingUser = this.authService.getUserByUsername(this.username);
-      if (existingUser) {
-        this.errorMessage =
-          'Username already exists. Please choose a different username.';
-        this.errorStatus = true;
-      } else if (this.password.length < 8) {
+      if (this.password.length < 8) {
         this.passwordError = true;
       } else {
-        const newUser: User = {
-          name: this.name,
-          username: this.username,
-          password: this.password,
-        };
-        this.authService.signUp(newUser);
+        this.authService.signUp(this.name, this.username, this.password);
+        this.name = '';
+        this.username = '';
+        this.password = '';
+        this.passwordError = false;
+        this.errorMessage = '';
         this.router.navigate(['/login']);
       }
     } else {
@@ -51,8 +46,10 @@ export class SignUpComponent {
     }
   }
 
+
   resetPasswordError() {
     this.passwordError = false;
     this.errorStatus = false;
   }
 }
+
