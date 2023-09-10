@@ -1,30 +1,34 @@
 import { Injectable } from '@angular/core';
 
+interface User {
+  name: string;
+  username: string;
+  password: string;
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private storageKey = 'userData';
 
   constructor() { }
 
-  signUp(name: string, username: string, password: string): void {
-    const user = { name, username, password };
+  signUp(newUser: User): void {
     const users = this.getStoredUsers();
-    users.push(user);
+    users.push(newUser);
     this.saveUsers(users);
   }
 
   login(username: string, password: string): boolean {
     const users = this.getStoredUsers();
-    const user = users.find(u => u.username === username && u.password === password);
+    const user = users.find((u) => u.username === username && u.password === password);
     if (user) {
       localStorage.setItem('loggedInUser', JSON.stringify(user));
       return true;
     }
     return false;
   }
-
   logout(): void {
     localStorage.removeItem('loggedInUser');
   }
@@ -38,18 +42,18 @@ export class AuthService {
     return userString ? JSON.parse(userString) : null;
   }
 
-  private getStoredUsers(): any[] {
+  private getStoredUsers(): User[] {
     const usersString = localStorage.getItem(this.storageKey);
     return usersString ? JSON.parse(usersString) : [];
   }
 
-  private saveUsers(users: any[]): void {
+  private saveUsers(users: User[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify(users));
   }
 
-  getUserByUsername(username: string): any | null {
+  getUserByUsername(username: string): User | null {
     const users = this.getStoredUsers();
-    const user = users.find(u => u.username === username);
+    const user = users.find((u) => u.username === username);
     return user ? { ...user } : null;
   }
 }

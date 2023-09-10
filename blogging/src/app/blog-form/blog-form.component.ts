@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { BlogService } from '../blog.service';
+import { BlogService, blog } from '../blog.service';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Navigation, Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ export class BlogFormComponent {
   tags: string[] = [];
   url: string = '';
   time: Date | undefined;
-  comments: object | any;
+  comments: object[] = [];
   user: any;
   author_name: string = '';
   userName: string = '';
@@ -47,14 +47,14 @@ export class BlogFormComponent {
     const descriptionParagraphs = this.description.split('\n');
     const customTagsArray = this.customTags.split(',').map(tag => tag.trim());
 
-    const newBlog = {
+    const newBlog: blog = {
       title: this.title,
       author: this.author_name,
       description: descriptionParagraphs,
       tags: customTagsArray,
       url: this.url ? this.url : defaultUrl,
-      comment: this.comments,
-      time: new Date(),
+      comments: this.comments,
+      time: new Date().toString(),
       userName: this.userName,
     };
     this.blogService.addBlog(newBlog);

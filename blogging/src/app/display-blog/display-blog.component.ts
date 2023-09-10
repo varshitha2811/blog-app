@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BlogService } from '../blog.service';
+import { BlogService, blog } from '../blog.service';
 import { AuthService } from '../auth.service';
 import { comma } from 'postcss/lib/list';
 
@@ -16,7 +16,7 @@ interface Comment {
 export class DisplayBlogComponent implements OnInit {
   blogIndex!: number;
   blogData: any;
-  blogs: any[] = [];
+  blogs: blog[] = [];
   blog: any;
   newComment: string = '';
   user: any;
@@ -40,7 +40,7 @@ export class DisplayBlogComponent implements OnInit {
     });
   }
 
-  objectKeys(obj: any): string[] {
+  objectKeys(obj: object): string[] {
     return Object.keys(obj);
   }
 
