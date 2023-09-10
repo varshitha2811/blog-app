@@ -18,6 +18,7 @@ export class ProfileComponent {
   filterData: any[] = [];
   
 
+
   constructor(private route: ActivatedRoute, private blogService: BlogService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {

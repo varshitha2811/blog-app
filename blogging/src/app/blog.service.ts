@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { data } from 'autoprefixer';
 import { BehaviorSubject, Observable } from 'rxjs';
 interface Comment {
   name: string;
@@ -186,7 +184,6 @@ export class BlogService {
     localStorage.setItem(this.storageKey, JSON.stringify(storedData));
     this.commentsSubject.next(comments);
   }
-
   getComments(blogIndex: number): Observable<any[]> {
     const storedData = this.getStoredData();
     const comments = storedData[blogIndex].comments || {};
@@ -194,6 +191,20 @@ export class BlogService {
     return this.comments$;
   }
 
+  getBlogsByTitle(title: string): Observable<blog[]> {
+    const storedData = this.getStoredData();
+    const filteredBlogs = storedData.filter(blog => blog.title.toLowerCase().includes(title.toLowerCase()));
+    return new Observable<blog[]>(observer => {
+      observer.next(filteredBlogs);
+      observer.complete();
+    });
+  }
+  updateBlog(blogIndex: number, updatedBlog: any): void {
+    const storedData = this.getStoredData();
+    storedData[blogIndex] = updatedBlog;
+    localStorage.setItem(this.storageKey, JSON.stringify(storedData));
+  }
+  
   deleteComment(blogIndex: number, commentIndex: number): void {
     const storedData = this.getStoredData();
     if (storedData[blogIndex]?.comments instanceof Array) {

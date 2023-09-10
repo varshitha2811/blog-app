@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BlogService, blog } from '../blog.service';
 import { AuthService } from '../auth.service';
-import { comma } from 'postcss/lib/list';
+import { BlogService, blog } from '../blog.service';
 
 interface Comment {
   name: string;
