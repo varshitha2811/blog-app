@@ -19,6 +19,9 @@ export class LoginComponent {
       if (this.authService.login(this.username, this.password)) {
         this.router.navigate(['/home']);
       }
+      else if(!(this.authService.getUserByUsername(this.username))){
+        this.errorMessage = 'User not found';
+      }
       else {
         this.errorMessage = 'Username and password does not match.';
       }
