@@ -29,3 +29,4 @@ export class EditBlogComponent implements OnInit {
     this.router.navigate(['/profile']);
   }
 }
+
