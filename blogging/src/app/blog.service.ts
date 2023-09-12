@@ -31,12 +31,10 @@ export class BlogService {
   private commentsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   comments$: Observable<any[]> = this.commentsSubject.asObservable();
 
-
-  addBlog(newBlog: any): void {
-    const storedData = this.getStoredData();
-    storedData.push(newBlog);
-    localStorage.setItem(this.storageKey, JSON.stringify(storedData));
+  addBlog(newBlog: blog): Observable<blog> {
+    return this.http.post<blog>(`${this.apiUrl}/add`, newBlog);
   }
+
   getStoredData(): any[] {
     const storedData = localStorage.getItem(this.storageKey);
     return storedData ? JSON.parse(storedData) : [];

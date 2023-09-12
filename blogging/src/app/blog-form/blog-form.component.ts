@@ -57,7 +57,9 @@ export class BlogFormComponent {
       time: new Date().toString(),
       userName: this.userName,
     };
-    this.blogService.addBlog(newBlog);
+    this.blogService.addBlog(newBlog).subscribe(addedBlog => {
+      console.log('Added blog:', addedBlog);
+    });
     this.resetForm();
     if (this.myCheckboxRef) {
       this.myCheckboxRef.nativeElement.checked = false;

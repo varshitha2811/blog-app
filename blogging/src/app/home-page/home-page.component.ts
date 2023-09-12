@@ -9,9 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomePageComponent implements OnInit {
   blogs: any[] = [];
-  constructor(private blogService:BlogService,private http: HttpClient) {
-    // getAllPosts()
-   }
+  constructor(private blogService:BlogService,private http: HttpClient) {}
    ngOnInit() {
     this.blogService.getAllPosts().subscribe((data: any[]) => {
       this.blogs=data;
