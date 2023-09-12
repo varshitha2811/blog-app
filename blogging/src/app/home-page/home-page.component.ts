@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { BlogService } from '../blog.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home-page',
@@ -8,10 +9,13 @@ import { BlogService } from '../blog.service';
 })
 export class HomePageComponent implements OnInit {
   blogs: any[] = [];
-
-  constructor(private blogService: BlogService) { }
-
-  ngOnInit(): void {
-    this.blogs = this.blogService.getStoredData();
+  constructor(private blogService:BlogService,private http: HttpClient) {
+    // getAllPosts()
+   }
+   ngOnInit() {
+    this.blogService.getAllPosts().subscribe((data: any[]) => {
+      this.blogs=data;
+      console.log(this.blogs);
+    });
   }
 }
