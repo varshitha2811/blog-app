@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../blog.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-list',
@@ -19,7 +18,9 @@ export class SearchListComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.searchedTag = params['tag'];
-      this.blogs = this.blogService.getStoredData();
+      this.blogService.getAllPosts().subscribe((data: any[]) => {
+        this.blogs=data;
+      });
       this.filterBlogs();
     });
   }
