@@ -1,6 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { BlogService } from '../blog.service';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-home-page',
@@ -13,7 +13,6 @@ export class HomePageComponent implements OnInit {
    ngOnInit() {
     this.blogService.getAllPosts().subscribe((data: any[]) => {
       this.blogs=data;
-      console.log(this.blogs);
     });
   }
 }

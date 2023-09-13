@@ -29,7 +29,9 @@ export class DisplayBlogComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.blogIndex = +params['index'];
     });
-    this.blogs = this.blogService.getStoredData();
+    this.blogService.getAllPosts().subscribe(data => {
+      this.blogs = data;
+    });
     this.blogData = this.blogs[this.blogIndex];
     this.user = this.authService.getLoggedInUser();
     this.name = this.user.name;

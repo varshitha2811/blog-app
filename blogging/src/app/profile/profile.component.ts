@@ -25,7 +25,9 @@ export class ProfileComponent {
     this.user = this.authService.getLoggedInUser();
     this.loginName = this.user.name;
     this.loginUserName = this.user.username;
-    this.blogs = this.blogService.getStoredData();
+    this.blogService.getAllPosts().subscribe((data: any[]) => {
+      this.blogs=data;
+    });
     this.filterBlogs();
   }
 

@@ -21,7 +21,9 @@ export class EditBlogComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.blogIndex = +params['index'];
     });
-    this.blogData = this.blogService.getStoredData()[this.blogIndex];
+    this.blogService.getAllPosts().subscribe(data => {
+      this.blogData = data[this.blogIndex];
+    });
   }
 
   updateBlog(): void {
