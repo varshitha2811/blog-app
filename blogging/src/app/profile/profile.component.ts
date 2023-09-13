@@ -16,7 +16,7 @@ export class ProfileComponent {
   loginUserName: string = "";
   blogs: any[] = [];
   filterData: any[] = [];
-  
+
 
 
   constructor(private route: ActivatedRoute, private blogService: BlogService, private authService: AuthService, private router: Router) { }
@@ -25,7 +25,9 @@ export class ProfileComponent {
     this.user = this.authService.getLoggedInUser();
     this.loginName = this.user.name;
     this.loginUserName = this.user.username;
-    this.blogs = this.blogService.getStoredData();
+    this.blogService.getAllPosts().subscribe((data: any[]) => {
+      this.blogs = data;
+    });
     this.filterBlogs();
   }
 
@@ -42,12 +44,13 @@ export class ProfileComponent {
       });
   }
 
-  deleteBlog(index: number): void {
-    const shouldDelete = window.confirm('Are you sure you want to delete this blog?');
-    if (shouldDelete) {
-      this.blogService.deleteBlog(index);
-      this.filterData = this.filterData.filter((blog: any) => blog.id !== index);
-    }
+  deleteBlog(blogId: string): void {
+    this.blogService.deleteBlog(blogId).subscribe(
+      () => {
+      },
+      (error: any) => {
+      }
+    );
   }
 
   userlogout() {
@@ -55,6 +58,3 @@ export class ProfileComponent {
     this.router.navigate(['/login']);
   }
 }
-
-
-

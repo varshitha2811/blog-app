@@ -14,7 +14,7 @@ export class HeaderComponent {
   constructor(
     private route: Router,
   ) { }
-  
+
   handleSearch() {
     if (this.searchText.trim() !== '') {
       this.route.navigate(['/search-list', this.searchText]);

@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { BlogService } from '../blog.service';
+import { BlogService, blog } from '../blog.service';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -8,12 +9,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  blogs: any[] = [];
-  constructor(private blogService:BlogService,private http: HttpClient) {}
-   ngOnInit() {
+  blogs: blog[] = [];
+
+  constructor(private blogService: BlogService, private http: HttpClient, private router: Router) { }
+  ngOnInit() {
     this.blogService.getAllPosts().subscribe((data: any[]) => {
-      this.blogs=data;
-      console.log(this.blogs);
+      this.blogs = data;
     });
+  }
+  navigate(id: string) {
+    console.log(id)
+    this.router.navigate(['/blogs', id])
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 interface Comment {
@@ -6,6 +6,7 @@ interface Comment {
   comment: string;
 }
 export interface blog {
+  id?:any;
   title: string;
   author: string;
   description: string[];
@@ -19,47 +20,45 @@ export interface blog {
   providedIn: 'root'
 })
 export class BlogService {
+  
   private storageKey = 'blogData';
   private apiUrl = 'http://localhost:8080/blogs';
-  constructor(private http:HttpClient) {    
-  }
+  constructor(private http:HttpClient) {}
 
   getAllPosts(): Observable<any> {
     return this.http.get(`${this.apiUrl}/home`);
   }
-  private storedData: any[] = this.getStoredData();
   private commentsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   comments$: Observable<any[]> = this.commentsSubject.asObservable();
-
+  
+  getBlogById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+    
+  }
   addBlog(newBlog: blog): Observable<blog> {
     return this.http.post<blog>(`${this.apiUrl}/add`, newBlog);
   }
+  deleteBlog(index: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/delete/${index}`);
+  } 
+  filterBlogsByAuthorAndUserName(author: string, userName: string): Observable<blog[]> {
+    const params = new HttpParams()
+      .set('author', author)
+      .set('userName', userName);
 
+    return this.http.get<blog[]>(`${this.apiUrl}/filter`, { params });
+  }
   getStoredData(): any[] {
     const storedData = localStorage.getItem(this.storageKey);
     return storedData ? JSON.parse(storedData) : [];
   }
-  deleteBlog(index: number): void {
-    const storedData = this.getStoredData();
-
-    if (index >= 0 && index < storedData.length) {
-      storedData.splice(index, 1);
-      localStorage.setItem(this.storageKey, JSON.stringify(storedData));
-    }
+  
+  updateComments(blogIndex: String, comments: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update-comments/${blogIndex}`, { comments });
   }
-  updateComments(blogIndex: number, comments: any): void {
-    const storedData = this.getStoredData();
-    storedData[blogIndex].comments = comments;
-    localStorage.setItem(this.storageKey, JSON.stringify(storedData));
-    this.commentsSubject.next(comments);
+  getComments(blogIndex: String): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/comments/${blogIndex}`);
   }
-  getComments(blogIndex: number): Observable<any[]> {
-    const storedData = this.getStoredData();
-    const comments = storedData[blogIndex].comments || {};
-    this.commentsSubject.next(comments);
-    return this.comments$;
-  }
-
   getBlogsByTitle(title: string): Observable<blog[]> {
     const storedData = this.getStoredData();
     const filteredBlogs = storedData.filter(blog => blog.title.toLowerCase().includes(title.toLowerCase()));
@@ -68,36 +67,14 @@ export class BlogService {
       observer.complete();
     });
   }
-  updateBlog(blogIndex: number, updatedBlog: any): void {
-    const storedData = this.getStoredData();
-    storedData[blogIndex] = updatedBlog;
-    localStorage.setItem(this.storageKey, JSON.stringify(storedData));
+  addComment(blogId: string, comment: Comment): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/add-comment/${blogId}`, comment);
+  }
+  updateBlog(blogIndex: number, updatedBlog: blog): Observable<blog> {
+    return this.http.put<blog>(`${this.apiUrl}/update-blog/${blogIndex}`, updatedBlog);
+  }
+  deleteComment(blogIndex: string, commentIndex: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/delete-comment/${blogIndex}/${commentIndex}`);
   }
   
-  deleteComment(blogIndex: number, commentIndex: number): void {
-    const storedData = this.getStoredData();
-    if (storedData[blogIndex]?.comments instanceof Array) {
-      storedData[blogIndex].comments.splice(commentIndex, 1);
-      const updatedComments = [...storedData[blogIndex].comments];
-      storedData[blogIndex].comments = updatedComments;
-
-      localStorage.setItem(this.storageKey, JSON.stringify(storedData));
-      this.updateComments(blogIndex, updatedComments);
-    }
-  }
-  addComment(blogIndex: number, comment: Comment): void {
-    const storedData = this.getStoredData();
-    const blogEntry = storedData[blogIndex];
-    if (!Array.isArray(blogEntry.comments)) {
-      blogEntry.comments = [];
-    }
-    const existingCommentIndex = blogEntry.comments.findIndex((existingComment: Comment) => {
-      return existingComment.name === comment.name && existingComment.comment === comment.comment;
-    });
-    if (existingCommentIndex === -1) {
-      blogEntry.comments.push(comment);
-      localStorage.setItem(this.storageKey, JSON.stringify(storedData));
-      this.updateComments(blogIndex, blogEntry.comments);
-    }
-  }
 }

@@ -11,11 +11,13 @@ import { SearchListComponent } from './search-list/search-list.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 
-const routes: Routes = [{ path: '', redirectTo: '/login', pathMatch: 'full' }, 
-  { path: 'home', component: HomePageComponent },
-  { path: 'display-blog/:index', component: DisplayBlogComponent },
+const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
+  { path:" ", redirectTo:'blogs/home', pathMatch:'full' },
+  { path: 'blogs/home', component: HomePageComponent },
+  { path: 'blogs/:id', component: DisplayBlogComponent },
   { path: 'search-list/:tag', component: SearchListComponent },
-  { path: 'write-blog', component: BlogFormComponent },
+  { path: 'blog/write-blog', component: BlogFormComponent, },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent},
   {path: 'profile',component:ProfileComponent},

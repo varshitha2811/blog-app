@@ -17,9 +17,9 @@ export class LoginComponent {
   login() {
     if (this.username && this.password) {
       if (this.authService.login(this.username, this.password)) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/blogs/home']);
       }
-      else if(!(this.authService.getUserByUsername(this.username))){
+      else if (!(this.authService.getUserByUsername(this.username))) {
         this.errorMessage = 'User not found';
       }
       else {

@@ -58,7 +58,6 @@ export class BlogFormComponent {
       userName: this.userName,
     };
     this.blogService.addBlog(newBlog).subscribe(addedBlog => {
-      console.log('Added blog:', addedBlog);
     });
     this.resetForm();
     if (this.myCheckboxRef) {
