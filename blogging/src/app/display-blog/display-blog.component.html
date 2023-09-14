@@ -31,15 +31,25 @@
                 <strong>{{ comment.value.name }}:</strong>
                 <span>{{ comment.value.comment }}</span>
               </div>
-              <button *ngIf="comment.value.name === userName" class="text-red-600 hover:text-red-900"
-                (click)="deleteComment(blogIndex, commentIndex)">
-                Delete
-              </button>
             </div>
           </li>
-        </ng-container>
-      </ul>
-    </div> -->
+        </ng-container> -->
+        <div class="mt-4">
+          <h3 class="text-xl font-semibold mb-2">Comments</h3>
+          <ul class="space-y-4">
+            <ng-container *ngFor="let comment of blogData.comments; let commentIndex = index">
+              <li *ngIf="isComment(comment)">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <strong>{{ comment.name }}:</strong>
+                    <span>{{ comment.comment }}</span>
+                  </div>
+              
+                </div>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
   </article>
   <div class="border-b border-gray-900/10 pb-12 bg-white shadow-md rounded-lg p-6 sm:p-8 my-1">
     <div class="col-span-full">

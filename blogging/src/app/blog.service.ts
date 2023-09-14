@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-interface Comment {
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
+export interface Comment {
   name: string;
   comment: string;
 }
@@ -68,13 +68,19 @@ export class BlogService {
     });
   }
   addComment(blogId: string, comment: Comment): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/add-comment/${blogId}`, comment);
+    return this.http.post<any>(`${this.apiUrl}/add-comment/${blogId}`, comment)
+      .pipe(
+        catchError((error) => {
+          console.error('Error adding comment:', error);
+          return throwError('Error adding comment. Please try again later.');
+        })
+      );
   }
   updateBlog(blogIndex: number, updatedBlog: blog): Observable<blog> {
     return this.http.put<blog>(`${this.apiUrl}/update-blog/${blogIndex}`, updatedBlog);
   }
-  deleteComment(blogIndex: string, commentIndex: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/delete-comment/${blogIndex}/${commentIndex}`);
+  searchBlogs(searchTerm: string): Observable<blog[]> {
+    return this.http.get<blog[]>(`${this.apiUrl}/search/${searchTerm}`);
   }
   
 }
