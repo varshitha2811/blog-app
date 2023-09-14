@@ -17,7 +17,7 @@ export class HeaderComponent {
 
   handleSearch() {
     if (this.searchText.trim() !== '') {
-      this.route.navigate(['/search-list', this.searchText]);
+      this.route.navigate(['search-list', this.searchText]);
     }
     this.searchText = '';
     this.isMenu = !this.isMenu;

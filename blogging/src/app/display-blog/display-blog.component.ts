@@ -40,7 +40,6 @@ export class DisplayBlogComponent implements OnInit {
       }
     });
 
-    // this.blogData = this.blogs[this.blogIndex];
     this.user = this.authService.getLoggedInUser();
     this.name = this.user.name;
     this.userName = this.user.username;

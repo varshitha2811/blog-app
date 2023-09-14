@@ -17,9 +17,10 @@ export class ProfileComponent {
   blogs: any[] = [];
   filterData: any[] = [];
 
-
-
-  constructor(private route: ActivatedRoute, private blogService: BlogService, private authService: AuthService, private router: Router) { }
+  constructor(private route: ActivatedRoute,
+    private blogService: BlogService,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.user = this.authService.getLoggedInUser();
@@ -27,24 +28,23 @@ export class ProfileComponent {
     this.loginUserName = this.user.username;
     this.blogService.getAllPosts().subscribe((data: any[]) => {
       this.blogs = data;
+      this.filterData = this.filterBlogs(this.blogs, this.loginName, this.loginUserName);
     });
-    this.filterBlogs();
   }
 
-  filterBlogs() {
-    this.filterData = this.blogs
-      .map((blog, index) => ({ ...blog, id: index }))
-      .filter((blog: { author: string; userName: string }) => {
-        const Author = blog.author;
-        const UserName = blog.userName;
-        return (
-          Author.includes(this.loginName) && UserName.includes(this.loginUserName)
-
-        );
-      });
+  filterBlogs(blogs: any[], loginName: string, loginUserName: string): any[] {
+    return blogs.filter((blog: { author: string; userName: string }) => {
+      const Author = blog.author;
+      const UserName = blog.userName;
+      return (
+        Author.includes(loginName) && UserName.includes(loginUserName)
+      );
+    });
   }
+
 
   deleteBlog(blogId: string): void {
+    console.log(blogId); 0
     this.blogService.deleteBlog(blogId).subscribe(
       () => {
       },
