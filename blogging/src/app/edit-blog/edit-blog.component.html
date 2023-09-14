@@ -5,20 +5,24 @@
         </div>
         <div class="mb-4">
             <label for="title" class="block font-semibold mb-2">Title</label>
-            <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="title" [(ngModel)]="blogData.title" name="title">
+            <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="title" [(ngModel)]="blogData.title" name="title" required>
+            <div *ngIf="!blogData.title" class="text-red-600">Title is required.</div>
         </div>
         <div class="mb-4">
             <label for="content" class="block font-semibold mb-2">Content</label>
-            <textarea class="border border-gray-300 rounded w-full py-2 px-3" id="content" [(ngModel)]="blogData.description[0]" name="content"></textarea>
+            <textarea class="border border-gray-300 rounded w-full py-2 px-3" id="content" [(ngModel)]="blogData.description" name="content" minlength="25" required (input)="checkDescriptionLength()"></textarea>
+            <div *ngIf="blogData.description && blogData.description.length < 25" class="text-red-600">Description must be at least 25 characters.</div>
+            <div *ngIf="!blogData.description && blogData.description.length < 25" class="text-red-600">Content is required.</div>
         </div>
         <div class="mb-4">
             <label for="tags" class="block font-semibold mb-2">Tags</label>
-            <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="tags" [(ngModel)]="blogData.tags" name="tags">
+            <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="tags" [(ngModel)]="blogData.tags" name="tags" required>
+            <div *ngIf="!blogData.tags" class="text-red-600">Tags are required.</div>
         </div>
         <div class="mb-4">
             <label for="imageUrl" class="block font-semibold mb-2">Image URL</label>
             <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="imageUrl" [(ngModel)]="blogData.url" name="imageUrl">
         </div>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="updateBlog()">Update Blog</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50" (click)="updateBlog()" [disabled]="!descriptionValid || !blogData.title || !blogData.tags || !blogData.description || blogData.description.length < 25">Update Blog</button>
     </div>
 </div>
