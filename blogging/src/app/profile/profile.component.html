@@ -27,11 +27,11 @@
         <div
           class="max-w-xs bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-md transition duration-300">
           <div>
-            <a [routerLink]="['/display-blog', blog.id]">
+            <a [routerLink]="['/blogs', blog.id]">
               <img class="w-full h-48 object-cover" [src]="blog.url" alt="blog image" />
             </a>
             <div class="p-5">
-              <a [routerLink]="['/display-blog', blog.id]">
+              <a [routerLink]="['/blogs', blog.id]">
                 <h5
                   class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words">
                   {{ blog.title }}
@@ -43,7 +43,7 @@
                 Delete
               </button>
               <button class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm"
-             [routerLink]="['/edit-blog', blog.id]">
+                [routerLink]="['/edit-blog', blog.id]">
                 Edit
               </button>
             </div>

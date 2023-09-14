@@ -4,20 +4,21 @@
 </div>
 <div class="max-w-screen-xl mx-auto px-4">
   <div class="relative ml-6">
-    <p class="text-center text-2xl font-semibold mb-4 mt-8" *ngIf="filterData.length===0">
+    <p class="text-center text-2xl font-semibold mb-4 mt-8" *ngIf="blogs.length===0">
       Sorry,no blogs related to the tag.
     </p>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5 my-5">
-      <ng-container *ngFor="let blog of filterData;">
+      <ng-container *ngFor="let blog of blogs;">
         <div
           class="max-w-xs bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-md transition duration-300">
           <div>
-            <a [routerLink]="['/display-blog', blog.id]">
+            <a [routerLink]="['/blogs', blog.id]">
               <img class="w-full h-48 object-cover" [src]="blog.url" alt="" />
             </a>
             <div class="p-5">
-              <a [routerLink]="['/display-blog', blog.id]">
-                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words">
+              <a [routerLink]="['/blogs', blog.id]">
+                <h5
+                  class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words">
                   {{ blog.title }}
                 </h5>
               </a>

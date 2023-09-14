@@ -26,6 +26,7 @@ export class ProfileComponent {
       this.filterData = this.filterBlogs(this.blogs, this.loginName, this.loginUserName);
     });
   }
+
   filterBlogs(blogs: any[], loginName: string, loginUserName: string): any[] {
     return blogs.filter((blog: { author: string; userName: string }) => {
       const Author = blog.author;
@@ -35,7 +36,10 @@ export class ProfileComponent {
       );
     });
   }
+
+
   deleteBlog(blogId: string): void {
+    console.log(blogId); 0
     console.log(blogId); 0
     this.blogService.deleteBlog(blogId).subscribe(
       () => {

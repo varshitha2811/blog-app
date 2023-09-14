@@ -56,6 +56,13 @@ export class DisplayBlogComponent implements OnInit {
         );
       }
     });
+
+    this.user = this.authService.getLoggedInUser();
+    this.name = this.user.name;
+    this.userName = this.user.username;
+    // this.blogService.getComments(this.blogIndex).subscribe(comments => {
+    //   this.blogData.comments = comments;
+    // });
   }
 
   objectKeys(obj: object): string[] {
