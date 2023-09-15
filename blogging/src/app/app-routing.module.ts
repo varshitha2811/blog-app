@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent},
   {path: 'blog/profile',component:ProfileComponent},
-  { path: 'edit-blog/:index' ,component: EditBlogComponent }];
+  { path: 'edit-blog/:id' ,component: EditBlogComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

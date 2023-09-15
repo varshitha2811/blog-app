@@ -42,12 +42,10 @@ export class BlogService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
+
+
   addBlog(newBlog: blog): Observable<blog> {
     return this.http.post<blog>(`${this.apiUrl}/add`, newBlog);
-  }
-
-  deleteBlog(index: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/delete/${index}`);
   }
 
   filterBlogsByAuthorAndUserName(author: string, userName: string): Observable<blog[]> {
@@ -80,12 +78,22 @@ export class BlogService {
         })
       );
   }
-
-  updateBlog(blogIndex: number, updatedBlog: blog): Observable<blog> {
-    return this.http.put<blog>(`${this.apiUrl}/update-blog/${blogIndex}`, updatedBlog);
+  updateBlog(id: string, updatedBlog: any): Observable<any> {
+    const url = `${this.apiUrl}/update/${id}`;
+    return this.http.put<any>(url, updatedBlog);
   }
-
+  
+  deleteBlog(id: string): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete(url);
+  }
+  
   searchBlogs(searchTerm: string): Observable<blog[]> {
     return this.http.get<blog[]>(`${this.apiUrl}/search/${searchTerm}`);
   }
+  deleteComment(blogId: string, commentIndex: number): Observable<any> {
+    const url = `${this.apiUrl}/delete-comment/${blogId}/${commentIndex}`;
+    return this.http.delete(url);
+  }
+  
 }

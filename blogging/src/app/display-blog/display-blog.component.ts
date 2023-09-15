@@ -60,9 +60,6 @@ export class DisplayBlogComponent implements OnInit {
     this.user = this.authService.getLoggedInUser();
     this.name = this.user.name;
     this.userName = this.user.username;
-    // this.blogService.getComments(this.blogIndex).subscribe(comments => {
-    //   this.blogData.comments = comments;
-    // });
   }
 
   objectKeys(obj: object): string[] {
@@ -100,6 +97,17 @@ export class DisplayBlogComponent implements OnInit {
       this.errorStatus = true;
       this.ErrorMessage = 'Please add a comment to the post';
     }
+  }
+  deleteComment(blogId: string, commentIndex: number): void {
+    this.blogService.deleteComment(blogId, commentIndex).subscribe(
+      (response) => {
+        console.log('Comment deleted successfully:', response);
+        this.blogData.comments.splice(commentIndex, 1);
+      },
+      (error) => {
+        console.error('Error deleting comment:', error);
+      }
+    );
   }
   
   cancelComment() {

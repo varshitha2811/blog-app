@@ -17,6 +17,7 @@ export class ProfileComponent {
     private blogService: BlogService,
     private authService: AuthService,
     private router: Router) { }
+
   ngOnInit(): void {
     this.user = this.authService.getLoggedInUser();
     this.loginName = this.user.name;
@@ -39,14 +40,17 @@ export class ProfileComponent {
 
 
   deleteBlog(blogId: string): void {
-    console.log(blogId); 0
-    console.log(blogId); 0
     this.blogService.deleteBlog(blogId).subscribe(
       () => {
+        this.blogs = this.blogs.filter(blog => blog._id !== blogId); 
+        console.log(blogId);
+        location.reload(); 
       },
       (error: any) => {
+        console.error('Error deleting blog post:', error);
       }
     );
+
   }
   userlogout() {
     this.authService.logout();
