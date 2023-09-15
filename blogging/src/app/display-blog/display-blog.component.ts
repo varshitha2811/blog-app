@@ -98,16 +98,19 @@ export class DisplayBlogComponent implements OnInit {
       this.ErrorMessage = 'Please add a comment to the post';
     }
   }
-  deleteComment(blogId: string, commentIndex: number): void {
-    this.blogService.deleteComment(blogId, commentIndex).subscribe(
-      (response) => {
-        console.log('Comment deleted successfully:', response);
-        this.blogData.comments.splice(commentIndex, 1);
-      },
-      (error) => {
-        console.error('Error deleting comment:', error);
-      }
-    );
+  deleteComment(commentIndex: number): void {
+    if (commentIndex >= 0 && commentIndex < this.blogData.comments.length) {
+      console.log(commentIndex);
+      const commentId = this.blogData.comments[commentIndex].id; 
+      this.blogService.deleteComment(this.postId, commentIndex).subscribe(
+        () => {
+          this.blogData.comments.splice(commentIndex, 1); 
+        },
+        (error) => {
+          console.error('Error deleting comment:', error);
+        }
+      );
+    }
   }
   
   cancelComment() {
