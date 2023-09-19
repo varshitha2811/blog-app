@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
+import { Observable } from 'rxjs';
 
 interface User {
   name: string;
@@ -61,3 +63,4 @@ export class AuthService {
     return user ? { ...user } : null;
   }
 }
+
