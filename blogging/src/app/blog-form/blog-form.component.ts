@@ -24,14 +24,18 @@ export class BlogFormComponent {
   validDescritption: boolean = false;
   isUrlInvalid: boolean = false;
   customTags: string = '';
+  CurrentUser: any;
+  currentuserName: string = '';
 
   @ViewChild('myCheckbox') myCheckboxRef!: ElementRef<HTMLInputElement>;
   titleInput: any;
   constructor(private blogService: BlogService, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit() {
-    this.user = this.authService.getLoggedInUser();
-    this.author_name = this.user.name;
-    this.userName = this.user.username;
+    this.authService.getCurrentUser().subscribe((data: any[]) => {
+      this.CurrentUser = data;
+      this.author_name = this.CurrentUser.name;
+      this.userName = this.CurrentUser.userName;
+    });
   }
 
   areAllFieldsFilled(): boolean {
@@ -63,7 +67,7 @@ export class BlogFormComponent {
     if (this.myCheckboxRef) {
       this.myCheckboxRef.nativeElement.checked = false;
     }
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/blog/profile']);
   }
 
   countChar() {

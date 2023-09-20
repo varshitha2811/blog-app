@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { BlogService } from '../blog.service';
+import { SessionService } from '../session-service.service';
 
 interface User {
   name: string;
-  username: string;
+  userName: string;
   password: string;
 }
 
@@ -16,7 +17,7 @@ interface User {
 })
 export class SignUpComponent {
   name: string = '';
-  username: string = '';
+  userName: string = '';
   password: string = '';
   errorMessage: string = '';
   passwordError: boolean = false;
@@ -25,17 +26,21 @@ export class SignUpComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private sessionService: SessionService,
   ) { }
-
   signUp() {
-    if (this.name && this.username && this.password) {
+    if (this.name && this.userName && this.password) {
       if (this.password.length < 8) {
         this.passwordError = true;
       } else {
-        this.authService.signUp(this.name, this.username, this.password);
+        this.authService.createUser(this.name, this.userName, this.password).subscribe(
+          (response) => {
+            this.sessionService.startSession(response);
+          }
+        );
         this.name = '';
-        this.username = '';
+        this.userName = '';
         this.password = '';
         this.passwordError = false;
         this.errorMessage = '';
@@ -45,7 +50,6 @@ export class SignUpComponent {
       this.errorMessage = 'Username and password are required.';
     }
   }
-
 
   resetPasswordError() {
     this.passwordError = false;

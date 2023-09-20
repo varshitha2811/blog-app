@@ -22,7 +22,7 @@ export class EditBlogComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private blogService: BlogService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -47,4 +47,5 @@ export class EditBlogComponent implements OnInit {
         }
       }
     );
-  }}
+  }
+}

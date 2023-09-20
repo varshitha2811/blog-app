@@ -16,7 +16,6 @@ export class SearchListComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private blogService: BlogService) { }
 
   ngOnInit(): void {
-
     this.route.params.subscribe(params => {
       this.searchedTag = params['tag'];
       this.blogService.fetchByTags(this.searchedTag).subscribe((data: any[]) => {

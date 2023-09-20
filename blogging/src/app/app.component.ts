@@ -1,18 +1,17 @@
-
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
   showHeader = true;
   showFooter = true;
   searchTerm: string = '';
+  title: any;
+
   constructor(private router: Router, private route: ActivatedRoute) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -29,8 +28,10 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
   ngOnInit(): void {
   }
+
   performSearch() {
     this.router.navigate(['/search-list', this.searchTerm]);
   }

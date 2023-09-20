@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { SessionService } from '../session-service.service';
 
 @Component({
   selector: 'app-login',
@@ -8,23 +9,31 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  username: string = '';
+  userName: string = '';
   password: string = '';
   errorMessage: string = '';
+  showLogin: boolean = true;
+  loginError: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private SessionServiceService: SessionService) { }
 
   login() {
-    if (this.username && this.password) {
-      if (this.authService.login(this.username, this.password)) {
-        this.router.navigate(['/blogs/home']);
-      }
-      else if (!(this.authService.getUserByUsername(this.username))) {
-        this.errorMessage = 'User not found';
-      }
-      else {
-        this.errorMessage = 'Username and password does not match.';
-      }
+    if (this.userName && this.password) {
+      
+      this.authService.loginUser(this.userName, this.password).subscribe(
+        (response) => {
+          if (response) {
+            localStorage.setItem("jwt_token", response.jwttoken);
+            this.SessionServiceService.startSession(response);
+            this.router.navigate(['/blogs/home']);
+          } else {
+            this.errorMessage = 'Invalid credentials', 'Login Failed';
+          }
+        },
+      );
+    }
+    else {
+      this.errorMessage = 'Username and password does not match.';
     }
   }
 }

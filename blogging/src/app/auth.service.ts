@@ -1,63 +1,56 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as CryptoJS from 'crypto-js';
+import { Observable, catchError, throwError } from 'rxjs';
 
 interface User {
   name: string;
-  username: string;
+  userName: string;
   password: string;
+}
+ export interface UserInfo {
+  username: string;
+  name: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private storageKey = 'userData';
 
-  constructor() { }
+  getuser(): any {
+    return null;
+  }
+  token: string = localStorage.getItem("jwt_token") || "";  
+  loginSuccess: Boolean = false;
+  private authUrl = 'http://localhost:8080/auth';
 
-  signUp(name: string, username: string, password: string): void {
-    const hashedPassword = CryptoJS.SHA256(password).toString();
-    const user = { name, username, password: hashedPassword };
-    const users = this.getStoredUsers();
-    users.push(user);
-    this.saveUsers(users);
+  constructor(private http: HttpClient) { }
+
+  createUser(name: string, userName: string, password: string): Observable<any> {
+    const user = { name, userName, password };
+    return this.http.post<any>(`${this.authUrl}/create-user`, user).pipe(
+      catchError((error) => {
+        throw error;
+      })
+    );
   }
 
-  login(username: string, password: string): boolean {
-    const users = this.getStoredUsers();
-    const hashedPassword = CryptoJS.SHA256(password).toString();
-    const user = users.find(u => u.username === username && u.password === hashedPassword);
-    if (user) {
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
-      return true;
-    }
-    return false;
-  }
-  logout(): void {
-    localStorage.removeItem('loggedInUser');
-  }
+  loginUser(userName: string, password: string): Observable<any> {
+    const user = { userName, password };
+    return this.http.post<User>(`${this.authUrl}/login`, user).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          return throwError('Invalid username or password');
+        }
+        return throwError(error);
 
-  isLoggedIn(): boolean {
-    return localStorage.getItem('loggedInUser') !== null;
+      })
+    );
   }
-
-  getLoggedInUser(): any {
-    const userString = localStorage.getItem('loggedInUser');
-    return userString ? JSON.parse(userString) : null;
-  }
-
-  private getStoredUsers(): User[] {
-    const usersString = localStorage.getItem(this.storageKey);
-    return usersString ? JSON.parse(usersString) : [];
-  }
-
-  private saveUsers(users: User[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(users));
-  }
-
-  getUserByUsername(username: string): User | null {
-    const users = this.getStoredUsers();
-    const user = users.find((u) => u.username === username);
-    return user ? { ...user } : null;
+  getCurrentUser(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(`http://localhost:8080/current-user`,{headers});
   }
 }

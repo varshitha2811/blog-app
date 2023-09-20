@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { BlogService, blog } from '../blog.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService, UserInfo } from '../auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -10,15 +11,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
   blogs: blog[] = [];
+  user:any;
+  userInfo: UserInfo | undefined;
 
-  constructor(private blogService: BlogService, private http: HttpClient, private router: Router) { }
+  constructor(private blogService: BlogService, private http: HttpClient, private router: Router,private authservice:AuthService) { }
   ngOnInit() {
     this.blogService.getAllPosts().subscribe((data: any[]) => {
       this.blogs = data;
     });
   }
   navigate(id: string) {
-    console.log(id)
     this.router.navigate(['/blogs', id])
   }
 }
