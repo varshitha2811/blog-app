@@ -16,11 +16,11 @@ public class Blog {
 	private List<String> tags;
 	private String url;
 	private String time;
-	private List<String> comments;
+	private List<Comment> comments;
 	private String userName;
 
 	public Blog(String id, String title, String author, List<String> description, List<String> tags, String url,
-			String time, List<String> comments, String userName) {
+			String time, List<Comment> comments, String userName) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -45,7 +45,7 @@ public class Blog {
 		this.time = time;
 	}
 
-	public Blog(String id, List<String> comments, String userName) {
+	public Blog(String id, List<Comment> comments, String userName) {
 		super();
 		this.id = id;
 		this.comments = comments;
@@ -111,11 +111,11 @@ public class Blog {
 		this.time = time;
 	}
 
-	public List<String> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<String> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 

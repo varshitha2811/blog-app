@@ -22,6 +22,7 @@ export interface blog {
 export class BlogService {
 
   private storageKey = 'blogData';
+  // private apiUrl = 'http://localhost:8080/blogs';
   private apiUrl = 'http://localhost:8080/blogs';
   constructor(private http: HttpClient) { }
 
@@ -69,6 +70,7 @@ export class BlogService {
 
   addComment(blogId: string, comment: Comment): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/add-comment/${blogId}`, comment)
+    
       .pipe(
         catchError((error) => {
           console.error('Error adding comment:', error);

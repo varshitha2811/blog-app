@@ -1,4 +1,4 @@
-package com.example.BlogApp.Controller;
+package com.example.blogappsql.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,15 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.example.BlogApp.Entity.Blog;
-import com.example.BlogApp.Entity.Comment;
-import com.example.BlogApp.repo.BlogPostRepository;
+import com.example.blogappsql.Entity.Blog;
+import com.example.blogappsql.Entity.Comment;
+import com.example.blogappsql.Repository.BlogPostRepository;
 
 @RestController
 
 @RequestMapping("/blogs")
 @CrossOrigin(origins = "http://localhost:4200")
- @EnableWebMvc
+@EnableWebMvc
  
  
 public class BlogController implements WebMvcConfigurer {
@@ -47,14 +47,14 @@ public class BlogController implements WebMvcConfigurer {
             .allowedMethods("GET", "POST", "PUT", "DELETE")
             .allowedHeaders("*");
     }
-
-	@GetMapping("/home")
+    
+    @GetMapping("/home")
 	public List<Blog> getAllBlogPost() {
-		return blogPostRepository.findAll();
+		return (List<Blog>) blogPostRepository.findAll();
 	}
 	
 	 @GetMapping("/{id}")
-	    public ResponseEntity<Blog> getBlogById(@PathVariable String id) {
+	    public ResponseEntity<Blog> getBlogById(@PathVariable Long id) {
 	        Blog blog = blogPostRepository.findById(id).orElse(null);
 	        if (blog != null) {
 	            return ResponseEntity.ok(blog);
@@ -68,7 +68,7 @@ public class BlogController implements WebMvcConfigurer {
 		return blogPostRepository.save(blog);
 	}	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Blog> updateBlog(@PathVariable String id, @RequestBody Blog updatedBlog) {
+	public ResponseEntity<Blog> updateBlog(@PathVariable Long id, @RequestBody Blog updatedBlog) {
 		System.out.println("Received request to update blog with ID: " + id);
 		Optional<Blog> optionalBlog = blogPostRepository.findById(id);
 		return optionalBlog.map(blog -> {
@@ -84,7 +84,7 @@ public class BlogController implements WebMvcConfigurer {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteBlog(@PathVariable("id") String id) {
+	public ResponseEntity<?> deleteBlog(@PathVariable("id") Long id) {
 		try {
 			blogPostRepository.deleteById(id);
 			return ResponseEntity.ok().build();
@@ -92,9 +92,10 @@ public class BlogController implements WebMvcConfigurer {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting blog post.");
 		}
 	}
+
 	
 	@PostMapping("/add-comment/{blogId}")
-	public ResponseEntity<?> addComment(@PathVariable String blogId, @RequestBody Comment comment) {
+	public ResponseEntity<?> addComment(@PathVariable Long blogId, @RequestBody Comment comment) {
 		try {
 			Optional<Blog> optionalBlog = blogPostRepository.findById(blogId);
 			if (optionalBlog.isPresent()) {
@@ -114,7 +115,7 @@ public class BlogController implements WebMvcConfigurer {
 	}
 	@DeleteMapping("/delete-comment/{blogId}/{commentIndex}")
     public ResponseEntity<?> deleteComment(
-        @PathVariable String blogId,
+        @PathVariable Long blogId,
         @PathVariable int commentIndex
     ) {
         try {
@@ -141,7 +142,7 @@ public class BlogController implements WebMvcConfigurer {
     public List<Blog> searchBlogs(@PathVariable String searchTerm) {
         List<Blog> matchingBlogs = new ArrayList<>();
 
-        List<Blog> allBlogs = blogPostRepository.findAll();
+        List<Blog> allBlogs = (List<Blog>) blogPostRepository.findAll();
 
         for (Blog blog : allBlogs) {
             boolean matches = false;
@@ -167,5 +168,6 @@ public class BlogController implements WebMvcConfigurer {
 
         return matchingBlogs;
     }
+
 
 }

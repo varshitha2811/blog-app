@@ -1,7 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { BlogService, blog } from '../blog.service';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { ActivatedRoute, Navigation, Router } from '@angular/router';
+import { BlogService, blog } from '../blog.service';
 
 @Component({
   selector: 'app-blog-form',
