@@ -11,12 +11,13 @@ export class SessionService {
   userLoggedIn$: Observable<boolean> = this.userLoggedInSubject.asObservable();
   constructor(private router: Router,private cookieService: CookieService) { }
   startSession(user: any) {
-    this.cookieService.set('loggedInUser', JSON.stringify(user),365);
+    this.cookieService.set('loggedInUser', JSON.stringify(user));
     this.userLoggedInSubject.next(true);    
   }
   endSession() {
     this.cookieService.delete('loggedInUser');
     this.userLoggedInSubject.next(false);
+    localStorage.removeItem("jwt_token");
     this.router.navigate(['/login']);
   }
   isAuthenticated(): boolean {

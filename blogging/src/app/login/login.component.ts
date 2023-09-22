@@ -23,6 +23,7 @@ export class LoginComponent {
       this.authService.loginUser(this.userName, this.password).subscribe(
         (response) => {
           if (response) {
+            localStorage.removeItem("jwt_token");
             localStorage.setItem("jwt_token", response.jwttoken);
             this.SessionServiceService.startSession(response);
             this.router.navigate(['/blogs/home']);

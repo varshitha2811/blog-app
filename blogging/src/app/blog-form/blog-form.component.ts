@@ -76,7 +76,6 @@ export class BlogFormComponent {
       this.validDescritption = true;
     }
   }
-
   resetForm(): void {
     this.title = '';
     this.author = '';

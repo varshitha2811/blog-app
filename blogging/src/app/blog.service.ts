@@ -22,7 +22,6 @@ export interface blog {
 export class BlogService {
 
   private storageKey = 'blogData';
-  // private apiUrl = 'http://localhost:8080/blogs';
   private apiUrl = 'http://localhost:8080/blogs';
   constructor(private http: HttpClient) { }
 

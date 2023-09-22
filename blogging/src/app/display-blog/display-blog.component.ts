@@ -38,6 +38,7 @@ export class DisplayBlogComponent implements OnInit {
 
             this.blogService.addComment(this.postId, commentObject).subscribe(
               (response) => {
+                console.log(commentObject);
                 this.blogData.comments.push(commentObject);
               },
               (error) => {

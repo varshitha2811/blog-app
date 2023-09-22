@@ -1,29 +1,82 @@
-
+<!-- <div class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div
+        class="bg-white shadow-md rounded-md p-8 w-full md:w-5/6 lg:w-4/5 xl:w-4/5 2xl:w-3/4 bg-gradient-to-r from-beigh-500 to-bisque-500">
+        <div class="text-center">
+            <h2 class="text-2xl font-semibold mb-4">Edit Blog</h2>
+        </div>
+            <div class="mb-4">
+                <label for="title" class="block font-semibold mb-2">Title</label>
+                <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="title"
+                    [(ngModel)]="blogData.title" name="title" required>
+                <div *ngIf="!blogData.title" class="text-red-600">Title is required.</div>
+            </div>
+            <div class="mb-4">
+                <label for="content" class="block font-semibold mb-2">Content</label>
+                <textarea class="border border-gray-300 rounded w-full py-2 px-3" id="content"
+                    [(ngModel)]="blogData.description" name="content" minlength="25" required></textarea>
+                <div *ngIf="!blogData.description" class="text-red-600">Content is required.</div>
+            </div>
+            <div class="mb-4">
+                <label for="tags" class="block font-semibold mb-2">Tags</label>
+                <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="tags"
+                    [(ngModel)]="blogData.tags" name="tags" required>
+                <div *ngIf="!blogData.tags" class="text-red-600">Tags are required.</div>                
+            </div>
+            <div class="mb-4">
+                <label for="imageUrl" class="block font-semibold mb-2">Image URL</label>
+                <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="imageUrl"
+                    [(ngModel)]="blogData.url" name="imageUrl" #urlInput="ngModel" required pattern="https?://.+">
+                <p *ngIf="urlInput.invalid && (urlInput.dirty || urlInput.touched)" class="text-red-600">Invalid URL.
+                </p>
+            </div>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+                (click)="updateBlog()">Update Blog</button>                
+    </div>
+</div> -->
 <div class="bg-gray-100 min-h-screen flex items-center justify-center">
-  <div class="bg-white shadow-md rounded-md p-8 w-full md:w-5/6 lg:w-4/5 xl:w-4/5 2xl:w-3/4 bg-gradient-to-r from-beigh-500 to-bisque-500">
-      <div class="text-center">
-          <h2 class="text-2xl font-semibold mb-4">Edit Blog</h2>
-      </div>
-      <div class="mb-4">
-          <label for="title" class="block font-semibold mb-2">Title</label>
-          <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="title" [(ngModel)]="blogData.title" name="title" required>
-          <div *ngIf="!blogData.title" class="text-red-600">Title is required.</div>
-      </div>
-      <div class="mb-4">
-          <label for="content" class="block font-semibold mb-2">Content</label>
-          <textarea class="border border-gray-300 rounded w-full py-2 px-3" id="content" [(ngModel)]="blogData.description" name="content" minlength="25" required></textarea>
-          <div *ngIf="!blogData.description" class="text-red-600">Content is required.</div>
-      </div>
-      <div class="mb-4">
-          <label for="tags" class="block font-semibold mb-2">Tags</label>
-          <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="tags" [(ngModel)]="blogData.tags" name="tags" required>
-          <div *ngIf="!blogData.tags" class="text-red-600">Tags are required.</div>
-      </div>
-      <div class="mb-4">
-          <label for="imageUrl" class="block font-semibold mb-2">Image URL</label>
-          <input type="text" class="border border-gray-300 rounded w-full py-2 px-3" id="imageUrl" [(ngModel)]="blogData.url" name="imageUrl">
-      </div>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50" 
-              (click)="updateBlog()" >Update Blog</button>
-  </div>
+    <div
+        class="bg-white shadow-md rounded-md p-8 w-full md:w-5/6 lg:w-4/5 xl:w-4/5 2xl:w-3/4 bg-gradient-to-r from-beigh-500 to-bisque-500">
+        <div class="text-center">
+            <h2 class="text-2xl font-semibold mb-4">Edit Blog</h2>
+        </div>
+        <form (ngSubmit)="submitBlog()">
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="author">Author Name</label>
+                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="text" id="name"
+                    name="name" [value]="blogData.author" readonly>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="title">Blog Title</label>
+                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="text" id="title"
+                    name="title" [(ngModel)]="blogData.title" required >
+                    <div *ngIf="!blogData.title" class="text-red-600">Title is required.</div>
+            </div>
+            <div class="mb-4">
+                <label for="customTags" class="block text-gray-700 font-medium mb-2">Tags to find your blog.
+                    (comma-separated):</label>
+                <input type="text" id="customTags" [(ngModel)]="customTags" name="customTags"
+                    class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                    placeholder="Enter tags..." (input)="onCustomTagsInputChange()">
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="description">Write Your Blog</label>
+                <textarea class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" id="description"
+                    name="description" (input)='countChar()' rows="8" [(ngModel)]="description" #desInput="ngModel"
+                    required></textarea>
+                <p *ngIf="!validDescritption && desInput.touched " class="text-red-700">please enter {{25-charCount}}
+                    more characters</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1" for="url">Add URL of Images (If you're interested)</label>
+                <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" type="url" id="url"
+                    name="url" [(ngModel)]="blogData.url" #urlInput="ngModel" required pattern="https?://.+">
+                <p *ngIf="urlInput.invalid && (urlInput.dirty || urlInput.touched)" class="text-red-600">Invalid URL.
+                </p>
+            </div>
+            <button *ngIf="areAllFieldsFilled()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                type="submit" [disabled]="!areAllFieldsFilled()">Update Blog</button>
+            <button *ngIf="!areAllFieldsFilled()" class="bg-gray-400 text-white px-4 py-2 rounded-md" type="submit"
+                [disabled]="!areAllFieldsFilled()">Update Blog</button>
+        </form>               
+    </div>
 </div>
