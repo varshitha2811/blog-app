@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { BlogService, blog } from '../blog.service';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-blog-form',
@@ -26,6 +27,7 @@ export class BlogFormComponent {
   customTags: string = '';
   CurrentUser: any;
   currentuserName: string = '';
+  paragraph: string[] = [];
 
   @ViewChild('myCheckbox') myCheckboxRef!: ElementRef<HTMLInputElement>;
   titleInput: any;
@@ -38,29 +40,41 @@ export class BlogFormComponent {
     });
   }
 
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+
+  };
+
   areAllFieldsFilled(): boolean {
     return (
       this.title.trim() !== '' &&
-      (this.description.trim().length >= 25) &&
       this.tags.length > 0
     );
   }
 
   submitBlog(): void {
     const defaultUrl = 'https://images.unsplash.com/photo-1505744386214-51dba16a26fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1306&q=80';
-    const descriptionParagraphs = this.description.split('\n');
-    const customTagsArray = this.customTags.split(',').map(tag => tag.trim());
 
+    const customTagsArray = this.customTags.split(',').map(tag => tag.trim());
+    this.paragraph.push(this.description);
     const newBlog: blog = {
       title: this.title,
       author: this.author_name,
-      description: descriptionParagraphs,
+      description: this.paragraph,
       tags: customTagsArray,
       url: this.url ? this.url : defaultUrl,
       comments: this.comments,
       time: new Date().toString(),
       userName: this.userName,
     };
+    console.log(newBlog);
     this.blogService.addBlog(newBlog).subscribe(addedBlog => {
     });
     this.resetForm();

@@ -18,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthService } from './auth.service';
 import { EditBlogComponent } from './edit-blog/edit-blog.component';
 import { CookieService } from 'ngx-cookie-service';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     HttpClientModule,
     CommonModule,
+    AngularEditorModule
   ],
   providers: [BlogService,AuthService,CookieService],
   bootstrap: [AppComponent]

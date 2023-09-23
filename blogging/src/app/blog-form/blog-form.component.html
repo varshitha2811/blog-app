@@ -2,7 +2,7 @@
     <div
         class="bg-white shadow-md rounded-md p-8 w-full md:w-5/6 lg:w-4/5 xl:w-4/5 2xl:w-3/4  bg-gradient-to-r from-beigh-500 to-bisque-500">
         <div class="text-center">
-            <h1 class="text-2xl font-semibold mb-4">Create Your Blog</h1>
+            <h1 class="text-2xl font-semibold mb-4">Create Your Blog-Post</h1>
         </div>
         <form (ngSubmit)="submitBlog()">
             <div class="mb-4">
@@ -22,6 +22,7 @@
                 <input type="text" id="customTags" [(ngModel)]="customTags" name="customTags"
                     class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
                     placeholder="Enter tags..." (input)="onCustomTagsInputChange()">
+                    <p *ngIf="showTitleError && !title" class="text-red-600">Title is required.</p>
             </div>
             <div class="flex flex-wrap">
                 <div *ngFor="let tag of tags"
@@ -31,11 +32,8 @@
             </div>
             <div class="mb-4">
                 <label class="block text-sm font-medium mb-1" for="description">Write Your Blog</label>
-                <textarea class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-200" id="description"
-                    name="description" (input)='countChar()' rows="8" [(ngModel)]="description" #desInput="ngModel"
-                    required></textarea>
-                <p *ngIf="!validDescritption && desInput.touched " class="text-red-700">please enter {{25-charCount}}
-                    more characters</p>
+                <angular-editor [placeholder]="'Enter text here...'" id="description" name="description"
+                    [config]="config" [(ngModel)]="description"></angular-editor>
             </div>
             <div class="mb-4">
                 <label class="block text-sm font-medium mb-1" for="url">Add URL of Images (If you're interested)</label>
@@ -45,9 +43,9 @@
                 </p>
             </div>
             <button *ngIf="areAllFieldsFilled()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                type="submit" [disabled]="!areAllFieldsFilled()">Create Blog</button>
+                type="submit" [disabled]="!areAllFieldsFilled()">Create Blog-Post</button>
             <button *ngIf="!areAllFieldsFilled()" class="bg-gray-400 text-white px-4 py-2 rounded-md" type="submit"
-                [disabled]="!areAllFieldsFilled()">Create Blog</button>
+                [disabled]="!areAllFieldsFilled()">Create Blog-Post</button>
         </form>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<!-- <div *ngIf="blogData" class="max-w-4xl mx-auto mt-8 px-4">
+<div *ngIf="blogData" class="max-w-4xl mx-auto mt-8 px-4">
   <article class="bg-white shadow-md rounded-lg p-6 sm:p-8">
     <h2 class="text-3xl font-semibold mb-4 break-words">{{ blogData.title }}</h2>
     <p class="text-gray-600 mb-2">{{ blogData.author }}</p>
@@ -7,7 +7,8 @@
     </div>
     <ng-container *ngIf="isDescriptionArray(blogData.description)">
       <div *ngFor="let paragraph of blogData.description">
-        <p class="text-gray-800 leading-relaxed break-words">{{ paragraph }}</p>
+        <p class="text-gray-800 leading-relaxed break-words" *ngIf="!isHtml(paragraph)">{{ paragraph }}</p>
+        <p class="text-gray-800 leading-relaxed break-words" [innerHTML]="isHtml(paragraph) ? paragraph : ''"></p>
       </div>
     </ng-container>
     <p *ngIf="!isDescriptionArray(blogData.description)" class="text-gray-800 leading-relaxed">
@@ -31,74 +32,13 @@
                 <strong>{{ comment.name }}:</strong>
                 <span>{{ comment.comment }}</span>
               </div>
-              <div> <button (click)="deleteComment(blogData.id, commentIndex)">Delete</button>
+              <div> <button (click)="deleteComment(commentIndex)" *ngIf="comment.name === userName">Delete</button>
               </div>
             </div>
           </li>
         </ng-container>
       </ul>
     </div>
-  </article>
-  <div class="border-b border-gray-900/10 pb-12 bg-white shadow-md rounded-lg p-6 sm:p-8 my-1">
-    <div class="col-span-full">
-      <form (ngSubmit)="submitComment()" #commentForm="ngForm">
-        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Comment Section</label>
-        <div class="mt-2">
-          <textarea id="about" name="about" rows="2" (input)="resetCommentSection()" [(ngModel)]="newComment"
-            class="block w-full rounded-md border-0 px-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6"
-            placeholder="Write your comment..." required></textarea>
-        </div>
-        <p *ngIf="errorStatus" class="text-red-700">{{ErrorMessage}}</p>
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-          <button type="button" (click)="cancelComment()"
-            class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-          <button (click)="submitComment()"
-            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Post</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->
-<div *ngIf="blogData" class="max-w-4xl mx-auto mt-8 px-4">
-  <article class="bg-white shadow-md rounded-lg p-6 sm:p-8">
-    <h2 class="text-3xl font-semibold mb-4 break-words">{{ blogData.title }}</h2>
-    <p class="text-gray-600 mb-2">{{ blogData.author }}</p>
-    <div class="aspect-w-16 aspect-h-9 mb-4 flex justify-center items-center">
-      <img [src]="blogData.url" alt="Blog Image" alt="Blog image" class="rounded-lg object-cover shadow-md">
-    </div>
-    <ng-container *ngIf="isDescriptionArray(blogData.description)">
-      <div *ngFor="let paragraph of blogData.description">
-        <p class="text-gray-800 leading-relaxed break-words">{{ paragraph }}</p>
-      </div>
-    </ng-container>
-    <p *ngIf="!isDescriptionArray(blogData.description)" class="text-gray-800 leading-relaxed">
-      {{ blogData.description }}
-    </p>
-    <div class="mt-4">
-      <ul class="flex flex-wrap gap-2">
-        <li *ngFor="let tag of blogData.tags"
-          class="border border-gray-300 px-2 py-1 rounded-lg hover:border-blue-500 hover:bg-blue-100 transition-colors cursor-pointer">
-          <a [routerLink]="['/search-list', tag]" class="text-black">{{ tag }}</a>
-        </li>
-      </ul>
-    </div>
-        <div class="mt-4">
-          <h3 class="text-xl font-semibold mb-2">Comments</h3>
-          <ul class="space-y-4">
-            <ng-container *ngFor="let comment of blogData.comments; let commentIndex = index">
-              <li *ngIf="isComment(comment)">
-                <div class="flex justify-between items-center">
-                  <div>
-                    <strong>{{ comment.name }}:</strong>
-                    <span>{{ comment.comment }}</span>
-                  </div>
-                  <div>  <button (click)="deleteComment(commentIndex)" *ngIf="comment.name === userName">Delete</button></div>
-                </div>
-              </li>
-            </ng-container>
-          </ul>
-        </div>
   </article>
   <div class="border-b border-gray-900/10 pb-12 bg-white shadow-md rounded-lg p-6 sm:p-8 my-1">
     <div class="col-span-full">

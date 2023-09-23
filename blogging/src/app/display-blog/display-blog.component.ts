@@ -22,7 +22,7 @@ export class DisplayBlogComponent implements OnInit {
   postId: string = '';
   comments: Comment[] = [];
   Deletable: Boolean = false;
-  constructor(private route: ActivatedRoute,private router:Router, private blogService: BlogService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private blogService: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -60,15 +60,17 @@ export class DisplayBlogComponent implements OnInit {
       }
       // this.refreshPage();
     });
-    
+
   }
   refreshPage(): void {
-    this.router.navigate(['/blogs', this.postId ]);
+    this.router.navigate(['/blogs', this.postId]);
   }
   objectKeys(obj: object): string[] {
     return Object.keys(obj);
   }
-
+  isHtml(content: string): boolean {
+    return /<[a-z][\s\S]*>/i.test(content);
+  }
   isComment(comment: any): comment is Comment {
     return comment && comment.name && comment.comment;
   }
