@@ -91,6 +91,7 @@ export class BlogService {
   searchBlogs(searchTerm: string): Observable<blog[]> {
     return this.http.get<blog[]>(`${this.apiUrl}/search/${searchTerm}`);
   }
+  
   deleteComment(blogId: string, commentIndex: number): Observable<any> {
     const url = `${this.apiUrl}/delete-comment/${blogId}/${commentIndex}`;
     return this.http.delete(url);

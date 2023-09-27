@@ -1,56 +1,79 @@
 <div class="text-center py-8">
   <h2 class="text-3xl font-semibold">Spotlight</h2>
-  <div class="mt-2 w-20 h-1 bg-blue-500 mx-auto"></div>
 </div>
 
-<div class="max-w-screen-xl mx-auto px-4">
-  <div class="relative ml-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5">
-      <ng-container *ngFor="let blog of blogs.slice(0,8); ">
-        <div
-          class="max-w-xs bg-white border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition duration-300">
-          <div>
-            <a (click)="navigate(blog.id)">
-              <img class="w-full h-48 object-cover cursor-pointer" [src]="blog.url" alt="" />
-            </a>
-            <div class="p-5">
-              <a (click)="navigate(blog.id)">
-                <h5
-                  class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words cursor-pointer">
-                  {{
-                  blog.title }}</h5>
-              </a>
-              <p class="text-gray-600 dark:text-gray-300">By {{ blog.author }}</p>
-            </div>
+<div class="flex justify-center">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 overflow-x-auto py-0.5">
+    <ng-container *ngFor="let blog of blogs.slice(0,4); ">
+      <div class="relative max-w-xs bg-white border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition duration-300">
+        <a (click)="navigate(blog.id)">
+          <img class="w-full max-h-56 object-cover cursor-pointer  transition-transform" [src]="blog.url" alt="" />
+          <div class="absolute inset-x-0 bottom-0 bg-black bg-opacity-50 text-white p-3 text-center">
+            <h5 class="text-base md:text-lg lg:text-xl font-bold mb-2 break-words hover:underline">{{ blog.title }}</h5>
+            <p class="text-white-600 dark:text-wj-300">By {{ blog.author }}</p>
+          </div>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="mt-8">
+  <div class="border-t pt-4 mb-4">
+    <div class="relative bg-black bg-cover bg-center h-120">
+      <div class="relative inset-0 bg-black bg-opacity-50 text-white p-8 text-center">
+        <h2 class="text-4xl font-semibold mb-4">Latest Blogs</h2>
+        <p class="text-gray-300 mb-6">Find inspiration from our newest posts</p>
+        <div class="max-w-screen-xl mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5">
+            <ng-container *ngFor="let blog of blogs.slice(-4).reverse(); let i = index;">
+              <div class="max-w-xs bg-black shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition duration-300">
+                <div> <a (click)="navigate(blog.id)">
+                    <img class="w-full h-48 object-cover cursor-pointer" [src]="blog.url" alt="" />
+                  </a>
+                  <div class="p-0">
+                    <a (click)="navigate(blog.id)">
+                      <h5 class="mb-2 text-xl font-bold tracking-tight text-white-900 dark:text-white hover:underline break-words cursor-pointer">
+                        {{
+                        blog.title }}</h5>
+                    </a>
+                    <p class="text-white-600 dark:text-white-300">By {{ blog.author }}</p>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
-      </ng-container>
-    </div>
-  </div>
-  <div class="text-center py-8">
-    <h2 class="text-3xl font-semibold">Latest</h2>
-    <div class="mt-2 w-20 h-1 bg-blue-500 mx-auto"></div>
-  </div>
-  <div class="max-w-screen-xl mx-auto px-4">
-    <div class="relative ml-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5">
-        <ng-container *ngFor="let blog of blogs.slice(-4).reverse(); let i = index;">
-          <div
-            class="max-w-xs bg-white border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition duration-300">
-            <div>
-              <a [routerLink]="['/blogs', blog.id]">
-                <img class="w-full h-48 object-cover" [src]="blog.url" alt="" />
-              </a>
-              <div class="p-5">
-                <a (click)="navigate(blog.id)">
-                  <h5
-                    class="mb-2 cursor-pointer text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words+-">
-                    {{blog.title }}</h5>
-                </a>
-                <p class="text-gray-600 dark:text-gray-300">By {{ blog.author }}</p>
-              </div>
-            </div>
-          </div>
-        </ng-container>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="mt-8">
+  <div class="pt-4 mb-4 relative bg-white bg-center h-120">
+    <div class="relative inset-0 bg-opacity-50 text-black p-8 text-center">
+      <h2 class="text-4xl font-semibold mb-4">EXPLORE MORE</h2>
+      <p class="text-beige-300 mb-6">Uncover exciting world of blogs</p>
+      <div class="max-w-screen-xl mx-auto px-4">
+        <div class="relative ml-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5">
+            <ng-container *ngFor="let blog of blogs.slice(4,8); ">
+              <div
+                class="max-w-xs bg-white border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition duration-300">
+                <div>
+                  <a (click)="navigate(blog.id)">
+                    <img class="w-full h-48 object-cover cursor-pointer" [src]="blog.url" alt="" />
+                  </a>
+                  <div class="p-5">
+                    <a (click)="navigate(blog.id)">
+                      <h5
+                        class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words cursor-pointer">
+                        {{
+                        blog.title }}</h5>
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-300">By {{ blog.author }}</p>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>

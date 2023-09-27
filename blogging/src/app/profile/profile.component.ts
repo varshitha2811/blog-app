@@ -10,6 +10,7 @@ import { SessionService } from '../session-service.service';
 })
 export class ProfileComponent {
   user: any;
+  // profilePictureUrl: '',
   loginName: string = "";
   loginUserName: string = "";
   blogs: any[] = [];
@@ -26,6 +27,7 @@ export class ProfileComponent {
       this.user = data;
       this.loginName = this.user.name;
       this.loginUserName = this.user.username;
+      // this.user.profilePictureUrl = data.profilePictureUrl || '';
     });
 
     this.blogService.getAllPosts().subscribe((data: any[]) => {
@@ -62,4 +64,5 @@ export class ProfileComponent {
     this.sessionService.endSession();
     this.router.navigate(['/login']);
   }
+  
 }

@@ -1,4 +1,4 @@
-<nav class="bg-white">
+<nav class="bg-black rounded py-4">
     <div class="mx-0 max-w-7xl sm:px-6 lg:px-2 ">
         <div class="relative flex h-12 items-center justify-between ">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden ">
@@ -19,13 +19,10 @@
                     </svg>
                 </button>
             </div>
-            <div
-                class="flex flex-shrink-0 items-center ml-16 py-4 md:p-0 scroll-px-2 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white  dark:border-gray-700">
-                <img class="h-8 w-8 -mt-2 rounded-full" src="../../assets/images/logo.png" alt="" />
-                <a [routerLink]="['/home']"
-                    class="text-black hover: rounded-md py-2 text-lg  -mt-4 pr-4 lg:text-2xl sm:text-base font-extrabold h-8 w-auto">Ink
-                    & Insights
-                </a>
+            <div class="flex flex-shrink-0 items-center ml-16 py-4 md:p-0 scroll-px-2 font-medium  ">
+                    <!-- <img class="h-8 w-8 -mt-2 rounded-full" src="../../assets/images/logo.png" alt="" /> -->
+                <a [routerLink]="['/home']"class="text-white hover: rounded-md py-2 text-lg  -mt-4 pr-4 lg:text-2xl sm:text-base font-semibold h-8 w-auto">
+                    <h2>Ink & Insights</h2></a>
                 <a (click)="showProfileDropDown()"
                     class="relative flex rounded-full bg-black text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     id="user-menu-button" aria-expanded="false" aria-haspopup="true">
@@ -35,32 +32,31 @@
             </div>
             <div class="hidden sm:ml-6 sm:block ">
                 <div class="flex space-x-4 ">
-                    <a class="text-black hover:text-blue-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
+                    <a class="text-white hover:text-white-700 border-gray-300 rounded-md px-3 py-2 text-base font-semibold mt-1"
                         [routerLink]="['/blogs/home']">Home</a>
-                    <a class="text-black hover:text-blue-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
+                    <a class="text-white hover:text-white-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
                         [routerLink]="['blog/write-blog']">Write</a>
-                    <a class="text-black hover:text-blue-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
+                    <a class="text-white hover:text-whie-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
                         [routerLink]="['/blog/profile']">Profile</a>
                 </div>
             </div>
-            <div
-                class="absolute inset-y-0 flex items-center justify-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 mt-4">
-                <div class="relative hidden md:block">
+            <div class="absolute inset-y-0 flex items-center justify-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 mt-4">
+                <div class="relative hidden md:block border-white">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none stye">
-                        <svg class="w-4 h-4 text-blue-500 " aria-hidden="true" xmlns="#" fill="none"
+                        <svg class="w-110 h-4 text-blue-500 " aria-hidden="true" xmlns="#" fill="none"
                             viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            <path stroke=black stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                         <span class="sr-only">Search icon</span>
                     </div>
                     <input type="text" id="search-navbar"
-                        class="block w-full p-2 pl-10 text-sm text-gray-900 border border-black rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-blue-500 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search..." [(ngModel)]="searchText" (keydown.enter)="handleSearch()">
+                        class="block w-200 pl-10 text-sm text-black-900 border border-white rounded-lg bg-black-50 focus:ring-gray-500 focus:border-white-500 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search" [(ngModel)]="searchText" (keydown.enter)="handleSearch()">
                 </div>
             </div>
             <div class="md:hidden flex items-center ml-6">
-                <button class="text-gray-400 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+                <button class="text-white-400 hover:text-gray-700 focus:outline-none focus:text-gray-700"
                     aria-label="Open Search" (click)="handleSearch()">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         class="w-6 h-6">
@@ -77,7 +73,7 @@
                 <div class="md:hidden">
                     <div class="relative hidden md:block">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            <svg class="w-4 h-4 text-white-500 dark:text-white-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
@@ -88,10 +84,10 @@
                             class="block w-full p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Search..." />
                     </div>
-                    <a class="text-black hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                    <a class="text-white hover:text-white block rounded-md px-3 py-2 text-base font-medium">
                         <div class="relative mb-4 flex w-full flex-wrap items-stretch">
                             <input type="search"
-                                class="flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-neutral-100 focus:text-black focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                                class="flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-white outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-neutral-100 focus:text-black focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
                                 placeholder="Search" aria-label="Search" aria-describedby="button-addon2"
                                 [(ngModel)]="searchText" (keyup.enter)="handleSearch()" />
 
