@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="text-center text-2xl font-semibold mb-4">
   Your Blogs
 </div>
@@ -25,7 +25,66 @@
         class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm -mt-9">Write your first blog.</a>
     </p>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5 my-5">
-      <ng-container *ngFor="let blog of filterData.slice().reverse();">
+      <ng-container *ngFor="let blog of blogs.slice().reverse();">
+        <div
+          class="max-w-xs bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-md transition duration-300">
+          <div>
+            <a [routerLink]="['/blogs', blog.id]">
+              <img class="w-full h-48 object-cover" [src]="blog.url" alt="blog image" />
+            </a>
+            <div class="p-5">
+              <a [routerLink]="['/blogs', blog.id]">
+                <h5
+                  class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline break-words">
+                  {{ blog.title }}
+                </h5>
+              </a>
+              <p class="text-gray-600 dark:text-gray-300">By {{ blog.author }}</p>
+              <button class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm"
+                (click)="deleteBlog(blog.id)">
+                Delete
+              </button>
+              <button class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm"
+                [routerLink]="['/edit-blog', blog.id]">
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div> -->
+
+<div class="text-center text-2xl font-semibold mb-4">
+  Your Blogs
+</div>
+<div class="mt-2 mx-auto">
+  <div class="mt-2 w-20 h-1 bg-blue-500 mx-auto">
+  </div>
+</div>
+<div class=" max-w-screen-xl mx-auto px-4">
+  <div class="shadow-md p-3">
+    <p class="text-xl font-semibold">{{ loginName }}</p>
+    <div class="flex items-center justify-end ">
+      <button (click)="userlogout()" class="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm -mt-8">
+        Logout
+      </button>
+      <!-- <button (click)="editProfile()" class="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm -mt-8">
+        edit-Profile
+      </button> -->
+    </div>
+  </div>
+  <div class="relative ml-6">
+    <p class="text-center text-2xl font-semibold mb-4 mt-8" *ngIf="blogs.length===0">
+      <ng-container *ngIf="showMessage">
+        You don't have any blogs to display.<br>
+        <a [routerLink]="['/blog/write-blog']"
+          class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm -mt-9">Write your first blog.</a>
+      </ng-container>
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-x-auto py-0.5 my-5">
+      <ng-container *ngFor="let blog of blogs.slice().reverse();">
         <div
           class="max-w-xs bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-md transition duration-300">
           <div>

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 export interface Comment {
@@ -42,8 +42,24 @@ export class BlogService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
+  // addBlog(newBlog: blog): Observable<blog> {
+  //   return this.http.post<blog>(`${this.apiUrl}/add`, newBlog);
+  // }
+
   addBlog(newBlog: blog): Observable<blog> {
-    return this.http.post<blog>(`${this.apiUrl}/add`, newBlog);
+    const token = localStorage.getItem('jwt_token');
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    const options = {
+      headers: headers,
+    };
+    return this.http.post<blog>(`${this.apiUrl}/add`, newBlog,options);
+  }
+  getUserProfile(author: string): Observable<any> {
+    const params = { author };
+    return this.http.get(`${this.apiUrl}/profile`, { params });
   }
 
   filterBlogsByAuthorAndUserName(author: string, userName: string): Observable<blog[]> {
