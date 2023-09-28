@@ -22,7 +22,7 @@
                 <input type="text" id="customTags" [(ngModel)]="customTags" name="customTags"
                     class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
                     placeholder="Enter tags..." (input)="onCustomTagsInputChange()">
-                    <p *ngIf="showTitleError && !title" class="text-red-600">Title is required.</p>
+                    <p *ngIf="showTitleError && !title" class="text-red-600">Tags are required.</p>
             </div>
             <div class="flex flex-wrap">
                 <div *ngFor="let tag of tags"

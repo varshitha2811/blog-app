@@ -1,73 +1,110 @@
 package com.example.BlogApp.Entity;
+
 import java.util.Collection;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 @Document(collection = "UserForm")
-public class User implements UserDetails{
-//    /**
-//	 * 
-//	 */
-//	private static final long serialVersionUID = 1L;
+public class User implements UserDetails {
 	@Id
-    private String id;
-    private String name;
-    private String userName;
-    private String password;
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String username) {
-        this.userName = username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	
+	private String id;
+	private String name;
+	private String email;
+	private String userName;
+	private String password;
+	@DBRef
+	@JsonIgnore
+	private UserProfile userprofile;	
+
+	public User(String id, String name,String email, String userName, String password, UserProfile userprofile) {
+		super();
+		this.id = id;
+		this.name=name;
+		this.email=email;
+		this.userName = userName;
+		this.password = password;
+		this.userprofile = userprofile;
+	}
+	public User() {}
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public UserProfile getUserprofile() {
+		return userprofile;
+	}
+
+	public void setUserprofile(UserProfile userprofile) {
+		this.userprofile = userprofile;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String username) {
+		this.userName = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return this.userName;
 	}
+
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
+
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
+
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
+
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 }

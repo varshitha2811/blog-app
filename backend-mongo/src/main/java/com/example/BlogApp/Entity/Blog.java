@@ -3,14 +3,14 @@ package com.example.BlogApp.Entity;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Document(collection = "BlogApp")
 public class Blog {
 	@Id
 	private String id;
-
 	private String title;
 	private String author;
 	private List<String> description;
@@ -19,9 +19,13 @@ public class Blog {
 	private String time;
 	private List<Comment> comments;
 	private String userName;
+	
+	@DBRef
+	@JsonIgnore
+	private UserProfile userProfile;
 
 	public Blog(String id, String title, String author, List<String> description, List<String> tags, String url,
-			String time, List<Comment> comments, String userName) {
+			String time, List<Comment> comments, UserProfile userproflie) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -31,7 +35,7 @@ public class Blog {
 		this.url = url;
 		this.time = time;
 		this.comments = comments;
-		this.userName = userName;
+		this.userProfile = userproflie;
 	}
 
 	public Blog(String id, String title, String author, List<String> description, List<String> tags, String url,
@@ -90,6 +94,14 @@ public class Blog {
 
 	public List<String> getTags() {
 		return tags;
+	}
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 
 	public void setTags(List<String> tags) {
