@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CookieService } from 'ngx-cookie-service';
+import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './auth.service';
@@ -32,7 +33,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     SignUpComponent,
     LoginComponent,
     ProfileComponent,
-    EditBlogComponent
+    EditBlogComponent,
+    AdminUserManagementComponent
   ],
   imports: [
     BrowserModule,

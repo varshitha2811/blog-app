@@ -154,12 +154,14 @@ export class ProfileComponent {
   blogs: any[] = [];
   filterData: any[] = [];
   showMessage: boolean = false;
+
   constructor(private route: ActivatedRoute,
     private blogService: BlogService,
     private authService: AuthService,
     private router: Router,
     private sessionService: SessionService) { }
   ngOnInit(): void {
+
     this.authService.getCurrentUser().subscribe((data: any[]) => {
       this.user = data;
       this.loginName = this.user.name;

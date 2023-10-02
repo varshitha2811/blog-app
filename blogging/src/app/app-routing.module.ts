@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { initFlowbite } from 'flowbite';
+import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
+import { AdminGuard } from './admin.guard';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { DisplayBlogComponent } from './display-blog/display-blog.component';
 import { EditBlogComponent } from './edit-blog/edit-blog.component';
@@ -21,7 +23,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent},
   {path: 'blog/profile',component:ProfileComponent},
-  { path: 'edit-blog/:id' ,component: EditBlogComponent }];
+  { path: 'edit-blog/:id' ,component: EditBlogComponent },
+  { path: 'blog/user-management', component: AdminUserManagementComponent, canActivate: [AdminGuard] },
+
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
