@@ -154,6 +154,7 @@ export class ProfileComponent {
   blogs: any[] = [];
   filterData: any[] = [];
   showMessage: boolean = false;
+  profileEnabled:boolean=true;
 
   constructor(private route: ActivatedRoute,
     private blogService: BlogService,
@@ -166,6 +167,8 @@ export class ProfileComponent {
       this.user = data;
       this.loginName = this.user.name;
       this.loginUserName = this.user.username;
+      this.profileEnabled=this.user.profileEnabled;
+      
       this.blogService.getUserProfile(this.loginUserName).subscribe(
         (data) => {
           this.blogs = data.blogs;

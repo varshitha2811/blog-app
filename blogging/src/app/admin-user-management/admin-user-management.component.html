@@ -2,12 +2,9 @@
     <div class="shadow-md p-3">
       <p class="text-xl font-semibold">Welcome, {{ loginName }}</p>
       <div class="flex items-center justify-end ">
-        <button (click)="userlogout()" class="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm -mt-8">
-          Logout
-        </button>
-      </div>
+       
+      
     </div>
-  
   <div class="p-4" *ngIf="users">
     <table class="min-w-full bg-white border border-gray-300">
       <thead>
@@ -29,5 +26,8 @@
         </tr>
       </tbody>
     </table>
+    <button (click)="userlogout()" class="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm -mt-8">
+        Logout
+      </button>
+    </div>
   </div>
-  

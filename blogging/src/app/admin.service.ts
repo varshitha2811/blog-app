@@ -39,13 +39,27 @@ export class AdminService {
 
     return this.http.post(`${this.baseUrl}/update-can-write-blog`, params,options);
   }
+
+  
   disableProfile(userId: string): Observable<any> {
-    const url = `${this.baseUrl}/disableProfile/${userId}`;
-    return this.http.put(url, {});
+    const url = `${this.baseUrl}/disable-profile/${userId}`;
+    const token = localStorage.getItem('jwt_token');
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    console.log(userId);
+    return this.http.post(url, {}, { headers });
   }
 
   enableProfile(userId: string): Observable<any> {
-    const url = `${this.baseUrl}/enableProfile/${userId}`;
-    return this.http.put(url, {});
+    const url = `${this.baseUrl}/enable-profile/${userId}`;
+
+    const token = localStorage.getItem('jwt_token');
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    return this.http.post(url, {}, { headers });
   }
 }

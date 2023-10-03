@@ -89,35 +89,6 @@ export class AuthService {
       map(user => user && user.roles && user.roles.includes('ROLE_ADMIN'))
     );
   }
-  // //new down
-  // getAllUsers(): Observable<User[]> {
-  //   return this.http.get<User[]>(`http://localhost:8080/blogs/users`).pipe(
-  //     tap(users => console.log(users)),
-  //     catchError((error) => {
-  //       console.error('Error getting users:', error);
-  //       return throwError(error);
-  //     })
-  //   );
-  // }
-  
-  // getAdminDetails(): Observable<any> {
-  //   return this.http.get<any>(`${this.authUrl}/adminprofile`);
-  // }
-  // disableProfile(username: string): Observable<any> {
-  //   return this.http.post<any>(`${this.authUrl}/admin/disable-profile/${username}`, null);
-  // }
-  
-  // enableProfile(username: string): Observable<any> {
-  //   return this.http.post<any>(`${this.authUrl}/admin/enable-profile/${username}`, null);
-  // }
-  
-  // disableWriteBlog(username: string): Observable<any> {
-  //   return this.http.post<any>(`${this.authUrl}/admin/disable-write-blog/${username}`, null);
-  // }
-  
-  // enableWriteBlog(username: string): Observable<any> {
-  //   return this.http.post<any>(`${this.authUrl}/admin/enable-write-blog/${username}`, null);
-  // }
   }
   
 

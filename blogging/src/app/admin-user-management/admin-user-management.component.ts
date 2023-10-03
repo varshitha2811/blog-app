@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../admin.service';
-import { BlogService } from '../blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AdminService } from '../admin.service';
 import { AuthService } from '../auth.service';
+import { BlogService } from '../blog.service';
 import { SessionService } from '../session-service.service';
 
 @Component({
@@ -47,10 +47,21 @@ export class AdminUserManagementComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  // disableProfile(userId: string): void {
+  //   this.adminService.disableProfile(userId).subscribe(
+  //     (response) => {
+  //       console.log(response);
+  //       this.loadAllUsers(); 
+  //     },
+  //     (error) => {
+  //       console.error('Error disabling profile:', error);
+  //     }
+  //   );
+  // }
   disableProfile(userId: string): void {
     this.adminService.disableProfile(userId).subscribe(
       (response) => {
-        console.log(response);
+        console.log('Disable Profile Response:', response);
         this.loadAllUsers(); 
       },
       (error) => {
@@ -58,16 +69,19 @@ export class AdminUserManagementComponent implements OnInit {
       }
     );
   }
-
+  
   enableProfile(userId: string): void {
     this.adminService.enableProfile(userId).subscribe(
-      (response) => {
-        console.log(response);
-        this.loadAllUsers();
-      },
-      (error) => {
-        console.error('Error enabling profile:', error);
-      }
+        (response) => {
+            console.log('Enable Profile Response:', response);
+            this.loadAllUsers();
+        },
+        (error) => {
+            console.error('Error enabling profile:', error);
+        }
     );
-  }
+}
+
+  
+  
 }
