@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent},
   {path: 'blog/profile',component:ProfileComponent},
   { path: 'edit-blog/:id' ,component: EditBlogComponent },
-  { path: 'blog/user-management', component: AdminUserManagementComponent, canActivate: [AdminGuard] },
+  { path: 'blog/admin-user-management', component: AdminUserManagementComponent, canActivate: [AdminGuard] },
 
   ];
 

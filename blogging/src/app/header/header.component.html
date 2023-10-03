@@ -32,12 +32,14 @@
             </div>
             <div class="hidden sm:ml-6 sm:block ">
                 <div class="flex space-x-4 ">
+                  
                     <a class="text-white hover:text-white-700 border-gray-300 rounded-md px-3 py-2 text-base font-semibold mt-1"
                         [routerLink]="['/blogs/home']">Home</a>
-                    <a class="text-white hover:text-white-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
+                    <a *ngIf="!isAdmin" class="text-white hover:text-white-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
                         [routerLink]="['blog/write-blog']">Write</a>
-                    <a class="text-white hover:text-whie-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
+                    <a *ngIf="!isAdmin" class="text-white hover:text-whie-700 rounded-md px-3 py-2 text-base font-semibold mt-1"
                         [routerLink]="['/blog/profile']">Profile</a>
+                     <a *ngIf="isAdmin" routerLink="blog/admin-user-management" class="text-white hover:text-whie-700 rounded-md px-3 py-2 text-base font-semibold mt-1">User Management</a>
                 </div>
             </div>
             <div class="absolute inset-y-0 flex items-center justify-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 mt-4">

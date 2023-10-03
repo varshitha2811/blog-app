@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, User } from '../auth.service';
+import { AdminService } from '../admin.service';
+import { BlogService } from '../blog.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { SessionService } from '../session-service.service';
 
 @Component({
   selector: 'app-admin-user-management',
@@ -7,30 +11,47 @@ import { AuthService, User } from '../auth.service';
   styleUrls: ['./admin-user-management.component.scss']
 })
 export class AdminUserManagementComponent implements OnInit {
-  users: User[] = [];
+  users: any;
+  user:any;
+  loginName: string = "";
+  loginUserName: string = "";
 
-  constructor(private authService: AuthService) { }
+  constructor(private adminService: AdminService,
+    private route: ActivatedRoute,
+    private blogService: BlogService,
+    private authService: AuthService,
+    private router: Router,
+    private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    this.loadUsers();
-  }
+    this.authService.getCurrentUser().subscribe((data: any[]) => {
+      this.user = data;
+      this.loginName = this.user.name;
+      this.loadAllUsers();
+  });}
 
-  loadUsers(): void {
-    this.authService.getAllUsers().subscribe(
-      (users: User[]) => {
-        this.users = users;
+  loadAllUsers() {
+    this.adminService.getAllUsers().subscribe(
+      (data) => {
+        this.users = data;
+        console.log(data); 
       },
-      (error: any) => {
+      (error) => {
         console.error('Error loading users:', error);
       }
     );
   }
+  userlogout() {
+    localStorage.removeItem("jwt_token");
+    this.sessionService.endSession();
+    this.router.navigate(['/login']);
+  }
 
   disableProfile(userId: string): void {
-    this.authService.disableProfile(userId).subscribe(
+    this.adminService.disableProfile(userId).subscribe(
       (response) => {
         console.log(response);
-        this.loadUsers(); 
+        this.loadAllUsers(); 
       },
       (error) => {
         console.error('Error disabling profile:', error);
@@ -39,10 +60,10 @@ export class AdminUserManagementComponent implements OnInit {
   }
 
   enableProfile(userId: string): void {
-    this.authService.enableProfile(userId).subscribe(
+    this.adminService.enableProfile(userId).subscribe(
       (response) => {
         console.log(response);
-        this.loadUsers();
+        this.loadAllUsers();
       },
       (error) => {
         console.error('Error enabling profile:', error);

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,10 +11,16 @@ export class HeaderComponent {
   isSearchBarVisible: boolean = false;
   searchText: string = '';
   showProfile: boolean = true;
+  isAdmin: boolean = false;
 
   constructor(
-    private route: Router,
+    private route: Router,private authService:AuthService
   ) { }
+  
+  ngOnInit(): void {
+    this.authService.isAdmin().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    })};
 
   handleSearch() {
     if (this.searchText.trim() !== '') {
@@ -22,6 +29,7 @@ export class HeaderComponent {
     this.searchText = '';
     this.isMenu = !this.isMenu;
   }
+ 
 
   showSearchBar() {
     this.isSearchBarVisible = !this.isSearchBarVisible;

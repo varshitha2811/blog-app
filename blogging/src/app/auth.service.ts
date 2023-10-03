@@ -62,7 +62,7 @@ export class AuthService {
     return this.http.post<User>(`${this.authUrl}/login`, user).pipe(
       tap((user) => {
         if (user && user.roles && user.roles.includes('ROLE_ADMIN')) {
-          this.router.navigate(['/blogs/user-management']); 
+          this.router.navigate(['/blog/user-management']); 
         } else {
           this.router.navigate(['blog/profile']); 
         }
@@ -81,6 +81,7 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
+    console.log(headers);
     return this.http.get<any>(`http://localhost:8080/current-user`,{headers});
   }
   isAdmin(): Observable<boolean> {
@@ -88,34 +89,35 @@ export class AuthService {
       map(user => user && user.roles && user.roles.includes('ROLE_ADMIN'))
     );
   }
-  //new down
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`http://localhost:8080/blogs/users`).pipe(
-      catchError((error) => {
-        console.error('Error getting users:', error);
-        return throwError(error);
-      })
-    );
-  }
+  // //new down
+  // getAllUsers(): Observable<User[]> {
+  //   return this.http.get<User[]>(`http://localhost:8080/blogs/users`).pipe(
+  //     tap(users => console.log(users)),
+  //     catchError((error) => {
+  //       console.error('Error getting users:', error);
+  //       return throwError(error);
+  //     })
+  //   );
+  // }
   
-  getAdminDetails(): Observable<any> {
-    return this.http.get<any>(`${this.authUrl}/adminprofile`);
-  }
-  disableProfile(username: string): Observable<any> {
-    return this.http.post<any>(`${this.authUrl}/admin/disable-profile/${username}`, null);
-  }
+  // getAdminDetails(): Observable<any> {
+  //   return this.http.get<any>(`${this.authUrl}/adminprofile`);
+  // }
+  // disableProfile(username: string): Observable<any> {
+  //   return this.http.post<any>(`${this.authUrl}/admin/disable-profile/${username}`, null);
+  // }
   
-  enableProfile(username: string): Observable<any> {
-    return this.http.post<any>(`${this.authUrl}/admin/enable-profile/${username}`, null);
-  }
+  // enableProfile(username: string): Observable<any> {
+  //   return this.http.post<any>(`${this.authUrl}/admin/enable-profile/${username}`, null);
+  // }
   
-  disableWriteBlog(username: string): Observable<any> {
-    return this.http.post<any>(`${this.authUrl}/admin/disable-write-blog/${username}`, null);
-  }
+  // disableWriteBlog(username: string): Observable<any> {
+  //   return this.http.post<any>(`${this.authUrl}/admin/disable-write-blog/${username}`, null);
+  // }
   
-  enableWriteBlog(username: string): Observable<any> {
-    return this.http.post<any>(`${this.authUrl}/admin/enable-write-blog/${username}`, null);
-  }
+  // enableWriteBlog(username: string): Observable<any> {
+  //   return this.http.post<any>(`${this.authUrl}/admin/enable-write-blog/${username}`, null);
+  // }
   }
   
 
