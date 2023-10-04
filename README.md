@@ -21,12 +21,20 @@ blog-app(Ink and Insights) is a web-based blog application that allows users to 
 ## Technologies Used
 - Frontend: Angular (HTML,Tailwind, TypeScript)
 ## Installation
-1. Clone the repository:
+1.In the terminal : 
    ```bash
-   https://github.com/varshitha2811/blog-app.git
+   mkdir team5
+   cd team5
+   git clone "https://github.com/varshitha2811/blog-app.git"
    cd blog app
    cd blogging
    npm install
+```
+2.In another terminal you can either either MongoDB Server or SQL Server. (Server side will run on port 8080) 
+```bash
+cd blog-app
+run.bat
+```
+3.Use ng serve --host 0.0.0.0 --port 5000 -o to run the client side application.
 
-2.Use ng serve --host 0.0.0.0 --port port-number to run the apllication.
   
