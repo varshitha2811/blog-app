@@ -47,41 +47,27 @@ export class AdminUserManagementComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  // disableProfile(userId: string): void {
-  //   this.adminService.disableProfile(userId).subscribe(
-  //     (response) => {
-  //       console.log(response);
-  //       this.loadAllUsers(); 
-  //     },
-  //     (error) => {
-  //       console.error('Error disabling profile:', error);
-  //     }
-  //   );
-  // }
   disableProfile(userId: string): void {
     this.adminService.disableProfile(userId).subscribe(
       (response) => {
-        console.log('Disable Profile Response:', response);
-        this.loadAllUsers(); 
+        console.log(response);
+        this.loadAllUsers();
       },
       (error) => {
         console.error('Error disabling profile:', error);
       }
     );
   }
-  
+
   enableProfile(userId: string): void {
     this.adminService.enableProfile(userId).subscribe(
-        (response) => {
-            console.log('Enable Profile Response:', response);
-            this.loadAllUsers();
-        },
-        (error) => {
-            console.error('Error enabling profile:', error);
-        }
+      (response) => {
+        console.log(response);
+        this.loadAllUsers();
+      },
+      (error) => {
+        console.error('Error enabling profile:', error);
+      }
     );
-}
-
-  
-  
+  }
 }
