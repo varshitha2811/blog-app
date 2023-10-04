@@ -1,7 +1,6 @@
 package com.example.BlogApp.Controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 
 import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.repo.UserReposiotory;
@@ -87,8 +85,8 @@ public class AdminController implements WebMvcConfigurer {
         return ResponseEntity.ok("{\"message\": \"canWriteBlog updated successfully\"}");
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/disable-profile/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin(origins = "http://localhost:5000")
     public ResponseEntity<String> disableProfile(@PathVariable String userId) {
         System.out.println("Trying to disable profile for user with ID: " + userId);
@@ -102,8 +100,9 @@ public class AdminController implements WebMvcConfigurer {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PostMapping("/enable-profile/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin(origins = "http://localhost:5000")
     public ResponseEntity<String> enableProfile(@PathVariable String userId) {
         User user = userRepository.findById(userId).orElse(null);
