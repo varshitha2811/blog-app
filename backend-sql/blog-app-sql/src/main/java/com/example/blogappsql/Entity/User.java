@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.blogappsql.UserRole;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -36,7 +37,7 @@ public class User implements UserDetails {
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_profile_id")
     private UserProfile userprofile;
 
     @ElementCollection(targetClass = UserRole.class)

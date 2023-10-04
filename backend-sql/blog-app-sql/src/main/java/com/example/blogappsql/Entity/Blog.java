@@ -33,13 +33,13 @@ public class Blog {
     private String url;
     private String time;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "blog")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     private String userName;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
     public Blog(Long id, String title, String author, List<String> description, List<String> tags, String url,
