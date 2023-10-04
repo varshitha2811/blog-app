@@ -14,16 +14,18 @@ import com.example.blogappsql.Repository.UserReposiotory;
 @Service
 public class CustomiseUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UserReposiotory userRepository;
+    @Autowired
+    private UserReposiotory userRepository;
 
-	@Override
-	@Transactional
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUserName(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("User not found with username: " + username);
-		}
-		return user;
-	}
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUserName(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+        return new CustomUserDetails(user);
+    }
 }
+

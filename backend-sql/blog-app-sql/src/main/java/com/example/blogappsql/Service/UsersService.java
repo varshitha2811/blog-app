@@ -1,30 +1,52 @@
 package com.example.blogappsql.Service;
 
-import java.util.UUID;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.blogappsql.UserRole;
 import com.example.blogappsql.Entity.User;
 import com.example.blogappsql.Repository.UserReposiotory;
 
 @Service
 public class UsersService {
 
-	@Autowired
-	private UserReposiotory usersRepository;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserReposiotory userRepository;
 
-	public User createUser(User user) {
-		user.setId(UUID.randomUUID().toString());
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return usersRepository.save(user);
-	}
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	public User findByUserName(String UserName) {
-		return usersRepository.findByUserName(UserName);
-	}
+    public Iterable<User> getUsers() {
+        return userRepository.findAll();
+    }
+    @Transactional
+    public User createUser(User user) {
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be empty");
+        }
+        userRepository.findByUserName(user.getUsername());
+        boolean isUserFirst = userRepository.count() == 0;
+        if (isUserFirst) {
+            user.setRoles(new HashSet<>(Arrays.asList(UserRole.ROLE_ADMIN)));
+        } else {
+            user.setRoles(Collections.singleton(UserRole.ROLE_USER));
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
 
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public User findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
 }

@@ -1,4 +1,5 @@
 package com.example.blogappsql.Entity;
+
 import java.io.Serializable;
 
 public class JwtLoginRequest implements Serializable {
@@ -10,11 +11,11 @@ public class JwtLoginRequest implements Serializable {
 
     // No-argument constructor
     public JwtLoginRequest() {
-    	super();
+    super();
     }
 
     public JwtLoginRequest(String username, String password) {
-    	super();
+    super();
         this.setuserName(username);
         this.setPassword(password);
     }
@@ -35,4 +36,5 @@ public class JwtLoginRequest implements Serializable {
         this.password = password;
     }
 }
+
 

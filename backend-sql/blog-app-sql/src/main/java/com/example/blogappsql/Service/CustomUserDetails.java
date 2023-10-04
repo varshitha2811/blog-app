@@ -1,4 +1,4 @@
-package com.example.BlogApp.Service;
+package com.example.blogappsql.Service;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.BlogApp.Entity.User;
+import com.example.blogappsql.Entity.User;
 
 public class CustomUserDetails implements UserDetails {
     private final User user;
