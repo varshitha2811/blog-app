@@ -21,7 +21,7 @@ public class User implements UserDetails {
 	
 	private String id;
 	private String name;
-	private String email;
+	// private String email;
 	private String userName;
 	private String password;
 	@DBRef
@@ -34,14 +34,21 @@ public class User implements UserDetails {
 	private boolean canWriteBlog=true;
 
 
-	public User(String id, String name,String email, String userName, String password, UserProfile userprofile) {
+	public User(String id, String name, String userName, String password, UserProfile userprofile) {
 		super();
 		this.id = id;
 		this.name=name;
-		this.email=email;
+		// this.email=email;
 		this.userName = userName;
 		this.password = password;
 		this.userprofile = userprofile;
+	}
+	public User( String name, String userName, String password) {
+		
+		this.name=name;
+		// this.email=email;
+		this.userName = userName;
+		this.password = password;
 	}
 	public User() {}
 	
@@ -82,12 +89,12 @@ public class User implements UserDetails {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	// public String getEmail() {
+	// 	return email;
+	// }
+	// public void setEmail(String email) {
+	// 	this.email = email;
+	// }
 	public UserProfile getUserprofile() {
 		return userprofile;
 	}

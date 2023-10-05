@@ -1,5 +1,7 @@
 package com.example.BlogApp;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -10,4 +12,14 @@ class BlogAppApplicationTests {
 	void contextLoads() {
 	}
 
+    @Test
+    public void main() {
+        boolean noExceptionThrown = true;
+        try {
+            BlogAppApplication.main(new String[] {});
+        } catch (Exception e) {
+            noExceptionThrown = false;
+        }
+        assertTrue(noExceptionThrown);
+}
 }

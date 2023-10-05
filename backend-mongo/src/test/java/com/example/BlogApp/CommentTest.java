@@ -1,0 +1,81 @@
+package com.example.BlogApp;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import com.example.BlogApp.Entity.Comment;
+
+class CommentTest {
+
+    @Test
+    void testGetName() {
+        // Arrange
+        Comment comment = new Comment("John Doe", "This is a comment");
+
+        // Act
+        String name = comment.getName();
+
+        // Assert
+        assertEquals("John Doe", name);
+    }
+
+    @Test
+    void testSetName() {
+        // Arrange
+        Comment comment = new Comment();
+
+        // Act
+        comment.setName("Jane Doe");
+
+        // Assert
+        assertEquals("Jane Doe", comment.getName());
+    }
+
+    @Test
+    void testGetComment() {
+        // Arrange
+        Comment comment = new Comment("John Doe", "This is a comment");
+
+        // Act
+        String commentText = comment.getComment();
+
+        // Assert
+        assertEquals("This is a comment", commentText);
+    }
+
+    @Test
+    void testSetComment() {
+        // Arrange
+        Comment comment = new Comment();
+
+        // Act
+        comment.setComment("Another comment");
+
+        // Assert
+        assertEquals("Another comment", comment.getComment());
+    }
+
+    @Test
+    void testGetId() {
+        // Arrange
+        Comment comment = new Comment();
+
+        // Act
+        String id = comment.getId();
+
+        // Assert
+        assertNull(id); // Since id is not set, it should be null
+    }
+
+    @Test
+    void testSetId() {
+        // Arrange
+        Comment comment = new Comment();
+
+        // Act
+        comment.setId("12345");
+
+        // Assert
+        assertEquals("12345", comment.getId());
+    }
+}

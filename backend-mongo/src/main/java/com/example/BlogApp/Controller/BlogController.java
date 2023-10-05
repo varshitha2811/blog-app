@@ -122,27 +122,30 @@ public class BlogController implements WebMvcConfigurer {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting blog post.");
 		}
 	}
-
 	@PostMapping("/add-comment/{blogId}")
 	public ResponseEntity<?> addComment(@PathVariable String blogId, @RequestBody Comment comment) {
-		try {
-			Optional<Blog> optionalBlog = blogPostRepository.findById(blogId);
-			if (optionalBlog.isPresent()) {
-				Blog blog = optionalBlog.get();
-				if (blog.getComments() == null) {
-					blog.setComments(new ArrayList<>());
-				}
-				blog.getComments().add(comment);
-				Blog updated = blogPostRepository.save(blog);
-				return ResponseEntity.ok(updated);
-			} else {
-				return ResponseEntity.notFound().build();
-			}
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding comment.");
-		}
-	}
-	
+    try {
+        if (comment == null) {
+            return ResponseEntity.badRequest().body("Comment cannot be null.");
+        }
+
+        Optional<Blog> optionalBlog = blogPostRepository.findById(blogId);
+        if (optionalBlog.isPresent()) {
+            Blog blog = optionalBlog.get();
+            if (blog.getComments() == null) {
+                blog.setComments(new ArrayList<>());
+            }
+            blog.getComments().add(comment);
+            Blog updated = blogPostRepository.save(blog);
+            return ResponseEntity.ok(updated);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding comment.");
+    }
+}
+
 	@DeleteMapping("/delete-comment/{blogId}/{commentIndex}")
 	// @PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> deleteComment(@PathVariable String blogId, @PathVariable int commentIndex) {
@@ -151,6 +154,9 @@ public class BlogController implements WebMvcConfigurer {
 			if (optionalBlog.isPresent()) {
 				Blog blog = optionalBlog.get();
 				List<Comment> comments = blog.getComments();
+				if (comments == null || comments.isEmpty() || commentIndex >= comments.size()) {
+					return ResponseEntity.badRequest().body("Invalid comment index or no comments available.");
+				}
 				if (commentIndex >= 0 && commentIndex < comments.size()) {
 					comments.remove(commentIndex);
 					blogPostRepository.save(blog);
@@ -165,28 +171,35 @@ public class BlogController implements WebMvcConfigurer {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting comment.");
 		}
 	}
-
-	@GetMapping("/search/{searchTerm}")
-	public List<Blog> searchBlogs(@PathVariable String searchTerm) {
-		List<Blog> matchingBlogs = new ArrayList<>();
-		List<Blog> allBlogs = (List<Blog>) blogPostRepository.findAll();
-		for (Blog blog : allBlogs) {
-			boolean matches = false;
-			String lowercaseSearchTerm = searchTerm.toLowerCase();
-			String lowercaseAuthor = blog.getAuthor().toLowerCase();
-			String lowercaseTitle = blog.getTitle().toLowerCase();
-			List<String> lowercaseTags = blog.getTags().stream().map(String::toLowerCase).collect(Collectors.toList());
-			if (lowercaseAuthor.contains(lowercaseSearchTerm) || lowercaseTitle.contains(lowercaseSearchTerm)
-					|| lowercaseTags.contains(lowercaseSearchTerm)) {
-				matches = true;
-			}
-			if (matches) {
-				matchingBlogs.add(blog);
-			}
-		}
-		return matchingBlogs;
-	}
-
+@GetMapping("/search/{searchTerm}")
+public List<Blog> searchBlogs(@PathVariable String searchTerm) {
+    List<Blog> matchingBlogs = new ArrayList<>();
+    List<Blog> allBlogs = (List<Blog>) blogPostRepository.findAll();
+    for (Blog blog : allBlogs) {
+        boolean matches = false;
+        String lowercaseSearchTerm = searchTerm.toLowerCase();
+        String lowercaseAuthor = blog.getAuthor() != null ? blog.getAuthor().toLowerCase() : null;
+        String lowercaseTitle = blog.getTitle()!= null ? blog.getTitle().toLowerCase() : null;
+        List<String> lowercaseTags = blog.getTags() != null? blog.getTags().stream().map(String::toLowerCase).collect(Collectors.toList()) : null;
+        
+        if (lowercaseTitle != null && lowercaseTitle.contains(lowercaseSearchTerm)) {
+            matches = true;
+        }
+        
+        if (lowercaseAuthor != null && lowercaseAuthor.contains(lowercaseSearchTerm)) {
+            matches = true;
+        }
+        
+        if (lowercaseTags != null && lowercaseTags.contains(lowercaseSearchTerm)) {
+            matches = true;
+        }
+        
+        if (matches) {
+            matchingBlogs.add(blog);
+        }
+    }
+    return matchingBlogs;
+}
 	@GetMapping("/profile")
 	public ResponseEntity<UserProfile> getUserProfile(@RequestParam(name = "author") String username) {
 		try {
@@ -209,6 +222,4 @@ public class BlogController implements WebMvcConfigurer {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
-
-}
+	}}

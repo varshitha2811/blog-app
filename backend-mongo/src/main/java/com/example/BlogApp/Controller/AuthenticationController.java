@@ -90,14 +90,4 @@ public class AuthenticationController {
 		System.out.println(jwtToken);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
 	}
-	@GetMapping("/check-role")
-    public String checkRole() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getAuthorities().stream()
-            .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
-            return "You are an admin!";
-        } else {
-            return "You are not an admin";
-        }
-    }
 }

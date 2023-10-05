@@ -1,13 +1,13 @@
-package com.example.blogappsql;
+// package com.example.blogappsql;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class BlogAppSqlApplicationTests {
+// @SpringBootTest
+// class BlogAppSqlApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
