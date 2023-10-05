@@ -12,7 +12,7 @@ import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.Service.CustomUserDetails;
 
 @CrossOrigin(origins = "http://localhost:5000")
- @RestController
+@RestController
 public class UserController {
 
     @GetMapping("/current-user")
@@ -22,16 +22,43 @@ public class UserController {
 
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			
+
         }
         if (authentication.getPrincipal() instanceof CustomUserDetails) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-            User userInfo = userDetails.getUser();  // Access the User object directly
-            System.out.println("Principal is  CustomUserDetails: " + authentication.getPrincipal());
+            User userInfo = userDetails.getUser(); // Access the User object directly
+            System.out.println("Principal is CustomUserDetails: " +
+                    authentication.getPrincipal());
             return ResponseEntity.ok(userInfo);
         } else {
-            System.out.println("Principal is not CustomUserDetails: " + authentication.getPrincipal());
+            System.out.println("Principal is not CustomUserDetails: " +
+                    authentication.getPrincipal());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+    // @GetMapping("/current-user")
+    // public ResponseEntity<User> getCurrentUser() {
+    // Authentication authentication =
+    // SecurityContextHolder.getContext().getAuthentication();
+    // System.out.println("Authentication: " + authentication);
+
+    // if (authentication == null || !authentication.isAuthenticated()) {
+    // System.out.println("User is not authenticated");
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+
+    // if (authentication.getPrincipal() instanceof CustomUserDetails) {
+    // CustomUserDetails userDetails = (CustomUserDetails)
+    // authentication.getPrincipal();
+    // User userInfo = userDetails.getUser(); // Access the User object directly
+    // System.out.println("Principal is CustomUserDetails: " +
+    // authentication.getPrincipal());
+    // return ResponseEntity.ok(userInfo);
+    // } else {
+    // System.out.println("Principal is not CustomUserDetails: " +
+    // authentication.getPrincipal());
+    // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // }
+    // }
+
 }
