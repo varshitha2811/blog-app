@@ -1,5 +1,6 @@
 package com.example.BlogApp.Service;
 import java.util.Collection;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +15,12 @@ public class CustomUserDetails implements UserDetails {
     public CustomUserDetails(User user) {
         this.user = user;
     }
+
+    // Add this method to CustomUserDetails
+public Map<String, Object> getCustomClaims() {
+    // Assuming your User entity has a method to get custom claims
+    return user.getCustomClaims();
+}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

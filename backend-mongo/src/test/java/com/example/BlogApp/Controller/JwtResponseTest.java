@@ -53,15 +53,26 @@ public class JwtResponseTest {
     }
 
     @Test
+    void testEqualsMethod() {
+        JwtResponse jwtResponse1 = new JwtResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c", "dummyUser");
+        JwtResponse jwtResponse2 = new JwtResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c", "dummyUser");
+
+        JwtResponse jwtResponse3 = new JwtResponse("anotherToken", "anotherUser");
+
+        assertTrue(jwtResponse1.equals(jwtResponse2)); 
+        assertFalse(jwtResponse1.equals(jwtResponse3)); 
+    }
+
+    @Test
     void testEqualsAndHashCode() {
         JwtResponse jwtResponse1 = new JwtResponse("dummyToken1", "dummyUser1");
         JwtResponse jwtResponse2 = new JwtResponse("dummyToken1", "dummyUser1");
         JwtResponse jwtResponse3 = new JwtResponse("dummyToken2", "dummyUser2");
-    
+
         assertEquals(jwtResponse1, jwtResponse2);
         assertNotEquals(jwtResponse1, jwtResponse3);
         assertEquals(jwtResponse1.hashCode(), jwtResponse2.hashCode());
         assertNotEquals(jwtResponse1.hashCode(), jwtResponse3.hashCode());
     }
-    
+
 }

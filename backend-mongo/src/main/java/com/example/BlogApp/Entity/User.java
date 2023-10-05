@@ -1,6 +1,7 @@
 package com.example.BlogApp.Entity;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -161,5 +162,9 @@ public class User implements UserDetails {
 	}
 	public void setCanWriteBlog(boolean canWriteBlog) {
 		this.canWriteBlog = canWriteBlog;
+	}
+
+	public Map<String, Object> getCustomClaims() {
+		return null;
 	}
 }

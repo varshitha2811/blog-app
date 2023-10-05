@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.example.BlogApp.Entity.Blog;
+import com.example.BlogApp.Entity.JwtResponse;
 import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.Entity.UserProfile;
 
@@ -74,8 +75,8 @@ public class UserProfileTest {
     @Test
     void testEqualsAndHashCode() {
         // Arrange
-        User user1 = new User("1", "John Doe", "john.doe", "password123");
-        User user2 = new User("2", "Jane Doe", "jane.doe", "password456");
+        User user1 = new User("1", "John", "john.doe", "password123");
+        User user2 = new User("2", "Jane", "jane.doe", "password456");
         List<Blog> blogs1 = new ArrayList<>();
         List<Blog> blogs2 = new ArrayList<>();
         UserProfile userProfile1 = new UserProfile("1", user1, blogs1);
