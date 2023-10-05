@@ -1,6 +1,7 @@
 package com.example.BlogApp.Entity;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,6 @@ public class User implements UserDetails {
 	
 	private String id;
 	private String name;
-	// private String email;
 	private String userName;
 	private String password;
 	@DBRef
@@ -33,12 +33,20 @@ public class User implements UserDetails {
 
 	private boolean canWriteBlog=true;
 
+	public User(String id, String name, String userName, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.userName = userName;
+		this.password = password;
+	}
+
+	public User(String id, String name, String userName, String password, UserProfile userprofile) {
 
 	public User(String id, String name, String userName, String password, UserProfile userprofile) {
 		super();
 		this.id = id;
 		this.name=name;
-		// this.email=email;
 		this.userName = userName;
 		this.password = password;
 		this.userprofile = userprofile;
@@ -89,12 +97,6 @@ public class User implements UserDetails {
 	public void setName(String name) {
 		this.name = name;
 	}
-	// public String getEmail() {
-	// 	return email;
-	// }
-	// public void setEmail(String email) {
-	// 	this.email = email;
-	// }
 	public UserProfile getUserprofile() {
 		return userprofile;
 	}
@@ -169,5 +171,9 @@ public class User implements UserDetails {
 	}
 	public void setCanWriteBlog(boolean canWriteBlog) {
 		this.canWriteBlog = canWriteBlog;
+	}
+
+	public Map<String, Object> getCustomClaims() {
+		return null;
 	}
 }

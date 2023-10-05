@@ -1,5 +1,7 @@
 package com.example.BlogApp.Entity;
 
+import java.util.Objects;
+
 public class JwtResponse {
 	private String jwttoken;
 	private String username;
@@ -12,6 +14,22 @@ public class JwtResponse {
 		super();
 		this.jwttoken = jwttoken;
 		this.username = user;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		JwtResponse that = (JwtResponse) o;
+		return Objects.equals(jwttoken, that.jwttoken) &&
+				Objects.equals(username, that.username);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(jwttoken, username);
 	}
 
 	public String getJwttoken() {

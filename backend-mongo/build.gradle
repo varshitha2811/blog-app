@@ -33,7 +33,7 @@ dependencies {
 
 test {
     finalizedBy jacocoTestReport
-}
+    }
 
 jacocoTestReport {
     reports {
@@ -42,7 +42,6 @@ jacocoTestReport {
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
-
 
 tasks.named('test') {
 	useJUnitPlatform()

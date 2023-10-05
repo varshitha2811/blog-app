@@ -1,11 +1,9 @@
 package com.example.BlogApp.Controller;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import com.example.BlogApp.Entity.Blog;
 import com.example.BlogApp.Entity.Comment;
 import com.example.BlogApp.Entity.User;
@@ -30,7 +27,6 @@ import com.example.BlogApp.Entity.UserProfile;
 import com.example.BlogApp.repo.BlogPostRepository;
 import com.example.BlogApp.repo.UserProfileRepository;
 import com.example.BlogApp.repo.UserReposiotory;
-
 @RestController
 @RequestMapping("/blogs")
 @CrossOrigin(origins = "http://localhost:5000")
