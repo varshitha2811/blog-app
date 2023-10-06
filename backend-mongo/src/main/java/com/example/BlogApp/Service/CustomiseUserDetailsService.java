@@ -15,6 +15,11 @@ public class CustomiseUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserReposiotory userRepository;
+    @Autowired
+    public CustomiseUserDetailsService(UserReposiotory userRepository) {
+        this.userRepository = userRepository;
+    }
+    
 
     @Override
     @Transactional

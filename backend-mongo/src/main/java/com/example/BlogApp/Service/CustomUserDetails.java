@@ -16,9 +16,7 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
-    // Add this method to CustomUserDetails
 public Map<String, Object> getCustomClaims() {
-    // Assuming your User entity has a method to get custom claims
     return user.getCustomClaims();
 }
 

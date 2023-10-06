@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 import com.example.BlogApp.Entity.Blog;
 import com.example.BlogApp.Entity.Comment;
 import com.example.BlogApp.Entity.User;
@@ -65,34 +68,69 @@ public class BlogController implements WebMvcConfigurer {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
 	@PostMapping("/add")
-	public ResponseEntity<UserProfile> addBlog(@RequestBody Blog blog, Principal principal) {
-		try {
-			String username = principal.getName();
-			User user = userRepository.findByUserName(username);
-			System.out.print(user);
-			if (user != null) {
-				UserProfile userProfile = user.getUserprofile();
-				System.out.print(userProfile);
-				if (userProfile == null) {
-					userProfile = new UserProfile();
-					userProfile.setUser(user);
-				}
-				Blog savedBlog = blogPostRepository.save(blog);
-				System.out.print(savedBlog);
-				userProfile.getBlogs().add(savedBlog);
-				UserProfile savedUserProfile = userProfileRepository.save(userProfile);
-				user.setUserprofile(savedUserProfile);
-				userRepository.save(user);
-				return new ResponseEntity<>(savedUserProfile, HttpStatus.CREATED);
-			} else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+     public ResponseEntity<UserProfile> addBlog(@RequestBody Blog blog, Principal principal) {
+    try {
+        String username = principal.getName();
+        User user = userRepository.findByUserName(username);
+        System.out.println("User: " + user); // Add this line for debugging
+
+        if (user != null) {
+            UserProfile userProfile = user.getUserprofile();
+            System.out.println("UserProfile: " + userProfile); // Add this line for debugging
+
+            if (userProfile == null) {
+                userProfile = new UserProfile();
+                userProfile.setUser(user);
+            }
+
+            Blog savedBlog = blogPostRepository.save(blog);
+            System.out.println("Saved Blog: " + savedBlog); // Add this line for debugging
+
+            userProfile.getBlogs().add(savedBlog);
+            UserProfile savedUserProfile = userProfileRepository.save(userProfile);
+            user.setUserprofile(savedUserProfile);
+            userRepository.save(user);
+
+            return new ResponseEntity<>(savedUserProfile, HttpStatus.CREATED);
+        } else {
+            System.out.println("User is null"); // Add this line for debugging
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    } catch (Exception e) {
+        e.printStackTrace(); // Add this line for debugging
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+	
+	// @PostMapping("/add")
+	// public ResponseEntity<UserProfile> addBlog(@RequestBody Blog blog, Principal principal) {
+	// 	try {
+	// 		String username = principal.getName();
+	// 		User user = userRepository.findByUserName(username);
+	// 		System.out.print(user);
+	// 		if (user != null) {
+	// 			UserProfile userProfile = user.getUserprofile();
+	// 			System.out.print(userProfile);
+	// 			if (userProfile == null) {
+	// 				userProfile = new UserProfile();
+	// 				userProfile.setUser(user);
+	// 			}
+	// 			Blog savedBlog = blogPostRepository.save(blog);
+	// 			System.out.print(savedBlog);
+	// 			userProfile.getBlogs().add(savedBlog);
+	// 			UserProfile savedUserProfile = userProfileRepository.save(userProfile);
+	// 			user.setUserprofile(savedUserProfile);
+	// 			userRepository.save(user);
+	// 			return new ResponseEntity<>(savedUserProfile, HttpStatus.CREATED);
+	// 		} else {
+	// 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	// 		}
+	// 	} catch (Exception e) {
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Blog> updateBlog(@PathVariable String id, @RequestBody Blog updatedBlog) {
 		System.out.println("Received request to update blog with ID: " + id);
@@ -108,16 +146,30 @@ public class BlogController implements WebMvcConfigurer {
 			return ResponseEntity.ok(savedBlog);
 		}).orElseGet(() -> ResponseEntity.notFound().build());
 	}
-	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteBlog(@PathVariable("id") String id) {
-		try {
-			blogPostRepository.deleteById(id);
-			return ResponseEntity.ok().build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting blog post.");
-		}
-	}
+    try {
+        if (id == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ID cannot be null");
+        }
+        blogPostRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    } catch (EmptyResultDataAccessException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Blog post not found.");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting blog post.");
+    }
+}
+
+	// @DeleteMapping("/{id}")
+	// public ResponseEntity<?> deleteBlog(@PathVariable("id") String id) {
+	// 	try {
+	// 		blogPostRepository.deleteById(id);
+	// 		return ResponseEntity.ok().build();
+	// 	} catch (Exception e) {
+	// 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting blog post.");
+	// 	}
+	// }
 	@PostMapping("/add-comment/{blogId}")
 	public ResponseEntity<?> addComment(@PathVariable String blogId, @RequestBody Comment comment) {
     try {

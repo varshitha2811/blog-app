@@ -42,8 +42,6 @@ public class User implements UserDetails {
 	}
 
 	public User(String id, String name, String userName, String password, UserProfile userprofile) {
-
-	public User(String id, String name, String userName, String password, UserProfile userprofile) {
 		super();
 		this.id = id;
 		this.name=name;
@@ -129,10 +127,6 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	// @Override
-	// public Collection<? extends GrantedAuthority> getAuthorities() {
-	// 	return null;
-	// }
 	public void setAuthorities(Collection<GrantedAuthority> authorities) {
     }
 

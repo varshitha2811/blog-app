@@ -16,7 +16,7 @@ public class BlogAppConfigTest {
 
     @Test
     void testPasswordEncoder() {
-     
+
         BlogAppConfig blogAppConfig = new BlogAppConfig();
 
         // Act

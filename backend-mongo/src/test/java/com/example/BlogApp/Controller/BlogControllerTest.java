@@ -1,19 +1,24 @@
 package com.example.BlogApp.Controller;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.example.BlogApp.Controller.BlogController;
+
 import com.example.BlogApp.Entity.Blog;
 import com.example.BlogApp.Entity.Comment;
 import com.example.BlogApp.Entity.User;
@@ -31,6 +36,118 @@ class BlogControllerTest {
     private UserProfileRepository userProfileRepository;
     @InjectMocks
     private BlogController blogController;
+    // @Test
+    // void testAddBlog() {
+    //     Blog mockBlog = new Blog();
+    //     mockBlog.setTitle("Updated Title");
+    //     mockBlog.setAuthor("Updated Author");
+    //     mockBlog.setDescription(Arrays.asList("Description1"));
+    //     mockBlog.setTags(Arrays.asList("Tag1", "Tag2"));
+    //     mockBlog.setUrl("https://www.example.com/updated");
+    //     mockBlog.setTime("11:00 PM");
+    //     mockBlog.setTitle("Mock Title");
+    //     mockBlog.setAuthor("Mock Author");
+
+    //     User mockUser = new User();
+    //     mockUser.setUserName("mockuser");
+
+    //     UserProfile mockUserProfile = new UserProfile();
+    //     mockUserProfile.setUser(mockUser);
+
+    //     Principal mockPrincipal = () -> "mockuser";
+
+    //     when(userRepository.findByUserName("mockuser")).thenReturn(mockUser);
+    //     when(userRepository.save(any(User.class))).thenReturn(mockUser);
+
+    //     when(blogPostRepository.save(any(Blog.class))).thenReturn(mockBlog);
+
+    //     when(userProfileRepository.save(any(UserProfile.class))).thenReturn(mockUserProfile);
+    //     ResponseEntity<UserProfile> responseEntity = blogController.addBlog(mockBlog, mockPrincipal);
+    //     assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+    //     assertEquals(mockUserProfile, responseEntity.getBody());
+    // }
+    @Test
+    void testUpdateBlog_ValidId() {
+        String blogId = "1";
+        Blog updatedBlog = new Blog();
+        updatedBlog.setTitle("Updated Title");
+        updatedBlog.setAuthor("Updated Author");
+        updatedBlog.setDescription(Arrays.asList("Description1"));
+        updatedBlog.setTags(Arrays.asList("Tag1", "Tag2"));
+        updatedBlog.setUrl("https://www.example.com/updated");
+        updatedBlog.setTime("11:00 PM");
+
+        Blog existingBlog = new Blog();
+        existingBlog.setId(blogId);
+        existingBlog.setTitle("Original Title");
+        existingBlog.setAuthor("Original Author");
+        updatedBlog.setDescription(Arrays.asList("Description1"));
+        existingBlog.setTags(Arrays.asList("Java", "Spring", "Programming"));
+        existingBlog.setUrl("https://www.example.com/original");
+        existingBlog.setTime("12:00 PM");
+
+        when(blogPostRepository.findById(blogId)).thenReturn(Optional.of(existingBlog));
+        when(blogPostRepository.save(any(Blog.class))).thenReturn(updatedBlog);
+        ResponseEntity<Blog> responseEntity = blogController.updateBlog(blogId, updatedBlog);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(updatedBlog, responseEntity.getBody());
+    }
+    @Test
+    void testUpdateBlog_InvalidId() {
+    String blogId = "999";
+
+    Blog updatedBlog = new Blog();
+    updatedBlog.setTitle("Updated Title");
+    updatedBlog.setAuthor("Updated Author");
+    updatedBlog.setDescription(Arrays.asList("Description1"));
+    updatedBlog.setTags(Arrays.asList("Tag1", "Tag2"));
+    updatedBlog.setUrl("https://www.example.com/updated");
+    updatedBlog.setTime("11:00 PM");
+    when(blogPostRepository.findById(blogId)).thenReturn(Optional.empty());
+    ResponseEntity<Blog> responseEntity = blogController.updateBlog(blogId, updatedBlog);
+    assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+    assertNull(responseEntity.getBody());
+}
+
+    @Test
+    void testDeleteBlog_Success() {
+        String blogId = "123";
+        ResponseEntity<?> responseEntity = blogController.deleteBlog(blogId);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        verify(blogPostRepository, times(1)).deleteById(blogId);
+    }
+    @Test
+    void testDeleteBlog_Exception() {
+        String blogId = "123";
+        doThrow(new RuntimeException("Some error")).when(blogPostRepository).deleteById(blogId);
+        ResponseEntity<?> responseEntity = blogController.deleteBlog(blogId);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        assertEquals("Error deleting blog post.", responseEntity.getBody());
+    }
+
+    @Test
+    void testDeleteBlog_NotFound() {
+        String blogId = "123";
+        doThrow(new EmptyResultDataAccessException(1)).when(blogPostRepository).deleteById(blogId);
+        ResponseEntity<?> responseEntity = blogController.deleteBlog(blogId);
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+    }
+
+    @Test
+    void testDeleteBlog_OtherException() {
+        String blogId = "123";
+        doThrow(new IllegalArgumentException("Some other error")).when(blogPostRepository).deleteById(blogId);
+        ResponseEntity<?> responseEntity = blogController.deleteBlog(blogId);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        assertEquals("Error deleting blog post.", responseEntity.getBody());
+    }
+
+    @Test
+    void testDeleteBlog_NullId() {
+        ResponseEntity<?> responseEntity = blogController.deleteBlog(null);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertEquals("ID cannot be null", responseEntity.getBody());
+    }
     @Test
     void testGetAllBlogPosts() {
         List<Blog> mockBlogs = new ArrayList<>();

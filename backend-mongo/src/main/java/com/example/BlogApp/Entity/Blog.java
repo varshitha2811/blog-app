@@ -1,5 +1,6 @@
 package com.example.BlogApp.Entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -120,8 +121,8 @@ public class Blog {
 		return time;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setTime(String string) {
+		this.time = string;
 	}
 
 	public List<Comment> getComments() {
