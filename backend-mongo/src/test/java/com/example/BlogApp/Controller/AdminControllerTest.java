@@ -47,7 +47,6 @@ public class AdminControllerTest {
 
     @Test
     void testListAllUsers_Exception() {
-        // Arrange
         UserReposiotory userRepository = mock(UserReposiotory.class);
         AdminController adminController = new AdminController(userRepository);
     
