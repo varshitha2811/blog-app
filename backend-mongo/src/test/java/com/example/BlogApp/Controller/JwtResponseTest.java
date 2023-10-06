@@ -11,7 +11,6 @@ public class JwtResponseTest {
     @Test
     void testDefaultConstructor() {
         JwtResponse jwtResponse = new JwtResponse();
-
         assertNotNull(jwtResponse);
         assertNull(jwtResponse.getJwttoken());
         assertNull(jwtResponse.getUsername());
