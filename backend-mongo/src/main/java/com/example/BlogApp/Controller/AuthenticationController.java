@@ -1,6 +1,5 @@
 package com.example.BlogApp.Controller;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,7 +55,7 @@ public class AuthenticationController {
         JwtResponse response = new JwtResponse();
         response.setJwttoken(token);
         response.setUsername(userDetails.getUsername());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     private void doAuthenticate(String UserName, String password) {
@@ -73,10 +73,14 @@ public class AuthenticationController {
         return "Credentials Invalid !!";
     }
 
-    private boolean isUserAlreadyRegistered(String UserName) {
+    protected boolean isUserAlreadyRegistered(String UserName) {
         User existingUser = userService.findByUserName(UserName);
         return existingUser != null;
     }
+    // private boolean isUserAlreadyRegistered(String UserName) {
+    //     User existingUser = userService.findByUserName(UserName);
+    //     return existingUser != null;
+    // }
 
 	@PostMapping("/create-user")
 	public ResponseEntity<?> createUser(@RequestBody User user) {

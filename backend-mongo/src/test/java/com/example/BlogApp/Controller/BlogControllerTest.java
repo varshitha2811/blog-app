@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +20,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.BlogApp.Entity.Blog;
 import com.example.BlogApp.Entity.Comment;
-import com.example.BlogApp.Entity.User;
-import com.example.BlogApp.Entity.UserProfile;
 import com.example.BlogApp.repo.BlogPostRepository;
 import com.example.BlogApp.repo.UserProfileRepository;
 import com.example.BlogApp.repo.UserReposiotory;
@@ -36,36 +33,37 @@ class BlogControllerTest {
     private UserProfileRepository userProfileRepository;
     @InjectMocks
     private BlogController blogController;
-    // @Test
-    // void testAddBlog() {
-    //     Blog mockBlog = new Blog();
-    //     mockBlog.setTitle("Updated Title");
-    //     mockBlog.setAuthor("Updated Author");
-    //     mockBlog.setDescription(Arrays.asList("Description1"));
-    //     mockBlog.setTags(Arrays.asList("Tag1", "Tag2"));
-    //     mockBlog.setUrl("https://www.example.com/updated");
-    //     mockBlog.setTime("11:00 PM");
-    //     mockBlog.setTitle("Mock Title");
-    //     mockBlog.setAuthor("Mock Author");
 
-    //     User mockUser = new User();
-    //     mockUser.setUserName("mockuser");
+@Test
+    void testGetAllBlogPosts() {
+        List<Blog> mockBlogs = new ArrayList<>();
+        mockBlogs.add(new Blog("1", "Blogging Basics", "Aanchal", List.of("Description for Blogging"),
+                List.of("blogs", "basics"), "url1", "11:00PM", new ArrayList<>(), null));
+        when(blogPostRepository.findAll()).thenReturn(mockBlogs);
+        List<Blog> result = blogController.getAllBlogPost();
+        assertEquals(mockBlogs, result, "Returned list not matching existing.");
+    }
+    @Test
+    void testGetAllBlogPostsWithEmptyResult() {
+        List<Blog> mockBlogs = new ArrayList<>();
+        when(blogPostRepository.findAll()).thenReturn(mockBlogs);
+        List<Blog> result = blogController.getAllBlogPost();
+        assertTrue(result.isEmpty());
+    }
 
-    //     UserProfile mockUserProfile = new UserProfile();
-    //     mockUserProfile.setUser(mockUser);
-
-    //     Principal mockPrincipal = () -> "mockuser";
-
-    //     when(userRepository.findByUserName("mockuser")).thenReturn(mockUser);
-    //     when(userRepository.save(any(User.class))).thenReturn(mockUser);
-
-    //     when(blogPostRepository.save(any(Blog.class))).thenReturn(mockBlog);
-
-    //     when(userProfileRepository.save(any(UserProfile.class))).thenReturn(mockUserProfile);
-    //     ResponseEntity<UserProfile> responseEntity = blogController.addBlog(mockBlog, mockPrincipal);
-    //     assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-    //     assertEquals(mockUserProfile, responseEntity.getBody());
-    // }
+    @Test
+    public void testGetBlogByIdWithValidId() {
+        List<String> description = List.of("Description for Blogging");
+        List<String> tags = List.of("blogs", "basics");
+        Blog mockBlog = new Blog("1", "Blogging Basics", "Aanchal", description, tags, "url1", "11:00PM", new ArrayList<>(), null);
+        when(blogPostRepository.findById("1")).thenReturn(Optional.of(mockBlog));
+        ResponseEntity<Blog> responseEntity = blogController.getBlogById("1");
+        assertNotNull(responseEntity);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        Blog resultBlog = responseEntity.getBody();
+        assertNotNull(resultBlog);
+        assertEquals(mockBlog, resultBlog);
+    }
     @Test
     void testUpdateBlog_ValidId() {
         String blogId = "1";
@@ -148,35 +146,7 @@ class BlogControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         assertEquals("ID cannot be null", responseEntity.getBody());
     }
-    @Test
-    void testGetAllBlogPosts() {
-        List<Blog> mockBlogs = new ArrayList<>();
-        mockBlogs.add(new Blog("1", "Blogging Basics", "Aanchal", List.of("Description for Blogging"),
-                List.of("blogs", "basics"), "url1", "11:00PM", new ArrayList<>(), null));
-        when(blogPostRepository.findAll()).thenReturn(mockBlogs);
-        List<Blog> result = blogController.getAllBlogPost();
-        assertEquals(mockBlogs, result, "Returned list not matchin existing.");
-    }
-    @Test
-    void testGetAllBlogPostsWithEmptyResult() {
-        List<Blog> mockBlogs = new ArrayList<>();
-        when(blogPostRepository.findAll()).thenReturn(mockBlogs);
-        List<Blog> result = blogController.getAllBlogPost();
-        assertTrue(result.isEmpty());
-    }
-    @Test
-    public void testGetBlogByIdWithValidId() {
-        List<String> description = List.of("Description for Blogging");
-        List<String> tags = List.of("blogs", "basics");
-        Blog mockBlog = new Blog("1", "Blogging Basics", "Aanchal", description, tags, "url1", "11:00PM", new ArrayList<>(), null);
-        when(blogPostRepository.findById("1")).thenReturn(Optional.of(mockBlog));
-        ResponseEntity<Blog> responseEntity = blogController.getBlogById("1");
-        assertNotNull(responseEntity);
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        Blog resultBlog = responseEntity.getBody();
-        assertNotNull(resultBlog);
-        assertEquals(mockBlog, resultBlog);
-    }
+    
     @Test
     void testAddComment() {
         String blogId = "123";
@@ -185,6 +155,27 @@ class BlogControllerTest {
         when(blogPostRepository.findById(blogId)).thenReturn(mockOptionalBlog);
         ResponseEntity<?> responseEntity = blogController.addComment(blogId, comment);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+    @Test
+    void testAddCommentNoBlogFound() {
+        String blogId = "123";
+        when(blogPostRepository.findById(blogId)).thenReturn(Optional.empty());
+        Comment comment = new Comment();
+        comment.setComment("Test Comment");
+        ResponseEntity<?> responseEntity = blogController.addComment(blogId, comment);
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        verify(blogPostRepository, never()).save(any());
+    }
+    @Test
+    void testAddCommentError() {
+        String blogId = "123";
+        Comment comment = new Comment();
+        comment.setComment("Test Comment");
+        when(blogPostRepository.findById(blogId)).thenThrow(new RuntimeException("Simulated error"));
+        ResponseEntity<?> responseEntity = blogController.addComment(blogId, comment);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        assertEquals("Error adding comment.", responseEntity.getBody());
+        verify(blogPostRepository, never()).save(any(Blog.class));
     }
     @Test
     void testAddCommentWithValidBlogIdAndComment() {
@@ -302,4 +293,49 @@ void testSearchBlogsWithNoMatches() {
     List<Blog> result = blogController.searchBlogs(searchTerm);
     assertTrue(result.isEmpty());
 }
+@Test
+    void testDeleteCommentInvalidIndex() {
+        String blogId = "123";
+        int commentIndex = 1;
+        Blog blog = new Blog();
+        blog.setId(blogId);
+        Comment comment = new Comment();
+        comment.setComment("Test Comment");
+        List<Comment> comments = new ArrayList<>();
+        comments.add(comment);
+        blog.setComments(comments);
+        when(blogPostRepository.findById(blogId)).thenReturn(Optional.of(blog));
+        ResponseEntity<?> responseEntity = blogController.deleteComment(blogId, commentIndex);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        verify(blogPostRepository, never()).save(blog);
+    }
+
+    @Test
+    void testDeleteCommentNoBlogFound() {
+        String blogId = "123";
+        int commentIndex = 0;
+        when(blogPostRepository.findById(blogId)).thenReturn(Optional.empty());
+        ResponseEntity<?> responseEntity = blogController.deleteComment(blogId, commentIndex);
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        verify(blogPostRepository, never()).save(any());
+    }
+    @Test
+    void testDeleteCommentError() {
+    String blogId = "123";
+    int commentIndex = 0;
+    Blog blog = new Blog();
+    blog.setId(blogId);
+    Comment comment = new Comment();
+    comment.setComment("Test Comment");
+    List<Comment> comments = new ArrayList<>();
+    comments.add(comment);
+    blog.setComments(comments);
+    when(blogPostRepository.findById(blogId)).thenReturn(Optional.of(blog));
+    doThrow(new RuntimeException("Simulated error")).when(blogPostRepository).save(blog);
+    ResponseEntity<?> responseEntity = blogController.deleteComment(blogId, commentIndex);
+    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+    assertEquals("Error deleting comment.", responseEntity.getBody());
+    verify(blogPostRepository, times(1)).save(blog);
+}
+
 }

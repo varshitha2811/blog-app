@@ -1,27 +1,18 @@
 package com.example.BlogApp.Controller;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyCollection;
-import static org.mockito.Mockito.*;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.BlogApp.Security.JWTHelper;
-import com.example.BlogApp.Service.CustomUserDetails;
 
 import io.jsonwebtoken.Claims;
 
@@ -42,21 +33,6 @@ public class JwtHelperTest {
         assertNotNull(token);
         assertTrue(jwtHelper.validateToken(token, userDetails));
     }
-
-    // @Test
-    // public void testGenerateTokenWithClaims() {
-    // // Assuming UserDetails has additional claims
-    // UserDetails userDetailsWithClaims = mock(UserDetails.class);
-    // when(userDetailsWithClaims.getUsername()).thenReturn("testUser");
-    // when(userDetailsWithClaims.getPassword()).thenReturn("password");
-
-    // // Mock additional claims
-    // Map<String, Object> customClaims = new HashMap<>();
-    // customClaims.put("someClaim", "someValue");
-
-    // String token = jwtHelper.generateToken(userDetailsWithClaims);
-    // assertNotNull(token);
-    // }
 
     @Test
     public void testGenerateTokenTime() {

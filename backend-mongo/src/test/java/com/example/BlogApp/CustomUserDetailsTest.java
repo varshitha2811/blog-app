@@ -12,20 +12,6 @@ import com.example.BlogApp.Service.CustomUserDetails;
 
 class CustomUserDetailsTest {
 
-    // @Test
-    // void testGetAuthorities() {
-    //     User user = new User();
-    //     Set<UserRole> roles = Set.of(UserRole.ROLE_USER, UserRole.ROLE_ADMIN); 
-    //     user.setRoles(roles);
-
-    //     CustomUserDetails userDetails = new CustomUserDetails(user);
-
-    //     Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-
-    //     assertTrue(authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_USER)));
-    //     assertTrue(authorities.contains(new SimpleGrantedAuthority("ADMIN")));
-    // }
-
     @Test
     void testGetPassword() { 
         User user = new User();
@@ -82,23 +68,6 @@ class CustomUserDetailsTest {
         CustomUserDetails userDetails = new CustomUserDetails(user);
         assertEquals(customClaims, userDetails.getCustomClaims());
     }
-    // @Test
-    // void testGetAuthorities() {
-    //     // Create a user with some roles
-    //     User user = new User();
-    //     Set<UserRole> roles = Set.of(UserRole.ROLE_ADMIN, UserRole.ROLE_USER);
-    //     user.setRoles(roles);
-        
-        
-    //     CustomUserDetails userDetails = new CustomUserDetails(user);
-
-    //     // Test if the authorities are correctly mapped
-    //     boolean adminAuthorityPresent = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
-    //     boolean userAuthorityPresent = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"));
-
-    //     assertTrue(adminAuthorityPresent);
-    //     assertTrue(userAuthorityPresent);
-    // }
 
     @Test
     void testGetUser() {

@@ -9,25 +9,15 @@ class CommentTest {
 
     @Test
     void testGetName() {
-        // Arrange
         Comment comment = new Comment("John Doe", "This is a comment");
-
-        // Act
         String name = comment.getName();
-
-        // Assert
         assertEquals("John Doe", name);
     }
 
     @Test
     void testSetName() {
-        // Arrange
         Comment comment = new Comment();
-
-        // Act
         comment.setName("Jane Doe");
-
-        // Assert
         assertEquals("Jane Doe", comment.getName());
     }
 
