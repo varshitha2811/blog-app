@@ -36,10 +36,7 @@ public class AuthenticationController {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
-    public AuthenticationController(UserDetailsService userDetailsService,
-                                     AuthenticationManager manager,
-                                     JWTHelper helper,
-                                     UsersService userService) {
+    public AuthenticationController(UserDetailsService userDetailsService,AuthenticationManager manager,JWTHelper helper,UsersService userService) {
         this.userDetailsService = userDetailsService;
         this.manager = manager;
         this.helper = helper;
@@ -73,14 +70,10 @@ public class AuthenticationController {
         return "Credentials Invalid !!";
     }
 
-    protected boolean isUserAlreadyRegistered(String UserName) {
+    public boolean isUserAlreadyRegistered(String UserName) {
         User existingUser = userService.findByUserName(UserName);
         return existingUser != null;
     }
-    // private boolean isUserAlreadyRegistered(String UserName) {
-    //     User existingUser = userService.findByUserName(UserName);
-    //     return existingUser != null;
-    // }
 
 	@PostMapping("/create-user")
 	public ResponseEntity<?> createUser(@RequestBody User user) {

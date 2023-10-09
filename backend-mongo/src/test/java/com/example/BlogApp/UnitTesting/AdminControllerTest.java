@@ -1,4 +1,4 @@
-package com.example.BlogApp.Controller;
+package com.example.BlogApp.UnitTesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.example.BlogApp.Controller.AdminController;
 import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.repo.UserReposiotory;
 

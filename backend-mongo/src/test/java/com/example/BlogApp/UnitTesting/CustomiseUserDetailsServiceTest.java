@@ -1,5 +1,4 @@
-package com.example.BlogApp;
-
+package com.example.BlogApp.UnitTesting;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

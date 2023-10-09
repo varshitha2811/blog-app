@@ -1,5 +1,4 @@
-package com.example.BlogApp;
-
+package com.example.BlogApp.UnitTesting;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;

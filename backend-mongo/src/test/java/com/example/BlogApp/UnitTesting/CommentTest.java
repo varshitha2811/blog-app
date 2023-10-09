@@ -1,4 +1,4 @@
-package com.example.BlogApp;
+package com.example.BlogApp.UnitTesting;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -23,19 +23,13 @@ class CommentTest {
 
     @Test
     void testGetComment() {
-        // Arrange
         Comment comment = new Comment("John Doe", "This is a comment");
-
-        // Act
         String commentText = comment.getComment();
-
-        // Assert
         assertEquals("This is a comment", commentText);
     }
 
     @Test
     void testSetComment() {
-        // Arrange
         Comment comment = new Comment();
 
         // Act

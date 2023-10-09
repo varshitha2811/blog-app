@@ -1,4 +1,4 @@
-package com.example.BlogApp;
+package com.example.BlogApp.UnitTesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.BlogApp.UserRole;
 import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.Service.UsersService;
 import com.example.BlogApp.repo.UserReposiotory;

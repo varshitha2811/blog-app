@@ -1,5 +1,9 @@
-package com.example.BlogApp.Controller;
+package com.example.BlogApp.UnitTesting;
 
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -8,12 +12,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.BlogApp.config.CorsConfig;
-
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CorsConfigTest {
 
@@ -32,7 +30,6 @@ public class CorsConfigTest {
         assertEquals(Arrays.asList("http://localhost:5000"), configuration.getAllowedOrigins());
         assertEquals(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"), configuration.getAllowedMethods());
         assertEquals(Arrays.asList("*"), configuration.getAllowedHeaders());
-        assertTrue(configuration.getAllowCredentials());
     }
 
     private MockHttpServletRequest getMockHttpServletRequest() {

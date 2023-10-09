@@ -1,23 +1,27 @@
-package com.example.BlogApp.Controller;
+package com.example.BlogApp.UnitTesting;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.example.BlogApp.Controller.BlogController;
 import com.example.BlogApp.Entity.Blog;
 import com.example.BlogApp.Entity.Comment;
 import com.example.BlogApp.repo.BlogPostRepository;
@@ -33,6 +37,37 @@ class BlogControllerTest {
     private UserProfileRepository userProfileRepository;
     @InjectMocks
     private BlogController blogController;
+    
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        blogController = new BlogController(blogPostRepository);
+    }
+    @Test
+    void testGetAllBlogPost() {
+        List<Blog> mockBlogs = new ArrayList<>();
+        mockBlogs.add(new Blog("1", "Blogging Basics", "Aanchal", List.of("Description for Blogging"),
+                List.of("blogs", "basics"), "url1", "11:00PM", new ArrayList<>(), null));
+        when(blogPostRepository.findAll()).thenReturn(mockBlogs);
+        List<Blog> actualBlogs = blogController.getAllBlogPost();
+        assertEquals(mockBlogs, actualBlogs);
+    }
+    @Test
+    void testGetAllBlogPostWithEmptyList() {
+        when(blogPostRepository.findAll()).thenReturn(Collections.emptyList());
+        List<Blog> actualBlogs = blogController.getAllBlogPost();
+        assertNotNull(actualBlogs);
+        assertTrue(actualBlogs.isEmpty());
+    }
+
+    @Test
+    void testGetAllBlogPostWithNonEmptyList() {
+        List<Blog> expectedBlogs = Collections.singletonList(new Blog("1", "Blogging Basics", "Aanchal", List.of("Description for Blogging"),
+                List.of("blogs", "basics"), "url1", "11:00PM", new ArrayList<>(), null));
+        when(blogPostRepository.findAll()).thenReturn(expectedBlogs);
+        List<Blog> actualBlogs = blogController.getAllBlogPost();
+        assertEquals(expectedBlogs, actualBlogs);
+    }
 
 @Test
     void testGetAllBlogPosts() {

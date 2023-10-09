@@ -1,5 +1,4 @@
-package com.example.BlogApp.Controller;
-
+package com.example.BlogApp.UnitTesting;
 import org.junit.jupiter.api.Test;
 
 import com.example.BlogApp.Entity.JwtResponse;

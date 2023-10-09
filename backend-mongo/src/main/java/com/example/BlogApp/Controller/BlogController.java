@@ -53,6 +53,7 @@ public class BlogController implements WebMvcConfigurer {
 		registry.addMapping("/**").allowedOrigins("http://localhost:5000")
 				.allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS").allowedHeaders("*");
 	}
+	
 
 	@GetMapping("/home")
 	public List<Blog> getAllBlogPost() {
@@ -69,68 +70,32 @@ public class BlogController implements WebMvcConfigurer {
 		}
 	}
 	@PostMapping("/add")
-     public ResponseEntity<UserProfile> addBlog(@RequestBody Blog blog, Principal principal) {
-    try {
-        String username = principal.getName();
-        User user = userRepository.findByUserName(username);
-        System.out.println("User: " + user); // Add this line for debugging
-
-        if (user != null) {
-            UserProfile userProfile = user.getUserprofile();
-            System.out.println("UserProfile: " + userProfile); // Add this line for debugging
-
-            if (userProfile == null) {
-                userProfile = new UserProfile();
-                userProfile.setUser(user);
-            }
-
-            Blog savedBlog = blogPostRepository.save(blog);
-            System.out.println("Saved Blog: " + savedBlog); // Add this line for debugging
-
-            userProfile.getBlogs().add(savedBlog);
-            UserProfile savedUserProfile = userProfileRepository.save(userProfile);
-            user.setUserprofile(savedUserProfile);
-            userRepository.save(user);
-
-            return new ResponseEntity<>(savedUserProfile, HttpStatus.CREATED);
-        } else {
-            System.out.println("User is null"); // Add this line for debugging
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    } catch (Exception e) {
-        e.printStackTrace(); // Add this line for debugging
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-}
-
-	
-	// @PostMapping("/add")
-	// public ResponseEntity<UserProfile> addBlog(@RequestBody Blog blog, Principal principal) {
-	// 	try {
-	// 		String username = principal.getName();
-	// 		User user = userRepository.findByUserName(username);
-	// 		System.out.print(user);
-	// 		if (user != null) {
-	// 			UserProfile userProfile = user.getUserprofile();
-	// 			System.out.print(userProfile);
-	// 			if (userProfile == null) {
-	// 				userProfile = new UserProfile();
-	// 				userProfile.setUser(user);
-	// 			}
-	// 			Blog savedBlog = blogPostRepository.save(blog);
-	// 			System.out.print(savedBlog);
-	// 			userProfile.getBlogs().add(savedBlog);
-	// 			UserProfile savedUserProfile = userProfileRepository.save(userProfile);
-	// 			user.setUserprofile(savedUserProfile);
-	// 			userRepository.save(user);
-	// 			return new ResponseEntity<>(savedUserProfile, HttpStatus.CREATED);
-	// 		} else {
-	// 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	// 		}
-	// 	} catch (Exception e) {
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
+	public ResponseEntity<UserProfile> addBlog(@RequestBody Blog blog, Principal principal) {
+		try {
+			String username = principal.getName();
+			User user = userRepository.findByUserName(username);
+			System.out.print(user);
+			if (user != null) {
+				UserProfile userProfile = user.getUserprofile();
+				System.out.print(userProfile);
+				if (userProfile == null) {
+					userProfile = new UserProfile();
+					userProfile.setUser(user);
+				}
+				Blog savedBlog = blogPostRepository.save(blog);
+				System.out.print(savedBlog);
+				userProfile.getBlogs().add(savedBlog);
+				UserProfile savedUserProfile = userProfileRepository.save(userProfile);
+				user.setUserprofile(savedUserProfile);
+				userRepository.save(user);
+				return new ResponseEntity<>(savedUserProfile, HttpStatus.CREATED);
+			} else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Blog> updateBlog(@PathVariable String id, @RequestBody Blog updatedBlog) {
 		System.out.println("Received request to update blog with ID: " + id);

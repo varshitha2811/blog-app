@@ -1,4 +1,4 @@
-package com.example.BlogApp.Controller;
+package com.example.BlogApp.UnitTesting;
 
 
 import static org.junit.jupiter.api.Assertions.*;

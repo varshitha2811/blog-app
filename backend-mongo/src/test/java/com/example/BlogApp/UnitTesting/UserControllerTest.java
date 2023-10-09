@@ -1,4 +1,4 @@
-package com.example.BlogApp.Controller;
+package com.example.BlogApp.UnitTesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.example.BlogApp.Controller.UserController;
 import com.example.BlogApp.Entity.User;
 
 public class UserControllerTest {
@@ -42,5 +43,5 @@ void testGetCurrentUser_UnauthenticatedUser() {
         ResponseEntity<User> responseEntity = userController.getCurrentUser();
         assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
     }
-    
+   
 }

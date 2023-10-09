@@ -1,6 +1,8 @@
-package com.example.BlogApp.Controller;
+package com.example.BlogApp.UnitTesting;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+import com.example.BlogApp.Controller.AuthenticationController;
 import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.Service.UsersService;
 import org.junit.jupiter.api.Test;
@@ -24,4 +26,5 @@ public class AuthenticationControllerTest {
         boolean result = controller.isUserAlreadyRegistered("testUser");
         assertFalse(result);
     }
+    
 }
