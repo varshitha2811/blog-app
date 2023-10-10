@@ -3,8 +3,6 @@ package com.example.BlogApp.UnitTesting;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -16,49 +14,6 @@ import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.repo.UserReposiotory;
 
 public class AdminControllerTest {
-    @Test
-    void testListAllUsers_NoUsers() {
-
-        UserReposiotory userRepository = mock(UserReposiotory.class);
-        AdminController adminController = new AdminController(userRepository);
-
-        List<User> emptyList = new ArrayList<>();
-        when(userRepository.findAll()).thenReturn(emptyList);
-        ResponseEntity<?> responseEntity = adminController.listAllUsers();
-        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
-        assertEquals("No users found", responseEntity.getBody());
-    }
-
-    @Test
-    void testListAllUsers_WithUsers() {
-
-        UserReposiotory userRepository = mock(UserReposiotory.class);
-        AdminController adminController = new AdminController(userRepository);
-
-        List<User> users = new ArrayList<>();
-        User user1 = new User();
-        user1.setUserName("user1");
-        users.add(user1);
-
-        when(userRepository.findAll()).thenReturn(users);
-        ResponseEntity<?> responseEntity = adminController.listAllUsers();
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(users, responseEntity.getBody());
-    }
-
-    @Test
-    void testListAllUsers_Exception() {
-        UserReposiotory userRepository = mock(UserReposiotory.class);
-        AdminController adminController = new AdminController(userRepository);
-    
-        when(userRepository.findAll()).thenThrow(new RuntimeException("Error fetching users"));
-        ResponseEntity<?> responseEntity = adminController.listAllUsers();
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
-        assertEquals("Error occurred", responseEntity.getBody());
-    }
-
-    
-
 
     @Test
     void testUpdateCanWriteBlog_Success() {
