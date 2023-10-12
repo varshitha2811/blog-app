@@ -1,6 +1,7 @@
 package com.example.BlogApp.Entity;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -77,12 +78,21 @@ public class User implements UserDetails {
         this.writeBlogEnabled = writeBlogEnabled;
     }
 	
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
-                .collect(Collectors.toList());
+    // @Override
+    // public Collection<? extends GrantedAuthority> getAuthorities() {
+    //     return roles.stream()
+    //             .map(role -> new SimpleGrantedAuthority(role.name()))
+    //             .collect(Collectors.toList());
+    // }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+    if (roles == null) {
+        return Collections.emptyList();
     }
+    return roles.stream()
+            .map(role -> new SimpleGrantedAuthority(role.name()))
+            .collect(Collectors.toList());
+}
 	public UserProfile getUserProfile() {
 		return userprofile;
 	}

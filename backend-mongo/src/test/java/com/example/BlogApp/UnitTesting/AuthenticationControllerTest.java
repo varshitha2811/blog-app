@@ -1,14 +1,14 @@
 package com.example.BlogApp.UnitTesting;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.example.BlogApp.Controller.AuthenticationController;
 import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.Service.UsersService;
-import org.junit.jupiter.api.Test;
-
 public class AuthenticationControllerTest {
-
     @Test
     void testIsUserAlreadyRegistered_UserExists() {
         UsersService userService = mock(UsersService.class);
