@@ -6,11 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-<<<<<<< HEAD
 import static org.hamcrest.Matchers.notNullValue;
 
-=======
->>>>>>> ae771e1c8d213e61ad8cbaf33c9f4f024c96aa70
 public class AuthenticationControllerRestAssuredTests {
     @BeforeAll
     public static void setup() {
