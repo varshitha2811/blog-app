@@ -45,18 +45,6 @@ export class AuthService {
     );
   }
 
-  // loginUser(userName: string, password: string): Observable<any> {
-  //   const user = { userName, password };
-  //   return this.http.post<User>(`${this.authUrl}/login`, user).pipe(
-  //     catchError((error: HttpErrorResponse) => {
-  //       if (error.status === 401) {
-  //         return throwError('Invalid username or password');
-  //       }
-  //       return throwError(error);
-
-  //     })
-  //   );
-  // }
   loginUser(userName: string, password: string): Observable<any> {
     const user = { userName, password };
     return this.http.post<User>(`${this.authUrl}/login`, user).pipe(
