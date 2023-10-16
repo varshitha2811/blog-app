@@ -18,7 +18,9 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.blogService.getAllPosts().subscribe((data: any[]) => {
       this.blogs = data;
+      console.log(this.blogs);
     });
+    
   }
   navigate(id: string) {
     this.router.navigate(['/blogs', id])
