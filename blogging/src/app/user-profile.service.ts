@@ -7,7 +7,6 @@ export class UserProfile {
   LastName:string='';
   userName:string='';
   email: string = '';
-  profilePicture: File | null = null;
 }
 @Injectable({
   providedIn: 'root'

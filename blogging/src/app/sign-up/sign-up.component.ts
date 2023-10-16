@@ -49,8 +49,8 @@ export class SignUpComponent {
               FirstName:nameParts[0],
               LastName:nameParts.slice(1).join(" "),
               email: '',
-              userName: this.userName,
-              profilePicture: null,
+              userName: this.userName
+              // profilePicture: null,
             };
             this.userProfileService.createUserProfile(userProfile).subscribe(
               () => {
