@@ -23,7 +23,6 @@ import com.example.BlogApp.Entity.User;
 import com.example.BlogApp.Security.JWTHelper;
 import com.example.BlogApp.Service.UsersService;
 
-
 @CrossOrigin(origins = "http://localhost:5000")
 @RestController
 @RequestMapping("/auth")
@@ -36,7 +35,8 @@ public class AuthenticationController {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
-    public AuthenticationController(UserDetailsService userDetailsService,AuthenticationManager manager,JWTHelper helper,UsersService userService) {
+    public AuthenticationController(UserDetailsService userDetailsService, AuthenticationManager manager,
+            JWTHelper helper, UsersService userService) {
         this.userDetailsService = userDetailsService;
         this.manager = manager;
         this.helper = helper;
@@ -52,7 +52,7 @@ public class AuthenticationController {
         JwtResponse response = new JwtResponse();
         response.setJwttoken(token);
         response.setUsername(userDetails.getUsername());
-    return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     private void doAuthenticate(String UserName, String password) {
@@ -75,16 +75,16 @@ public class AuthenticationController {
         return existingUser != null;
     }
 
-	@PostMapping("/create-user")
-	public ResponseEntity<?> createUser(@RequestBody User user) {
-		System.out.println("Entering");
-		if (isUserAlreadyRegistered(user.getUserName())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("User with this UserName already exists");
-		}
-		System.out.println("creating user");
-		User createdUser = userService.createUser(user);
-		String jwtToken = helper.generateToken(user);
-		System.out.println(jwtToken);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-	}
+    @PostMapping("/create-user")
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        System.out.println("Entering");
+        if (isUserAlreadyRegistered(user.getUserName())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User with this UserName already exists");
+        }
+        System.out.println("creating user");
+        User createdUser = userService.createUser(user);
+        String jwtToken = helper.generateToken(user);
+        System.out.println(jwtToken);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
 }

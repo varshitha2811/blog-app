@@ -13,15 +13,4 @@ class BlogAppApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
-//     @Test
-//     public void main() {
-//         boolean noExceptionThrown = true;
-//         try {
-//             BlogAppApplication.main(new String[] {});
-//         } catch (Exception e) {
-//             noExceptionThrown = false;
-//         }
-//         assertTrue(noExceptionThrown);
-// }
 }
