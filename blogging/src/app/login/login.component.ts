@@ -14,12 +14,9 @@ export class LoginComponent {
   errorMessage: string = '';
   showLogin: boolean = true;
   loginError: boolean = false;
-
   constructor(private authService: AuthService, private router: Router, private SessionServiceService: SessionService) { }
-
   login() {
     if (this.userName && this.password) {
-      
       this.authService.loginUser(this.userName, this.password).subscribe(
         (response) => {
           if (response) {

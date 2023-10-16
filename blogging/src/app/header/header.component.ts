@@ -12,16 +12,13 @@ export class HeaderComponent {
   searchText: string = '';
   showProfile: boolean = true;
   isAdmin: boolean = false;
-
   constructor(
     private route: Router,private authService:AuthService
   ) { }
-  
   ngOnInit(): void {
     this.authService.isAdmin().subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     })};
-
   handleSearch() {
     if (this.searchText.trim() !== '') {
       this.route.navigate(['search-list', this.searchText]);
@@ -29,16 +26,12 @@ export class HeaderComponent {
     this.searchText = '';
     this.isMenu = !this.isMenu;
   }
- 
-
   showSearchBar() {
     this.isSearchBarVisible = !this.isSearchBarVisible;
   }
-
   showProfileDropDown() {
     this.showProfile = !this.showProfile;
   }
-
   showMenu() {
     this.isMenu = !this.isMenu;
   }

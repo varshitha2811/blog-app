@@ -46,7 +46,6 @@ export class AdminUserManagementComponent implements OnInit {
     this.sessionService.endSession();
     this.router.navigate(['/login']);
   }
-
   disableProfile(userId: string): void {
     this.adminService.disableProfile(userId).subscribe(
       (response) => {
@@ -58,7 +57,6 @@ export class AdminUserManagementComponent implements OnInit {
       }
     );
   }
-
   enableProfile(userId: string): void {
     this.adminService.enableProfile(userId).subscribe(
       (response) => {
