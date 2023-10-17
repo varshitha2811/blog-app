@@ -58,7 +58,6 @@ export class DisplayBlogComponent implements OnInit {
           }
         );
       }
-      // this.refreshPage();
     });
 
   }

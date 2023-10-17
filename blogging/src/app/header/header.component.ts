@@ -23,8 +23,9 @@ export class HeaderComponent {
     if (this.searchText.trim() !== '') {
       this.route.navigate(['search-list', this.searchText]);
     }
+    this.isMenu = true;
     this.searchText = '';
-    this.isMenu = !this.isMenu;
+    // this.isMenu = !this.isMenu;
   }
   showSearchBar() {
     this.isSearchBarVisible = !this.isSearchBarVisible;
